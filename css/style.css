@@ -1,0 +1,609 @@
+/***** 
+    font-family:'thuluth-decorated';
+    <i class="fas fa-book"></i>
+    <i class="fas fa-quran"></i>
+    <i class="fas fa-swatchbook"></i>
+    <i class="fas fa-play-circle"></i>
+    <i class="fas fa-bullhorn"></i>
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+    font-family: 'El Messiri', sans-serif !important;
+    background-color: #183153;
+}
+
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+ul, li {
+    list-style: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.container {
+    width: 85%;
+    margin: auto;
+}
+
+.main_head h3 {
+    text-align:center ;
+    width: 200px;
+    margin:0px auto 20px;
+    font-size: 30px;
+    position: relative;
+    color: #FFf;
+}
+
+.main_head h3::after{
+    content: "";
+    background-color: #FFf;
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+html::-webkit-scrollbar{
+    background-color: #fff;
+    width: 10px;
+}
+
+html::-webkit-scrollbar-thumb{
+    background-color: #cab362;
+    border-radius: 10px;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+/* end global combenet */
+
+
+header{
+    padding: 5px;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+    position: fixed;
+    margin-right: auto;
+    z-index: 11;
+    width: 100%;
+}
+
+.header_content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    text-align: center;
+    font-size: 25px;
+    font-family:'thuluth-decorated';
+    color: #fff;
+}
+
+.icon_toggle{
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+.hero{
+    background-image:url(../images/1.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height:calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero::after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    inset: 0;
+} 
+.hero .content__hero{
+    z-index: 1;
+    text-align: center;
+}
+
+
+.hero .content__hero h1{
+    font-family:'thuluth-decorated';
+    font-weight: 400;
+    color: #fff;
+    font-size: 40px;
+    text-shadow: 2px 2px 22px #ffffff;
+}
+
+.hero .content__hero p {
+    color:#fff;
+    font-size: 20px;
+    margin: 20px 0;
+
+}
+
+
+.content__hero button {
+    border: 1px solid #fff;
+    outline: none;
+    padding: 10px 30px;
+    background-color: transparent;
+    border-radius: 10px;
+    position: relative;
+    transition: width 0.3s;
+    overflow: hidden;
+    font-family: 'El Messiri', sans-serif !important;
+
+}
+
+.content__hero button a{
+    display: block;
+    color: #fff;
+    font-size: 13px;
+}
+
+.content__hero button::after{
+    content: "";
+    width: 0;
+    height: 100%;
+    background-color:#fff;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transition: width 0.3s;
+}
+
+.content__hero button:hover::after{
+    width: 100%;
+}
+
+.content__hero button:hover a{
+    color: #000;
+}
+
+
+
+
+
+/* start links */
+
+
+.menu-links {
+    position: fixed;
+    left: 0px;
+    top: 20%;
+    z-index: 1000;
+    padding: 10px;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+    border-radius: 0px 10px 10px 0;
+    transform: translatex(-100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.show{
+    transform: translatex(0);
+    transition: transform 0.5s ease-in-out;
+}
+
+.menu-links .links ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.menu-links .links ul li{
+    text-align: center;
+    padding: 10px 0;
+    transition: 0.5s;
+    width: 100%;
+}
+
+.menu-links .links ul li:hover{
+    transform: scale(1.1);
+}
+
+.menu-links .links ul li:hover span,.menu-links .links ul li:hover i{
+    color: #183153;
+}
+.menu-links .links ul li a{
+    width: 100%;
+    display: block;
+}
+.menu-links .links ul li a i{
+    display: block;
+    font-size: 20px;
+    color: #fff;
+}
+.menu-links .links ul li a span{
+    font-size: 10px;
+    color: #fff;
+}
+/* end links */
+
+/* start hadith */
+
+.hadeath{
+    padding: 70px 0;
+}
+
+.hadeath_content {
+    min-height: 350px;
+    border:3px solid #efd98d;
+    border-radius: 15px;
+    margin-top: 30px;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 40px;
+    transition:all 0.5s;
+}
+.hadeath .buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.hadeath .buttons button {
+    border: none;
+    outline: none;
+    padding: 10px 40px;
+    font-size: 13px;
+    font-family: 'El Messiri';
+    font-weight: 600;
+    color: #000;
+    background: #efd98d;
+    border-radius: 10px;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.hadeath .buttons span{
+    padding: 10px 40px;
+    font-size: 13px;
+    font-family: 'El Messiri';
+    font-weight: 600;
+    color: #fff;
+    background:  rgba(2,0,36,1) ;
+    border-radius: 10px;
+}
+
+.hadeath .buttons button:hover{
+    background: #cab362;
+}
+
+/* end hadith */
+
+/* start lectuers */
+
+.lectuers {
+    padding: 70px 0;
+    position: relative;
+}
+
+.videos{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap:15px;
+    padding: 10px;
+}
+
+.videos .video {
+    width:30%;
+    height: 250px;
+    border: 5px solid #fff;
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.videos .video video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.videos .video video:hover{
+    transform: scale(1.1);
+}
+
+.popup_video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    transition: 0.3s;
+}
+
+.popup_video video{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border: 3px solid #fff ;
+    width: 750px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.popup_video span {
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    cursor: pointer;
+}
+
+/* end lectuers */
+
+/* start quran */
+
+.quran{
+    padding: 70px 0;
+}
+
+.surahs_quran {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 30px 0 0;
+    height: 350px;
+    overflow-y: scroll;
+    border-radius: 20px;
+}
+
+.surahs_quran::-webkit-scrollbar{
+    background-color: #fff;
+    width: 10px;
+    border-radius: 10px;
+}
+
+.surahs_quran::-webkit-scrollbar-thumb{
+    background-color: #cab362;
+    border-radius: 10px;
+    height: 50px;
+}
+
+
+.surahs_quran .surah{
+    width: 250px;
+    min-height: 150px;
+    background-color: #fff;
+    padding: 10px;
+    border: 3px solid #cab362;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.surahs_quran .surah p{
+    color: #183153;
+    font-size: 20px;
+    font-weight: 600;
+    text-shadow:5px 5px 10px rgba(0, 0, 0, 0.3) ;
+}
+
+
+.popup_quran {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+
+}
+.active {
+    transform: translateX(0);
+    transition: transform 0.5s ease-in-out;
+}
+.popup_quran .ayat{
+    background-color: #efd98d;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px 20px;
+    overflow-y: scroll;
+    height: 500px;
+}
+
+.popup_quran .ayat::-webkit-scrollbar{
+    background-color: #eee;
+    width: 10px;
+}
+
+.popup_quran .ayat::-webkit-scrollbar-thumb{
+    background-color: #183153;
+    border-radius: 10px;
+    height: 40px;
+}
+
+.popup_quran .ayat p{
+    padding: 5px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #18315380;
+    border-radius: 5px;
+    color: #183153;
+}
+
+.popup_quran .icon_close {
+    position: sticky;
+    top: 2px;
+    font-size: 32px;
+    font-weight: 700;
+    cursor: pointer;
+}
+/* end quran */
+
+
+/* start prey */
+.prey {
+    padding: 70px 0;
+}
+.pre_time_boxes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.pre_time_boxes .box {
+    width: 25%;
+    padding: 15px;
+    background-color: #cab362;
+    text-align: center;
+    border-radius: 10px;
+    border: 3px solid #fff;
+    color: #183153;
+    font-size: 30px;
+    font-weight: 700;
+    position: relative;
+}
+/* end prey */
+
+/* start footer */
+
+.footer{
+    padding: 50px 0;
+    background-color: #14478e;
+    border-radius: 20px 20px 0 0;
+}
+
+.boxes_footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.boxes_footer .box{
+    width: 50%;
+    text-align: center;
+}
+.boxes_footer .box .logo_footer{
+    color: #fff;
+    font-family: 'thuluth-decorated';
+    font-weight: normal;
+    font-size: 25px;
+}
+.boxes_footer .box h3{
+    color: #fff;
+}
+.boxes_footer .box p{
+        color: #fff;
+        font-size: 15px;
+        margin-top: 10px;
+}
+.boxes_footer .box a {
+    color: aliceblue;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+/* end footer */
+
+@media (max-width:992px){
+    .pre_time_boxes .box {
+        width: 40%;
+    }
+    .videos .video {
+        width: 40%;
+    }
+
+    .videos {
+        justify-content: center;
+    }
+}
+@media (max-width:768px){
+    .hero .content__hero h1 {
+        font-size: 18px;
+    }
+    .hero .content__hero p {
+        font-size: 18px;
+    }
+
+    .hadeath_content {
+        font-size: 12px;
+    }
+
+    .hadeath .buttons button {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .videos .video {
+        width: 100%;
+    }
+
+    .pre_time_boxes .box {
+        width: 100%;
+    }
+
+
+    .popup_video video{
+        width: 95%;
+    }
+
+    .boxes_footer{
+        flex-direction: column;
+    }
+
+    .boxes_footer .box{
+        width: 100%;
+        margin-top: 15px;
+    }
+    .boxes_footer .box p{
+        font-size: 13px;
+    }
+}
