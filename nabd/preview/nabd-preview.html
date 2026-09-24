@@ -1,0 +1,724 @@
+<title>نبض — معاينة المنتج</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#EEF2EF; --surface:#FFFFFF; --surface-2:#F6F8F6; --line:#D9E1DC;
+  --ink:#12241F; --ink-2:#4A5C56; --ink-3:#7A8A84;
+  --accent:#1D6B58; --accent-ink:#FFFFFF; --accent-soft:#DCEDE6;
+  --amber:#A8660F; --amber-soft:#F8EAD3;
+  --good:#23794A; --good-soft:#DDF0E4;
+  --warn:#9A6A0B; --warn-soft:#F7ECCF;
+  --bad:#B0352B; --bad-soft:#F8DFDC;
+  --info:#3A5BA0; --info-soft:#E1E8F6;
+  --shadow:0 1px 2px rgba(18,36,31,.06),0 6px 20px rgba(18,36,31,.06);
+  --r:14px;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0D1614; --surface:#15211E; --surface-2:#1A2824; --line:#2A3A35;
+    --ink:#E6EFEB; --ink-2:#A9BAB3; --ink-3:#7D8E88;
+    --accent:#5CC2A5; --accent-ink:#0B1A16; --accent-soft:#1C3A32;
+    --amber:#E3A54A; --amber-soft:#3A2D17;
+    --good:#6FCF97; --good-soft:#18352A;
+    --warn:#E0B454; --warn-soft:#372C14;
+    --bad:#F08A7F; --bad-soft:#3D1F1C;
+    --info:#8FAAE6; --info-soft:#1D2740;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0D1614; --surface:#15211E; --surface-2:#1A2824; --line:#2A3A35;
+  --ink:#E6EFEB; --ink-2:#A9BAB3; --ink-3:#7D8E88;
+  --accent:#5CC2A5; --accent-ink:#0B1A16; --accent-soft:#1C3A32;
+  --amber:#E3A54A; --amber-soft:#3A2D17;
+  --good:#6FCF97; --good-soft:#18352A;
+  --warn:#E0B454; --warn-soft:#372C14;
+  --bad:#F08A7F; --bad-soft:#3D1F1C;
+  --info:#8FAAE6; --info-soft:#1D2740;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;direction:rtl}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.35}
+h1{font-size:1.45rem;font-weight:700}
+h2{font-size:1.1rem;font-weight:600}
+h3{font-size:1rem;font-weight:600}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* shell */
+.shell{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+.side{background:var(--surface);border-inline-start:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:18px;position:sticky;top:env(safe-area-inset-top,0px);height:100vh}
+.brand{display:flex;align-items:center;gap:10px;padding-inline:6px}
+.brand-mark{width:34px;height:34px;border-radius:10px;background:var(--accent);display:grid;place-items:center}
+.brand-mark svg{width:22px;height:22px}
+.brand b{font-family:var(--f-display);font-size:1.25rem}
+.brand small{display:block;color:var(--ink-3);font-size:.72rem;line-height:1.2}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav button{display:flex;align-items:center;gap:10px;border:0;background:none;color:var(--ink-2);padding:9px 10px;border-radius:10px;text-align:start;font-weight:500}
+.nav button:hover{background:var(--surface-2)}
+.nav button[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.nav svg{width:19px;height:19px;flex:none}
+.nav .count{margin-inline-start:auto;font-size:.75rem;background:var(--amber-soft);color:var(--amber);padding:0 7px;border-radius:99px}
+.side-foot{margin-top:auto;font-size:.78rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:12px}
+
+.main{padding-block:22px 40px;padding-inline:28px;min-width:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.store-pick{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.store-pick select{border:0;background:none;color:var(--ink);font:inherit;font-weight:600}
+.sample{font-size:.75rem;color:var(--warn);background:var(--warn-soft);padding:3px 10px;border-radius:99px}
+.view{display:none;max-width:980px}
+.view.on{display:block}
+.stack{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.muted{color:var(--ink-2)}
+.faint{color:var(--ink-3);font-size:.82rem}
+.eyebrow{font-size:.78rem;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.kpi .label{font-size:.8rem;color:var(--ink-2)}
+.kpi .val{font-family:var(--f-display);font-size:1.45rem;font-weight:600;margin-top:2px}
+.kpi .val small{font-size:.8rem;font-weight:500;color:var(--ink-2);margin-inline-start:4px}
+.delta{display:inline-flex;align-items:center;gap:3px;font-size:.8rem;font-weight:600}
+.up{color:var(--good)} .down{color:var(--bad)} .flat{color:var(--ink-3)}
+.normal{font-size:.72rem;color:var(--ink-3);font-weight:500}
+.spark{width:100%;height:34px;margin-top:6px;display:block}
+
+/* hero opportunity */
+.hero{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.hero-head{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:var(--amber-soft);color:var(--amber);font-weight:600;font-size:.88rem;gap:8px;flex-wrap:wrap}
+.hero-body{padding:18px;display:grid;gap:12px}
+.hero-body h2{font-size:1.3rem}
+.facts{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;padding:3px 10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.chip.hi{background:var(--accent-soft);border-color:transparent;color:var(--accent);font-weight:600}
+.chip.med{background:var(--warn-soft);border-color:transparent;color:var(--warn);font-weight:600}
+.chip.lo{background:var(--surface-2);color:var(--ink-3)}
+.impact{font-family:var(--f-display);font-weight:600}
+.caveat{font-size:.78rem;color:var(--ink-3)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 16px;border-radius:10px;font-weight:600}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.ghost{border-color:transparent;background:none;color:var(--accent)}
+.btn.sm{padding:5px 12px;font-size:.85rem}
+
+.brief-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.brief{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;border-top:3px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.brief.attn{border-top-color:var(--bad)}
+.brief.good{border-top-color:var(--good)}
+.brief.task{border-top-color:var(--info)}
+.brief .eyebrow{display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.brief label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+.brief input{margin-top:6px;accent-color:var(--accent)}
+
+/* opportunities */
+.summary-band{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:5px 12px;border-radius:99px;font-size:.85rem}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.opp-list{display:grid;gap:12px}
+.opp{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px}
+.opp-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.cat{font-size:.76rem;font-weight:600;padding:2px 10px;border-radius:6px}
+.cat.retention{background:#EFE3F7;color:#6B3A8C}
+.cat.aov{background:var(--amber-soft);color:var(--amber)}
+.cat.product{background:var(--info-soft);color:var(--info)}
+.cat.operations{background:var(--bad-soft);color:var(--bad)}
+.cat.conversion{background:var(--accent-soft);color:var(--accent)}
+:root[data-theme="dark"] .cat.retention{background:#2D2238;color:#D0A8EC}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cat.retention{background:#2D2238;color:#D0A8EC}}
+.prio{font-size:.78rem;font-weight:600}
+.prio.high{color:var(--bad)} .prio.mid{color:var(--warn)}
+.meta{display:grid;grid-template-columns:repeat(4,auto);gap:4px 18px;justify-content:start;font-size:.85rem}
+.meta dt{color:var(--ink-3);font-size:.75rem}
+.meta dd{margin:0;font-weight:600}
+.evidence{font-size:.88rem;background:var(--surface-2);border-radius:10px;padding:8px 12px;color:var(--ink-2)}
+.dismiss{display:flex;gap:6px;align-items:center}
+.dismiss select{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 6px}
+
+/* detail */
+.back{border:0;background:none;color:var(--accent);font-weight:600;padding:0;margin-bottom:10px}
+.cause{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:8px 0;border-bottom:1px dashed var(--line)}
+.cause:last-child{border-bottom:0}
+.badge{font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.b-yes{background:var(--good-soft);color:var(--good)}
+.b-no{background:var(--surface-2);color:var(--ink-3)}
+.b-maybe{background:var(--warn-soft);color:var(--warn)}
+.b-unk{background:var(--info-soft);color:var(--info)}
+.memo{background:var(--accent-soft);border-radius:12px;padding:12px 14px;color:var(--ink)}
+.chart-wrap{overflow-x:auto}
+.two{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+
+/* experiments */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{border:0;background:none;padding:8px 12px;color:var(--ink-2);border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.exp{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px}
+.exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.exp-grid div{background:var(--surface-2);border-radius:10px;padding:8px 10px}
+.exp-grid span{display:block;font-size:.72rem;color:var(--ink-3)}
+.exp-grid b{font-variant-numeric:tabular-nums}
+.progress{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.state{font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:99px}
+.s-run{background:var(--info-soft);color:var(--info)}
+.s-win{background:var(--good-soft);color:var(--good)}
+.s-inc{background:var(--warn-soft);color:var(--warn)}
+.s-loss{background:var(--bad-soft);color:var(--bad)}
+
+/* memory */
+.timeline{position:relative;display:grid;gap:0}
+.month{font-family:var(--f-display);font-weight:600;color:var(--ink-2);margin:14px 0 6px}
+.ev{display:grid;grid-template-columns:52px 22px 1fr;gap:8px;align-items:start;padding:7px 0}
+.ev .d{font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:.85rem;text-align:start}
+.ev .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.7rem;font-weight:700;margin-top:2px}
+.ic.price{background:var(--info-soft);color:var(--info)}
+.ic.exp{background:var(--accent-soft);color:var(--accent)}
+.ic.season{background:var(--amber-soft);color:var(--amber)}
+.ic.note{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.ic.stock{background:var(--bad-soft);color:var(--bad)}
+.ev .src{font-size:.72rem;color:var(--ink-3)}
+.addnote{display:flex;gap:8px;flex-wrap:wrap}
+.addnote input{flex:1 1 240px;font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 12px}
+
+/* report */
+.report{max-width:760px}
+.report-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:8px 10px;text-align:start;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:.76rem;color:var(--ink-3);font-weight:600}
+td.n{font-variant-numeric:tabular-nums}
+.plan li{margin-bottom:6px}
+
+/* agency */
+.health{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600}
+.h-red{color:var(--bad)} .h-yel{color:var(--warn)} .h-grn{color:var(--good)}
+.portfolio-sum{display:flex;gap:10px;flex-wrap:wrap}
+.portfolio-sum .chip{font-size:.85rem}
+
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(10,20,17,.45);display:grid;place-items:center;padding:16px;z-index:50}
+.modal{background:var(--surface);border-radius:18px;max-width:560px;width:100%;max-height:92vh;overflow:auto;padding:22px;display:grid;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.field{display:grid;gap:4px}
+.field label{font-size:.8rem;color:var(--ink-3);font-weight:600}
+.field .v{background:var(--surface-2);border-radius:10px;padding:8px 12px}
+.split{display:flex;height:30px;border-radius:8px;overflow:hidden;font-size:.8rem;font-weight:600}
+.split .t{background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:80}
+.split .c{background:var(--surface-2);color:var(--ink-2);display:grid;place-items:center;flex:20;border:1px solid var(--line)}
+.warnbox{background:var(--warn-soft);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:.86rem}
+.toast{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));inset-inline-start:50%;transform:translateX(50%);background:var(--ink);color:var(--surface);padding:10px 18px;border-radius:12px;font-weight:600;z-index:60;box-shadow:var(--shadow)}
+
+/* mobile */
+.tabbar{display:none}
+.mobile-brand{display:none;align-items:center;gap:8px}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .main{padding-inline:16px;padding-block:14px 100px}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .brief-grid,.summary-band,.two{grid-template-columns:1fr}
+  .meta{grid-template-columns:repeat(2,auto)}
+  .exp-grid{grid-template-columns:repeat(2,1fr)}
+  .tabbar{display:flex;position:fixed;bottom:0;inset-inline:0;background:var(--surface);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));justify-content:space-around;z-index:40}
+  .tabbar button{border:0;background:none;color:var(--ink-3);display:flex;flex-direction:column;align-items:center;gap:1px;font-size:.68rem;padding:4px 2px;min-width:0;flex:1}
+  .tabbar button[aria-current="page"]{color:var(--accent);font-weight:600}
+  .tabbar svg{width:21px;height:21px}
+  .mobile-brand{display:flex}
+}
+@media (prefers-reduced-motion:no-preference){
+  .view.on{animation:fade .25s ease}
+  @keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-opp" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 3v2M5.6 5.6l1.4 1.4M3 12h2M19 12h2M17 7l1.4-1.4M9 18h6M10 21h4M12 8a4 4 0 0 0-2.4 7.2c.3.3.4.6.4 1V17h4v-.8c0-.4.1-.7.4-1A4 4 0 0 0 12 8z"/></symbol>
+  <symbol id="i-exp" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3M7.5 15h9"/></symbol>
+  <symbol id="i-mem" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 7v5l3 2M21 12a9 9 0 1 1-2.6-6.4M21 4v4h-4"/></symbol>
+  <symbol id="i-rep" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"/></symbol>
+  <symbol id="i-ag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 20V9l5-3 5 3v11M13 20V12l4-2 4 2v8M2 20h20M6 12h1M6 15h1M9 12h1M9 15h1"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M2 13h4l2-6 4 12 3-9 2 3h5"/></symbol>
+</svg>
+
+<div class="shell">
+  <aside class="side" aria-label="القائمة">
+    <div class="brand">
+      <div class="brand-mark" style="color:var(--accent-ink)"><svg><use href="#i-pulse"/></svg></div>
+      <div><b>نبض</b><small>اعرف أين تضيع مبيعاتك</small></div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">آخر تحديث: قبل 12 دقيقة<br>المصدر: سلة + متتبع نبض (منذ 14 سبتمبر)</div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="mobile-brand"><div class="brand-mark" style="color:var(--accent-ink);width:30px;height:30px"><svg><use href="#i-pulse"/></svg></div><b style="font-family:var(--f-display);font-size:1.15rem">نبض</b></div>
+      <div class="store-pick"><span class="faint">المتجر</span>
+        <select id="store-select" aria-label="اختيار المتجر"><option>متجر العود</option></select>
+      </div>
+      <span class="sample">معاينة ببيانات تجريبية — ليست بيانات متجر حقيقي</span>
+    </div>
+
+    <!-- HOME -->
+    <section class="view" id="v-home" aria-label="الرئيسية">
+      <div class="stack">
+        <div>
+          <h1>صباح الخير يا فهد</h1>
+          <p class="muted">الأربعاء 24 سبتمبر · هذا أهم ما تحتاج معرفته اليوم</p>
+        </div>
+
+        <div>
+          <div class="row" style="justify-content:space-between;margin-bottom:8px">
+            <span class="eyebrow">أمس، مقارنة بنفس اليوم من الأسبوع الماضي</span>
+          </div>
+          <div class="kpis" id="kpis"></div>
+        </div>
+
+        <article class="hero" id="hero"></article>
+
+        <div class="brief-grid">
+          <div class="brief attn">
+            <span class="eyebrow"><span class="dot" style="background:var(--bad)"></span>تحتاج انتباهك</span>
+            <h3>«دهن العود الملكي» سينفد خلال 5 أيام تقريبًا</h3>
+            <p class="muted" style="font-size:.88rem">المتبقي 23 عبوة، ومتوسط البيع 4.6 عبوة يوميًا. هذا المنتج يمثل 14% من إيرادك.</p>
+            <button class="btn ghost sm" style="justify-self:start;padding-inline:0" data-open="o4">التفاصيل ←</button>
+          </div>
+          <div class="brief good">
+            <span class="eyebrow"><span class="dot" style="background:var(--good)"></span>ما الذي تحسن؟</span>
+            <h3>متوسط الطلب ارتفع 11% منذ بدء عرض المبخرة + البخور</h3>
+            <p class="muted" style="font-size:.88rem">التجربة مستمرة، وبقي 6 أيام. النتيجة النهائية تظهر عند اكتمالها.</p>
+            <button class="btn ghost sm" style="justify-self:start;padding-inline:0" data-go="experiments">عرض التجربة ←</button>
+          </div>
+          <div class="brief task">
+            <span class="eyebrow"><span class="dot" style="background:var(--info)"></span>مهمة اليوم</span>
+            <label><input type="checkbox" id="task1"><span>راجع رسالة إعادة التنشيط وأرسلها للعملاء المستهدفين <span class="faint">(5 دقائق)</span></span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPPORTUNITIES -->
+    <section class="view" id="v-opps" aria-label="الفرص">
+      <div class="stack">
+        <h1>الفرص المكتشفة</h1>
+        <div class="summary-band">
+          <div class="card">
+            <div class="eyebrow">تقدير نظري للفرص غير المتداخلة</div>
+            <div class="impact num" style="font-size:1.4rem">6,000 – 13,000 ر.س/شهر</div>
+            <p class="caveat">تقدير مبني على بيانات متجرك، وليس إيرادًا مضمونًا. لا نجمع الفرص التي تستهدف نفس العملاء أو المنتجات.</p>
+          </div>
+          <div class="card">
+            <div class="eyebrow">الأثر المقاس فعليًا من تجاربك</div>
+            <div class="impact num" style="font-size:1.4rem;color:var(--good)">+1,940 ر.س</div>
+            <p class="caveat">من تجربة مكتملة واحدة ناجحة. هذا الرقم يزداد مصداقية مع كل تجربة.</p>
+          </div>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="تصفية حسب الفئة"></div>
+        <div class="opp-list" id="opp-list"></div>
+      </div>
+    </section>
+
+    <!-- OPP DETAIL -->
+    <section class="view" id="v-detail" aria-label="تفاصيل الفرصة"></section>
+
+    <!-- EXPERIMENTS -->
+    <section class="view" id="v-experiments" aria-label="التجارب">
+      <div class="stack">
+        <h1>التجارب</h1>
+        <p class="muted">كل توصية مهمة تتحول إلى تجربة لها فرضية ومعيار نجاح محدد قبل البدء، ثم نقيس النتيجة بصدق حتى لو كانت سلبية.</p>
+        <div class="tabs" role="tablist" id="exp-tabs"></div>
+        <div class="stack" id="exp-list"></div>
+      </div>
+    </section>
+
+    <!-- MEMORY -->
+    <section class="view" id="v-memory" aria-label="ذاكرة المتجر">
+      <div class="stack">
+        <h1>ذاكرة المتجر</h1>
+        <p class="muted">كل تغيير وتجربة وقرار. نبض يستخدم هذا السجل حتى لا يكرر توصية فشلت، وليفسر التغيرات في الأرقام.</p>
+        <form class="addnote" id="note-form">
+          <input id="note-input" placeholder="سجّل حدثًا: مثلًا «بدأنا إعلان سناب للعود»" aria-label="حدث جديد">
+          <button class="btn primary" type="submit">أضف للذاكرة</button>
+        </form>
+        <div class="card"><div class="timeline" id="timeline"></div></div>
+      </div>
+    </section>
+
+    <!-- REPORT -->
+    <section class="view" id="v-report" aria-label="التقرير الأسبوعي">
+      <div class="stack report">
+        <div class="report-head">
+          <div><div class="eyebrow">تقرير نمو متجرك</div><h1>متجر العود · 14 – 20 سبتمبر</h1></div>
+          <span class="faint">يُرسل كل أحد 7:00 صباحًا</span>
+        </div>
+        <div class="card">
+          <h2 style="margin-bottom:6px">الخلاصة</h2>
+          <p>أسبوع جيد: الإيراد ارتفع 9% بقيادة عرض المبخرة + البخور. التراجع المهم الوحيد في «عطر الورد الطائفي» بعد رفع سعره في 2 سبتمبر. الأولوية القادمة: إعادة تنشيط العملاء الخاملين قبل يوم الراتب (27 سبتمبر).</p>
+        </div>
+        <div class="card">
+          <h2 style="margin-bottom:8px">الأرقام</h2>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>المقياس</th><th>هذا الأسبوع</th><th>الأسبوع السابق</th><th>التغير</th><th>هل هو طبيعي؟</th></tr></thead>
+            <tbody>
+              <tr><td>الإيراد</td><td class="n">54,300 ر.س</td><td class="n">49,800 ر.س</td><td class="n up">▲ 9.0%</td><td>طبيعي</td></tr>
+              <tr><td>الطلبات</td><td class="n">312</td><td class="n">301</td><td class="n up">▲ 3.7%</td><td>طبيعي</td></tr>
+              <tr><td>متوسط الطلب</td><td class="n">174 ر.س</td><td class="n">165 ر.س</td><td class="n up">▲ 5.5%</td><td>أعلى من المعتاد</td></tr>
+              <tr><td>التحويل</td><td class="n">1.9%</td><td class="n">—</td><td class="n flat">أول أسبوع قياس</td><td>—</td></tr>
+              <tr><td>عملاء جدد</td><td class="n">188</td><td class="n">179</td><td class="n up">▲ 5.0%</td><td>طبيعي</td></tr>
+              <tr><td>عملاء عائدون</td><td class="n">97</td><td class="n">104</td><td class="n down">▼ 6.7%</td><td>ضمن النطاق</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="two">
+          <div class="card">
+            <h2 style="margin-bottom:8px">المنتجات</h2>
+            <p class="eyebrow">الأفضل</p>
+            <ol style="margin:4px 0 10px;padding-inline-start:20px"><li>دهن العود الملكي — 7,600 ر.س</li><li>مبخرة كهربائية — 6,900 ر.س</li><li>بخور كمبودي — 5,200 ر.س</li></ol>
+            <p class="eyebrow">الأكثر تراجعًا</p>
+            <ol style="margin:4px 0 0;padding-inline-start:20px"><li>عطر الورد الطائفي −42% <span class="faint">(تغير السعر: مؤكد)</span></li><li>مسك الطهارة −18% <span class="faint">(السبب غير واضح)</span></li></ol>
+          </div>
+          <div class="card">
+            <h2 style="margin-bottom:8px">التجارب</h2>
+            <p><span class="state s-run">نشطة</span> عرض المبخرة + البخور، اليوم 8 من 14</p>
+            <p style="margin-top:8px"><span class="state s-win">ناجحة</span> إعادة تنشيط العملاء، +1,940 ر.س مقدّرة</p>
+          </div>
+        </div>
+        <div class="card">
+          <h2 style="margin-bottom:8px">خطة الأسبوع القادم</h2>
+          <ol class="plan" style="margin:0;padding-inline-start:20px">
+            <li>أعد طلب «دهن العود الملكي» قبل نفاده <span class="faint">(مخاطرة نفاد خلال 5 أيام)</span></li>
+            <li>أطلق حملة إعادة تنشيط للشريحة الثانية (214 عميلًا) مع مجموعة ضابطة</li>
+            <li>اختبر سعرًا أقرب للسابق أو عرض كمية على «عطر الورد الطائفي»</li>
+          </ol>
+          <p class="caveat" style="margin-top:10px">التقديرات مبنية على بيانات متجرك وليست وعودًا بنتائج.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENCY -->
+    <section class="view" id="v-agency" aria-label="محفظة الوكالة">
+      <div class="stack">
+        <div><div class="eyebrow">لوحة مدير الحساب</div><h1>محفظتي · 6 متاجر</h1></div>
+        <div class="portfolio-sum">
+          <span class="chip"><span class="dot" style="background:var(--bad)"></span> حرج: 1</span>
+          <span class="chip"><span class="dot" style="background:var(--warn)"></span> يحتاج انتباه: 2</span>
+          <span class="chip"><span class="dot" style="background:var(--good)"></span> سليم: 3</span>
+        </div>
+        <div class="card" style="padding:6px 8px">
+          <div class="tbl-wrap"><table id="agency-table">
+            <thead><tr><th>الحالة</th><th>المتجر</th><th>أهم ما يحتاجه الآن</th><th>آخر تجربة</th><th>آخر تواصل</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table></div>
+        </div>
+        <p class="faint">حرج = تراجع غير طبيعي في الإيراد أو مشكلة مؤثرة مفتوحة أكثر من 7 أيام. يحتاج انتباه = فرص عالية الأولوية بلا تجربة نشطة.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="التنقل"></nav>
+<div id="modal-root"></div>
+
+<script>
+(function(){
+const VIEWS=[
+  {id:'home',label:'الرئيسية',icon:'i-home'},
+  {id:'opps',label:'الفرص',icon:'i-opp'},
+  {id:'experiments',label:'التجارب',icon:'i-exp'},
+  {id:'memory',label:'الذاكرة',icon:'i-mem'},
+  {id:'report',label:'التقرير',icon:'i-rep'},
+  {id:'agency',label:'الوكالة',icon:'i-ag'}
+];
+const CATS={retention:'الاحتفاظ',aov:'متوسط الطلب',product:'المنتجات',operations:'التشغيل',conversion:'التحويل'};
+const CONF={high:['عالية','hi'],medium:['متوسطة','med'],low:['منخفضة','lo']};
+const EASE={easy:'سهل',medium:'متوسط',hard:'صعب'};
+
+let opps=[
+ {id:'o1',cat:'retention',prio:'high',title:'إعادة تنشيط 214 عميلًا خاملًا',
+  why:'اشتروا قبل 2 إلى 4 أشهر ولم يعودوا. هذه الشريحة كانت تمثل 18% من إيرادك في الربع الماضي.',
+  evidence:'214 عميلًا · آخر شراء قبل 60–120 يومًا · متوسط طلب العائدين 196 ر.س',
+  impact:'800 – 2,500',conf:'medium',ease:'easy',
+  reason:'أثر محتمل مرتفع نسبةً لمتجرك + تنفيذ سهل + يمكن قياسه بمجموعة ضابطة',
+  action:'حملة رسائل + كوبون، مع مجموعة ضابطة 20% لا تستلم الرسالة',
+  basis:'214 × (2% إلى 6% معدل عودة) × 196 ر.س',
+  design:'holdout',metric:'نسبة العملاء الذين عادوا للشراء',
+  causes:[],memory:'لم تُجرَ حملة إعادة تنشيط على هذه الشريحة من قبل. الحملة السابقة على شريحة أخرى نجحت (+1,940 ر.س).'},
+ {id:'o2',cat:'aov',prio:'high',title:'عرض «مبخرة كهربائية + بخور كمبودي»',
+  why:'كثير من مشتري المبخرة يعودون لشراء البخور في طلب منفصل لاحقًا.',
+  evidence:'31% من مشتري المبخرة اشتروا البخور لاحقًا · الارتباط أعلى من الصدفة 2.4 مرة · 180 يومًا',
+  impact:'1,200 – 2,800',conf:'medium',ease:'easy',
+  reason:'نمط شراء واضح + تنفيذ سهل عبر العروض الخاصة في سلة',
+  action:'عرض مجمّع بخصم بسيط على البخور عند شراء المبخرة',
+  basis:'طلبات المبخرة الشهرية × زيادة نسبة الإرفاق × سعر البخور',
+  design:'prepost',metric:'متوسط قيمة الطلب',causes:[],memory:'تجربة مشابهة قيد التشغيل الآن على نفس المنتجين.',running:true},
+ {id:'o3',cat:'product',prio:'high',title:'«عطر الورد الطائفي» تراجع 42%',
+  why:'التراجع خاص بهذا المنتج؛ المتجر ككل شبه ثابت (−3%).',
+  evidence:'إيراد آخر 28 يومًا 6,100 ر.س مقابل متوسط 10,500 ر.س قبلها',
+  impact:'1,500 – 3,800',conf:'high',ease:'medium',
+  reason:'سبب مؤكد في البيانات + منتج مهم في متجرك',
+  action:'اختبار سعر أقرب للسابق أو عرض كمية (عبوتان)، مع قياس الوحدات والإيراد',
+  basis:'الفجوة إلى المتوسط السابق × 35% إلى 90% استرداد',
+  design:'prepost_control',metric:'إيراد المنتج اليومي',
+  causes:[['yes','مؤكد','تغير السعر من 189 إلى 229 ر.س في 2 سبتمبر'],['no','مستبعد','لم ينفد المخزون خلال الفترة'],['unk','لا بيانات','الزيارات قبل 14 سبتمبر (بدأ القياس بعد التثبيت)'],['maybe','محتمل جزئيًا','نفس الفترة العام الماضي تراجعت 10% فقط، فالموسمية لا تفسر كل التراجع']],
+  memory:'لم يُختبر سعر أقل على هذا المنتج من قبل.'},
+ {id:'o4',cat:'operations',prio:'high',title:'«دهن العود الملكي» سينفد خلال 5 أيام تقريبًا',
+  why:'منتج ضمن أعلى 3 منتجات إيرادًا، والمخزون لا يغطي يوم الراتب القادم.',
+  evidence:'23 عبوة متبقية · متوسط البيع 4.6 يوميًا · 14% من الإيراد',
+  impact:'2,100 – 3,000',conf:'high',ease:'easy',
+  reason:'خسارة شبه مؤكدة إن لم تتصرف + تنفيذ سهل',
+  action:'أعد الطلب من المورد الآن، أو فعّل «أعلمني عند التوفر»',
+  basis:'أيام النفاد المتوقعة × متوسط الإيراد اليومي للمنتج',
+  design:null,metric:'',causes:[],memory:'نفد هذا المنتج 6 أيام في رمضان الماضي.'},
+ {id:'o5',cat:'conversion',prio:'mid',title:'«مسك الطهارة»: زيارات عالية وشراء قليل',
+  why:'يحصل على زيارات أكثر من معظم منتجاتك، لكن نسبة من يشتريه أقل بكثير من متوسط المتجر.',
+  evidence:'1,240 مشاهدة · تحويل 0.6% مقابل 1.9% للمتجر · صورتان فقط مقابل 6 في أفضل المنتجات',
+  impact:'900 – 2,200',conf:'medium',ease:'medium',
+  reason:'دليل كافٍ من 3 أسابيع قياس + الصفحة أضعف من المنتجات المشابهة',
+  action:'أضف صورًا ومواصفات الحجم والثبات، وأسئلة شائعة، وحسّن زر الشراء',
+  basis:'المشاهدات × (رفع التحويل إلى 1.0%–1.4%) × السعر',
+  design:'prepost_control',metric:'الإيراد لكل مشاهدة',causes:[],memory:'لا توجد تغييرات سابقة مسجلة على صفحة هذا المنتج.'},
+ {id:'o6',cat:'retention',prio:'mid',title:'نسبة الشراء الثاني انخفضت إلى 19%',
+  why:'نسبة العملاء الجدد الذين يعودون خلال 60 يومًا كانت 27% قبل ستة أشهر.',
+  evidence:'19% حاليًا مقابل 27% سابقًا · 188 عميلًا جديدًا اشتروا قبل 20–45 يومًا',
+  impact:'1,000 – 2,400',conf:'medium',ease:'medium',
+  reason:'اتجاه واضح على 6 أشهر + شريحة يمكن استهدافها الآن',
+  action:'رسالة متابعة بعد 21 يومًا من أول شراء مع اقتراح المنتج المكمّل',
+  basis:'188 × (نصف الفجوة في معدل العودة) × متوسط الطلب',
+  design:'holdout',metric:'نسبة الشراء الثاني خلال 30 يومًا',causes:[],memory:'—'},
+ {id:'o7',cat:'aov',prio:'mid',title:'حد الشحن المجاني قد يكون منخفضًا',
+  why:'38% من الطلبات تقع بين 150 و199 ر.س، أي قريبة من الحد الحالي (199 ر.س).',
+  evidence:'توزيع 612 طلبًا في آخر 90 يومًا · الحد الحالي 199 ر.س',
+  impact:'700 – 1,600',conf:'low',ease:'easy',
+  reason:'تنفيذ سهل جدًا، لكن الثقة منخفضة لأنه قياس قبل/بعد على مستوى المتجر كله',
+  action:'اختبر رفع الحد إلى 229 ر.س لمدة 21 يومًا وراقب نسبة الإلغاء',
+  basis:'الطلبات القريبة من الحد × (10%–25%) × متوسط الفرق',
+  design:'prepost',metric:'متوسط قيمة الطلب',causes:[],memory:'—'}
+];
+
+let experiments=[
+ {id:'e1',state:'run',name:'عرض المبخرة + البخور',hyp:'دمج المنتجين في عرض قد يرفع متوسط قيمة الطلب',metric:'متوسط قيمة الطلب',before:'132 ر.س',after:'يظهر عند الاكتمال',design:'قبل/بعد مع مقارنة · قوة الدليل: متوسطة',day:8,days:14,note:'لا تداخل مع تجارب أخرى حتى الآن'},
+ {id:'e2',state:'win',name:'إعادة تنشيط العملاء (الشريحة الأولى)',hyp:'رسالة مع كوبون 10% قد تعيد العملاء الخاملين للشراء',metric:'نسبة العودة للشراء',before:'2.1% (المجموعة الضابطة)',after:'7.9% (المستهدفون)',impact:'+1,940 ر.س مقدّرة',design:'مجموعة ضابطة عشوائية · قوة الدليل: عالية',decision:'استمر',note:'العينة صغيرة (43 في المجموعة الضابطة)، لذلك الفاصل واسع. نوصي بتكرارها على الشريحة التالية للتأكيد.'},
+ {id:'e3',state:'inc',name:'وصف أطول لـ «بخور الملكي»',hyp:'وصف تفصيلي قد يرفع التحويل',metric:'الإيراد لكل مشاهدة',before:'2.10 ر.س',after:'2.25 ر.س',impact:'غير حاسم',design:'قبل/بعد مع مقارنة · قوة الدليل: متوسطة',decision:'مدّد 14 يومًا',note:'التغير ضمن التذبذب الطبيعي لهذا المنتج. الحجم لا يكفي لحكم واضح.'},
+ {id:'e4',state:'loss',name:'خصم 20% على «دهن العود الملكي»',hyp:'الخصم قد يرفع المبيعات',metric:'الوحدات المباعة',before:'3.4 يوميًا',after:'4.6 يوميًا (+34%)',impact:'الهامش التقديري انخفض',design:'قبل/بعد · قوة الدليل: ضعيفة',decision:'أوقف',note:'الوحدات ارتفعت، لكن ربح كل عبوة انخفض أكثر مما عوضته الزيادة. نبض لن يقترح خصمًا مباشرًا على هذا المنتج، وسيقترح بدائل مثل العروض المجمّعة.'}
+];
+const EXP_TABS=[['all','الكل'],['run','نشطة'],['win','ناجحة'],['inc','غير حاسمة'],['loss','لم تنجح']];
+const STATE_LABEL={run:['نشطة','s-run'],win:['ناجحة','s-win'],inc:['غير حاسمة','s-inc'],loss:['لم تنجح','s-loss']};
+
+let memory=[
+ {m:'سبتمبر 2026',d:'24',k:'stock',t:'مخزون «دهن العود الملكي» أقل من 7 أيام',s:'تلقائي'},
+ {m:'سبتمبر 2026',d:'23',k:'season',t:'اليوم الوطني السعودي',s:'التقويم'},
+ {m:'سبتمبر 2026',d:'16',k:'exp',t:'بدأت تجربة «عرض المبخرة + البخور»',s:'نبض'},
+ {m:'سبتمبر 2026',d:'14',k:'note',t:'بدأ قياس الزيارات على المتجر',s:'نبض'},
+ {m:'سبتمبر 2026',d:'10',k:'note',t:'«بدأنا إعلان سناب للعود» — فهد',s:'يدوي'},
+ {m:'سبتمبر 2026',d:'02',k:'price',t:'سعر «عطر الورد الطائفي» تغير من 189 إلى 229 ر.س',s:'تلقائي من سلة'},
+ {m:'أغسطس 2026',d:'28',k:'exp',t:'تجربة «إعادة تنشيط العملاء» نجحت. القرار: استمر',s:'نبض'},
+ {m:'أغسطس 2026',d:'14',k:'exp',t:'بدأت تجربة «إعادة تنشيط العملاء»',s:'نبض'},
+ {m:'أغسطس 2026',d:'05',k:'exp',t:'أُوقف خصم 20% على «دهن العود الملكي» (الهامش انخفض)',s:'قرار فهد'}
+];
+const KIC={price:'س',exp:'ت',season:'م',note:'م',stock:'خ'};
+
+const agency=[
+ {h:'red',store:'متجر الأناقة',need:'الإيراد −35% هذا الأسبوع، ونفد 2 من أفضل المنتجات',exp:'لا يوجد',contact:'قبل 19 يومًا'},
+ {h:'yel',store:'متجر العود',need:'214 عميلًا خاملًا، ومخزون منتج رئيسي ينفد',exp:'عرض مجمّع (نشطة)',contact:'قبل 6 أيام'},
+ {h:'yel',store:'بن الجنوب',need:'الشراء الثاني انخفض إلى 14%',exp:'إعادة تنشيط ✓',contact:'قبل 9 أيام'},
+ {h:'grn',store:'عبايات لمى',need:'تجربة نشطة (اليوم 9 من 14)',exp:'حد الشحن (نشطة)',contact:'أمس'},
+ {h:'grn',store:'ركن التقنية',need:'لا شذوذ؛ فرصة عرض مجمّع متوسطة',exp:'وصف المنتج (غير حاسم)',contact:'قبل 3 أيام'},
+ {h:'grn',store:'تمور الواحة',need:'أداء فوق المعتاد قبل الموسم',exp:'عرض كمية ✓',contact:'قبل يومين'}
+];
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let current='home', filter='all', expTab='all';
+
+function nav(){
+  const oppCount=opps.length;
+  $('#nav').innerHTML=VIEWS.map(v=>`<button data-go="${v.id}" ${v.id===current||(current==='detail'&&v.id==='opps')?'aria-current="page"':''}><svg><use href="#${v.icon}"/></svg>${v.label}${v.id==='opps'?`<span class="count num">${oppCount}</span>`:''}</button>`).join('');
+  $('#tabbar').innerHTML=VIEWS.map(v=>`<button data-go="${v.id}" ${v.id===current||(current==='detail'&&v.id==='opps')?'aria-current="page"':''}><svg><use href="#${v.icon}"/></svg>${v.label}</button>`).join('');
+}
+function go(id){
+  current=id;
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  const el=document.getElementById('v-'+id); if(el) el.classList.add('on');
+  nav(); window.scrollTo({top:0});
+  if(id!=='detail'){try{history.replaceState(null,'','#'+id)}catch(e){}}
+}
+
+function spark(vals){
+  const w=120,h=34,p=3,min=Math.min(...vals),max=Math.max(...vals);
+  const pts=vals.map((v,i)=>[p+i*(w-2*p)/(vals.length-1), h-p-(v-min)/(max-min||1)*(h-2*p)]);
+  const d=pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');
+  const last=pts[pts.length-1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${d} L${last[0].toFixed(1)} ${h} L${p} ${h} Z" fill="var(--accent-soft)"/><path d="${d}" fill="none" stroke="var(--accent)" stroke-width="1.6" vector-effect="non-scaling-stroke"/><circle cx="${last[0]}" cy="${last[1]}" r="2.4" fill="var(--accent)"/></svg>`;
+}
+function kpis(){
+  const k=[
+    {l:'الإيراد',v:'8,420',u:'ر.س',d:'▲ 12%',c:'up',s:[6900,7400,7100,8200,7600,7900,7500,8100,7300,7800,8600,7700,7500,8420],n:'طبيعي'},
+    {l:'الطلبات',v:'47',u:'',d:'▲ 6%',c:'up',s:[41,44,40,46,43,45,42,46,41,44,48,43,44,47],n:'طبيعي'},
+    {l:'متوسط الطلب',v:'179',u:'ر.س',d:'▲ 5%',c:'up',s:[168,168,177,178,176,175,178,176,178,177,179,179,170,179],n:'أعلى من المعتاد'},
+    {l:'التحويل',v:'1.9%',u:'',d:'▼ 0.3 نقطة',c:'down',s:[2.1,2.0,2.2,1.9,2.1,2.0,2.2,1.8,2.0,2.1,2.2,1.9,2.2,1.9],n:'ضمن التذبذب الطبيعي'}
+  ];
+  $('#kpis').innerHTML=k.map(x=>`<div class="kpi"><div class="label">${x.l}</div><div class="val num">${x.v}${x.u?`<small>${x.u}</small>`:''}</div><div class="row" style="gap:6px"><span class="delta ${x.c} num">${x.d}</span><span class="normal">${x.n}</span></div>${spark(x.s)}</div>`).join('');
+}
+function hero(){
+  const o=opps.find(x=>x.id==='o1')||opps[0];
+  if(!o){$('#hero').innerHTML='';return}
+  $('#hero').innerHTML=`<div class="hero-head"><span>أهم فرصة الآن</span><span>أولوية عالية · ${esc(o.reason)}</span></div>
+  <div class="hero-body"><h2>${esc(o.title)}</h2><p class="muted"><b style="color:var(--ink)">لماذا؟</b> ${esc(o.why)}</p>
+  <div class="facts"><span class="chip">الجهد: ${EASE[o.ease]}</span><span class="chip ${CONF[o.conf][1]}">الثقة: ${CONF[o.conf][0]}</span><span class="chip">${CATS[o.cat]}</span></div>
+  <div><span class="faint">الأثر المحتمل</span><div class="impact num" style="font-size:1.2rem">${o.impact} ر.س/شهر <span class="faint" style="font-family:var(--f-body);font-weight:400">(تقدير)</span></div><p class="caveat">النتيجة الفعلية تعتمد على سلوك العملاء وعوامل أخرى. سنقيسها معك.</p></div>
+  <div class="row"><button class="btn primary" data-start="${o.id}">ابدأ التجربة</button><button class="btn ghost" data-open="${o.id}">عرض التفاصيل ←</button></div></div>`;
+}
+function filters(){
+  const f=[['all','الكل'],...Object.entries(CATS)];
+  $('#filters').innerHTML=f.map(([k,l])=>`<button data-filter="${k}" aria-pressed="${filter===k}">${l}</button>`).join('');
+}
+function oppCard(o){
+  return `<article class="opp"><div class="opp-top"><span class="cat ${o.cat}">${CATS[o.cat]}</span><span class="prio ${o.prio}">أولوية ${o.prio==='high'?'عالية':'متوسطة'}</span></div>
+  <h3>${esc(o.title)}</h3><div class="evidence"><b>الدليل:</b> ${esc(o.evidence)}</div>
+  <dl class="meta"><div><dt>الأثر المحتمل/شهر</dt><dd class="num">${o.impact} ر.س</dd></div><div><dt>الثقة</dt><dd>${CONF[o.conf][0]}</dd></div><div><dt>الجهد</dt><dd>${EASE[o.ease]}</dd></div><div><dt>سبب الأولوية</dt><dd style="font-weight:500">${esc(o.reason)}</dd></div></dl>
+  <p><b>الإجراء المقترح:</b> ${esc(o.action)}</p>
+  <div class="row" style="justify-content:space-between"><div class="row">${o.running?`<span class="state s-run">تجربة قيد التشغيل</span>`:o.design?`<button class="btn primary sm" data-start="${o.id}">ابدأ التجربة</button>`:`<button class="btn primary sm" data-done="${o.id}">تم التنفيذ</button>`}<button class="btn sm" data-open="${o.id}">التفاصيل</button></div>
+  <div class="dismiss"><label class="faint" for="dis-${o.id}">غير مناسب؟</label><select id="dis-${o.id}" data-dismiss="${o.id}"><option value="">اختر السبب</option><option>غير دقيق</option><option>نفذته مسبقًا</option><option>لا يناسب علامتي</option><option>ليس الآن</option></select></div></div></article>`;
+}
+function oppList(){
+  const list=opps.filter(o=>filter==='all'||o.cat===filter);
+  $('#opp-list').innerHTML=list.length?list.map(oppCard).join(''):`<div class="card muted">لا توجد فرص مفتوحة في هذه الفئة حاليًا.</div>`;
+}
+function detail(id){
+  const o=opps.find(x=>x.id===id); if(!o) return;
+  const bars=o.id==='o3'?[10.2,10.8,10.4,10.6,9.9,10.9,6.8,6.1]:null;
+  let chart='';
+  if(bars){
+    const W=520,H=170,L=46,B=26,T=14,max=12;
+    const bw=(W-L-12)/bars.length;
+    const y=v=>T+(H-T-B)*(1-v/max);
+    const grid=[0,4,8,12].map(v=>`<line x1="${L}" x2="${W-6}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--ink-3)">${v}k</text>`).join('');
+    const rects=bars.map((v,i)=>`<rect x="${L+i*bw+6}" y="${y(v)}" width="${bw-12}" height="${y(0)-y(v)}" rx="4" fill="${i>=6?'var(--bad)':'var(--accent)'}" opacity="${i>=6?1:.75}"/><text x="${L+i*bw+bw/2}" y="${H-8}" text-anchor="middle" font-size="11" fill="var(--ink-3)">أ${i+1}</text>`).join('');
+    const mark=`<line x1="${L+6*bw}" x2="${L+6*bw}" y1="${T}" y2="${y(0)}" stroke="var(--ink-2)" stroke-dasharray="3 3"/><text x="${L+6*bw-4}" y="${T+10}" text-anchor="end" font-size="11" fill="var(--ink-2)">تغيير السعر</text>`;
+    chart=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">إيراد المنتج الأسبوعي (ألف ر.س)، آخر 8 أسابيع</div><div class="chart-wrap"><svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:340px;height:auto" role="img" aria-label="إيراد أسبوعي ينخفض من نحو 10.5 ألف إلى 6.1 ألف بعد تغيير السعر">${grid}${rects}${mark}</svg></div></div>`;
+  }
+  const causes=o.causes.length?`<div class="card"><h2 style="margin-bottom:6px">الأسباب المحتملة</h2><p class="faint" style="margin-bottom:6px">نبض لا يفترض السبب. كل احتمال يُفحص ويُصنف حسب الدليل.</p>${o.causes.map(c=>`<div class="cause"><span class="badge b-${c[0]}">${c[1]}</span><span>${esc(c[2])}</span></div>`).join('')}</div>`:'';
+  $('#v-detail').innerHTML=`<button class="back" data-go="opps">→ كل الفرص</button>
+  <div class="stack"><div><span class="cat ${o.cat}">${CATS[o.cat]}</span><h1 style="margin-top:8px">${esc(o.title)}</h1></div>
+  <div class="two"><div class="stack">
+    <div class="card"><h2 style="margin-bottom:6px">ما تقوله البيانات</h2><p>${esc(o.why)}</p><div class="evidence" style="margin-top:8px">${esc(o.evidence)}</div><p class="faint" style="margin-top:8px">المصدر: طلبات ومنتجات سلة${o.cat==='conversion'?' + متتبع نبض':''} · آخر تحديث قبل 12 دقيقة</p></div>
+    ${chart}${causes}
+  </div><div class="stack">
+    <div class="memo"><div class="eyebrow" style="color:var(--accent)">من ذاكرة متجرك</div><p style="margin-top:4px">${esc(o.memory)}</p></div>
+    <div class="card"><h2 style="margin-bottom:6px">نوصي باختبار</h2><p>${esc(o.action)}</p>
+      <div style="margin-top:10px"><span class="faint">الأثر المحتمل</span><div class="impact num">${o.impact} ر.س/شهر (تقدير)</div><p class="caveat">طريقة الحساب: ${esc(o.basis)}. النتيجة الفعلية تعتمد على سلوك العملاء وعوامل أخرى.</p></div>
+      <div class="facts" style="margin-top:10px"><span class="chip ${CONF[o.conf][1]}">الثقة: ${CONF[o.conf][0]}</span><span class="chip">الجهد: ${EASE[o.ease]}</span></div>
+      <div class="row" style="margin-top:14px">${o.running?`<span class="state s-run">تجربة قيد التشغيل</span>`:o.design?`<button class="btn primary" data-start="${o.id}">إنشاء تجربة</button>`:`<button class="btn primary" data-done="${o.id}">تم التنفيذ</button>`}</div>
+    </div>
+  </div></div></div>`;
+  go('detail');
+}
+function expList(){
+  $('#exp-tabs').innerHTML=EXP_TABS.map(([k,l])=>`<button role="tab" aria-selected="${expTab===k}" data-exptab="${k}">${l} <span class="num faint">${k==='all'?experiments.length:experiments.filter(e=>e.state===k).length}</span></button>`).join('');
+  const list=experiments.filter(e=>expTab==='all'||e.state===expTab);
+  $('#exp-list').innerHTML=list.length?list.map(e=>{
+    const st=STATE_LABEL[e.state];
+    const prog=e.state==='run'?`<div><div class="row" style="justify-content:space-between"><span class="faint">اليوم ${e.day} من ${e.days}</span><span class="faint">النتيجة تظهر بعد اكتمال المدة لتجنب قرارات مبنية على أرقام مبكرة</span></div><div class="progress" style="margin-top:4px"><i style="width:${Math.round(e.day/e.days*100)}%"></i></div></div>`:'';
+    return `<article class="exp"><div class="opp-top"><h3>${esc(e.name)}</h3><span class="state ${st[1]}">${st[0]}</span></div>
+    <p class="muted"><b style="color:var(--ink)">الفرضية:</b> ${esc(e.hyp)}</p>
+    <div class="exp-grid"><div><span>المقياس</span><b>${esc(e.metric)}</b></div><div><span>قبل</span><b>${esc(e.before)}</b></div><div><span>بعد</span><b>${esc(e.after)}</b></div><div><span>${e.state==='run'?'التصميم':'الأثر / القرار'}</span><b>${e.state==='run'?'قبل/بعد مع مقارنة':esc((e.impact||'')+(e.decision?' · '+e.decision:''))}</b></div></div>
+    ${prog}<p class="faint">${esc(e.design)}${e.note?' · '+esc(e.note):''}</p></article>`;
+  }).join(''):`<div class="card muted">لا توجد تجارب هنا بعد.</div>`;
+}
+function timeline(){
+  let html='',lastM='';
+  memory.forEach(e=>{
+    if(e.m!==lastM){html+=`<div class="month">${e.m}</div>`;lastM=e.m}
+    html+=`<div class="ev"><span class="d">${e.d}</span><span class="ic ${e.k}" aria-hidden="true">${KIC[e.k]}</span><div><div>${esc(e.t)}</div><div class="src">${esc(e.s)}</div></div></div>`;
+  });
+  $('#timeline').innerHTML=html;
+}
+function agencyTable(){
+  const H={red:['حرج','h-red','var(--bad)'],yel:['يحتاج انتباه','h-yel','var(--warn)'],grn:['سليم','h-grn','var(--good)']};
+  $('#agency-table tbody').innerHTML=agency.map(a=>`<tr><td><span class="health ${H[a.h][1]}"><span class="dot" style="background:${H[a.h][2]}"></span>${H[a.h][0]}</span></td><td><b>${esc(a.store)}</b></td><td style="white-space:normal;min-width:220px">${esc(a.need)}</td><td>${esc(a.exp)}</td><td class="n">${esc(a.contact)}</td><td>${a.store==='متجر العود'?`<button class="btn sm" data-go="home">افتح</button>`:`<button class="btn sm" data-contact="${esc(a.store)}">سجّل تواصل</button>`}</td></tr>`).join('');
+}
+
+function toast(msg){
+  const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=msg;document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2600);
+}
+function closeModal(){$('#modal-root').innerHTML=''}
+function startModal(id){
+  const o=opps.find(x=>x.id===id); if(!o) return;
+  const DESIGN={holdout:['مجموعة ضابطة عشوائية','قوة الدليل: عالية. نقارن من استلم الرسالة بمن لم يستلمها.'],prepost_control:['قبل/بعد مع مجموعة مقارنة','قوة الدليل: متوسطة. نقارن بمنتجات مشابهة لم تتغير.'],prepost:['قبل/بعد','قوة الدليل: ضعيفة. نعدّل حسب الموسم ونذكر حدود النتيجة.']};
+  const d=DESIGN[o.design];
+  const days=o.design==='prepost'?21:14;
+  $('#modal-root').innerHTML=`<div class="scrim" data-close><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+   <div><div class="eyebrow">تجربة جديدة من فرصة</div><h2 id="m-title">${esc(o.title)}</h2></div>
+   <div class="field"><label>الفرضية</label><div class="v">${esc(o.action)} قد يحسّن «${esc(o.metric)}».</div></div>
+   <div class="field"><label>المقياس الأساسي</label><div class="v">${esc(o.metric)} · مع مراقبة نسبة الإلغاء والهامش التقديري</div></div>
+   <div class="field"><label>التصميم</label><div class="v"><b>${d[0]}</b><br><span class="faint">${d[1]}</span></div></div>
+   ${o.design==='holdout'?`<div class="field"><label>توزيع العملاء (عشوائي)</label><div class="split"><span class="t">171 يستلمون الرسالة</span><span class="c">43 ضابطة</span></div></div>`:''}
+   <div class="field"><label>المدة المقترحة</label><div class="v num">${days} يومًا · 25 سبتمبر إلى ${days===14?'8':'15'} أكتوبر</div></div>
+   ${o.design==='holdout'?`<div class="warnbox">فحص الحجم: المجموعة الضابطة صغيرة، لذلك النتيجة ستكون إرشادية بفاصل ثقة واسع. يمكن تكرار التجربة على الشريحة التالية للتأكيد.</div>`:o.design==='prepost'?`<div class="warnbox">هذا تغيير على مستوى المتجر كله، ويوم الراتب (27 سبتمبر) يقع داخل الفترة. سنعدّل النتيجة حسب نفس الفترة من الشهر الماضي.</div>`:''}
+   <div class="field"><label>معيار النجاح (يُحدد قبل البدء)</label><div class="v">تحسن في «${esc(o.metric)}» يكون فاصل الثقة فيه كله فوق الصفر، دون تدهور في مقاييس الحماية.</div></div>
+   ${o.design==='holdout'?`<div class="row"><button class="btn sm" data-fake="تم إنشاء كوبون NABD10 في سلة (معاينة)">إنشاء كوبون في سلة</button><button class="btn sm" data-fake="نسخة المعاينة لا تصدّر ملفات">تصدير قائمة المستهدفين</button><button class="btn sm" data-copy="مرحبًا، اشتقنا لك في متجر العود! جهزنا لك خصم 10% على طلبك القادم بكود NABD10، صالح لمدة 7 أيام.">نسخ نص الرسالة</button></div>`:''}
+   <div class="row" style="justify-content:flex-end;border-top:1px solid var(--line);padding-top:12px"><button class="btn" data-close>إلغاء</button><button class="btn primary" data-confirm="${o.id}">ابدأ التجربة</button></div>
+  </div></div>`;
+  const first=$('#modal-root .btn.primary'); if(first) first.focus();
+}
+function confirmStart(id){
+  const o=opps.find(x=>x.id===id); if(!o) return;
+  const days=o.design==='prepost'?21:14;
+  experiments.unshift({id:'e'+Date.now(),state:'run',name:o.title,hyp:o.action,metric:o.metric,before:'يُحسب تلقائيًا',after:'يظهر عند الاكتمال',design:({holdout:'مجموعة ضابطة عشوائية',prepost_control:'قبل/بعد مع مقارنة',prepost:'قبل/بعد'})[o.design],day:0,days:days,note:'بدأت الآن'});
+  memory.unshift({m:'سبتمبر 2026',d:'24',k:'exp',t:`بدأت تجربة «${o.title}»`,s:'نبض'});
+  o.running=true;
+  closeModal(); renderAll(); toast('بدأت التجربة، وسُجلت في ذاكرة المتجر');
+}
+
+function renderAll(){nav();kpis();hero();filters();oppList();expList();timeline();agencyTable()}
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-go],[data-open],[data-start],[data-filter],[data-exptab],[data-close],[data-confirm],[data-done],[data-fake],[data-copy],[data-contact]');
+  if(!t) return;
+  if(t.dataset.close!==undefined && t.classList.contains('scrim') && e.target!==t) return;
+  if(t.dataset.go) go(t.dataset.go);
+  else if(t.dataset.open) detail(t.dataset.open);
+  else if(t.dataset.start) startModal(t.dataset.start);
+  else if(t.dataset.filter){filter=t.dataset.filter;filters();oppList()}
+  else if(t.dataset.exptab){expTab=t.dataset.exptab;expList()}
+  else if(t.dataset.confirm) confirmStart(t.dataset.confirm);
+  else if(t.dataset.close!==undefined) closeModal();
+  else if(t.dataset.done){const o=opps.find(x=>x.id===t.dataset.done);opps=opps.filter(x=>x.id!==t.dataset.done);memory.unshift({m:'سبتمبر 2026',d:'24',k:'note',t:`نُفذ: ${o.action}`,s:'فهد'});renderAll();if(current==='detail')go('opps');toast('سُجل التنفيذ. سنتابع الأثر في التقرير الأسبوعي')}
+  else if(t.dataset.fake) toast(t.dataset.fake);
+  else if(t.dataset.copy){const txt=t.dataset.copy;try{navigator.clipboard.writeText(txt).then(()=>toast('نُسخ نص الرسالة'),()=>toast(txt))}catch(err){toast(txt)}}
+  else if(t.dataset.contact) toast('سُجل التواصل مع '+t.dataset.contact);
+});
+document.addEventListener('change',e=>{
+  const s=e.target.closest('[data-dismiss]'); if(!s||!s.value) return;
+  const id=s.dataset.dismiss, reason=s.value;
+  opps=opps.filter(o=>o.id!==id); renderAll();
+  toast(reason==='غير دقيق'?'شكرًا. لن تظهر هذه الفرصة 60 يومًا، وسنراجع الخطأ':'أُخفيت الفرصة: '+reason);
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+$('#note-form').addEventListener('submit',e=>{
+  e.preventDefault(); const v=$('#note-input').value.trim(); if(!v) return;
+  memory.unshift({m:'سبتمبر 2026',d:'24',k:'note',t:v,s:'يدوي'}); $('#note-input').value=''; timeline(); toast('أُضيف الحدث إلى ذاكرة المتجر');
+});
+$('#task1').addEventListener('change',e=>{if(e.target.checked) toast('أحسنت. سنقيس أثر الحملة معك')});
+
+renderAll();
+const h=(location.hash||'').slice(1);
+go(VIEWS.some(v=>v.id===h)?h:'home');
+})();
+</script>
