@@ -202,11 +202,11 @@ const BAND_REV={'<50':'< 10 آلاف','50-300':'10–60 ألف','300-1,500':'60�
 const AGENCIES=['—','—','—','—','—','—','—','—','—','خبراء المنصات','خبراء المنصات','وكالة رواد'];
 
 let PLANS=[
- {code:'free',name:'مجاني',price:0,src:'free',vis:'public',maxOrders:50,trial:0,feat:{brief_email:false,ga4:false,weekly_pdf:false,agency:false,ai_chat:false},exps:0,opps:'فرصة أسبوعيًا',users:1},
- {code:'starter',name:'Starter',price:149,src:'salla',vis:'public',maxOrders:300,trial:14,feat:{brief_email:false,ga4:false,weekly_pdf:false,agency:false,ai_chat:false},exps:2,opps:'أهم 5',users:1},
- {code:'growth',name:'Growth',price:349,src:'salla',vis:'public',maxOrders:1500,trial:14,feat:{brief_email:true,ga4:true,weekly_pdf:true,agency:false,ai_chat:false},exps:5,opps:'كل الفرص',users:3},
- {code:'pro',name:'Pro',price:799,src:'salla',vis:'public',maxOrders:6000,trial:14,feat:{brief_email:true,ga4:true,weekly_pdf:true,agency:false,ai_chat:true},exps:null,opps:'كل الفرص + الشذوذ',users:10},
- {code:'agency',name:'وكالات',price:129,src:'direct',vis:'hidden',maxOrders:1500,trial:0,feat:{brief_email:true,ga4:true,weekly_pdf:true,agency:true,ai_chat:false},exps:5,opps:'كل الفرص',users:null,perStore:true}
+ {code:'free',name:'المجانية',price:0,src:'free',vis:'public',maxOrders:50,trial:0,feat:{brief_email:false,ga4:false,weekly_pdf:false,agency:false,ai_chat:false},exps:0,opps:'فرصة أسبوعيًا',users:1},
+ {code:'starter',name:'الأساسية',price:59,src:'salla',vis:'public',maxOrders:300,trial:14,feat:{brief_email:false,ga4:false,weekly_pdf:false,agency:false,ai_chat:false},exps:2,opps:'أهم 5',users:1},
+ {code:'growth',name:'النمو',price:120,src:'salla',vis:'public',maxOrders:1500,trial:14,feat:{brief_email:true,ga4:true,weekly_pdf:true,agency:false,ai_chat:false},exps:5,opps:'كل الفرص',users:3},
+ {code:'pro',name:'الاحترافية',price:340,src:'salla',vis:'public',maxOrders:6000,trial:14,feat:{brief_email:true,ga4:true,weekly_pdf:true,agency:false,ai_chat:true},exps:null,opps:'كل الفرص + الشذوذ',users:10},
+ {code:'agency',name:'وكالات',price:99,src:'direct',vis:'hidden',maxOrders:1500,trial:0,feat:{brief_email:true,ga4:true,weekly_pdf:true,agency:true,ai_chat:false},exps:5,opps:'كل الفرص',users:null,perStore:true}
 ];
 const FEAT_LABEL={brief_email:'الملخص اليومي بالبريد',ga4:'ربط Google Analytics',weekly_pdf:'تقرير PDF أسبوعي',agency:'لوحة الوكالة',ai_chat:'مساعد المحادثة'};
 
@@ -390,9 +390,9 @@ function renderPlans(){
 function planModal(){
   $('#overlay').innerHTML=`<div class="scrim center" data-close><form class="modal" id="plan-form" role="dialog" aria-modal="true" aria-labelledby="pm-t">
    <div><div class="eyebrow">إنشاء باقة</div><h2 id="pm-t">باقة جديدة</h2></div>
-   <div class="fields2"><div class="field"><label for="pf-name">اسم الباقة</label><input id="pf-name" required value="Growth سنوي للمؤسسين"></div><div class="field"><label for="pf-code">الرمز</label><input id="pf-code" required value="growth_founders"></div></div>
+   <div class="fields2"><div class="field"><label for="pf-name">اسم الباقة</label><input id="pf-name" required value="النمو للمؤسسين"></div><div class="field"><label for="pf-code">الرمز</label><input id="pf-code" required value="growth_founders"></div></div>
    <div class="fields2"><div class="field"><label for="pf-src">الفوترة</label><select id="pf-src"><option value="salla">عبر سلة</option><option value="direct">مباشرة (عقد)</option></select></div><div class="field"><label for="pf-vis">الظهور</label><select id="pf-vis"><option value="public">ظاهرة للجميع</option><option value="hidden" selected>مخفية (برابط أو كود)</option><option value="private">خاصة لعميل واحد</option></select></div></div>
-   <div class="fields2"><div class="field"><label for="pf-price">السعر الشهري (ر.س)</label><input id="pf-price" type="number" min="0" value="209"></div><div class="field"><label for="pf-orders">حد الطلبات الشهرية</label><input id="pf-orders" type="number" min="0" value="1500"></div></div>
+   <div class="fields2"><div class="field"><label for="pf-price">السعر الشهري (ر.س)</label><input id="pf-price" type="number" min="0" value="89"></div><div class="field"><label for="pf-orders">حد الطلبات الشهرية</label><input id="pf-orders" type="number" min="0" value="1500"></div></div>
    <div class="fields2"><div class="field"><label for="pf-exps">التجارب النشطة</label><input id="pf-exps" type="number" min="0" value="5"></div><div class="field"><label for="pf-trial">أيام التجربة المجانية</label><input id="pf-trial" type="number" min="0" value="14"></div></div>
    <div class="field"><label>المزايا</label><div class="checks">${Object.entries(FEAT_LABEL).map(([k,l])=>`<label><input type="checkbox" id="pf-${k}" ${['brief_email','ga4','weekly_pdf'].includes(k)?'checked':''}>${l}</label>`).join('')}</div></div>
    <div class="notice warn" id="pf-note">باقة عبر سلة: بعد الحفظ أنشئ نفس السعر في بوابة شركاء سلة واربط رقمها هنا. حتى يتم الربط تبقى الباقة بحالة «بانتظار الربط».</div>
@@ -414,7 +414,7 @@ const FIELDS={
   agency:{l:'مرتبط بوكالة',ops:['='],vals:()=>[['yes','نعم'],['no','لا']],get:s=>s.agency==='—'?'no':'yes'}
 };
 const PRESETS=[
- {n:'جاهز للترقية',d:'Starter بطلبات 300+ وتجربة مكتملة',rules:[['plan','=','starter'],['band','≥','300-1,500'],['expDone','≥','1']]},
+ {n:'جاهز للترقية',d:'الأساسية بطلبات 300+ وتجربة مكتملة',rules:[['plan','=','starter'],['band','≥','300-1,500'],['expDone','≥','1']]},
  {n:'تجربة مجانية بلا تفعيل',d:'تنتهي خلال 5 أيام ولم يكمل تجربة',rules:[['status','=','trial'],['trialLeft','≤','5'],['expDone','≤','0']]},
  {n:'خطر إلغاء',d:'مدفوع ولم يدخل منذ 14 يومًا',rules:[['status','=','active'],['lastLogin','≥','14']]},
  {n:'سفراء محتملون',d:'تجربتان مكتملتان على الأقل وصحة جيدة',rules:[['expDone','≥','2'],['health','=','g']]}
@@ -459,8 +459,8 @@ function campaignModal(){
    <div class="notice">تُرسل فقط لمن وافق على الرسائل التسويقية، وبحد أقصى رسالة ترويجية واحدة أسبوعيًا لكل تاجر.</div>
    <div class="field"><label for="cf-sub">العنوان</label><input id="cf-sub" value="متجرك جاهز لمرحلة أكبر في نبض"></div>
    <div class="field"><label for="cf-body">النص</label><textarea id="cf-body" rows="6">مرحبًا {اسم_التاجر}،
-متجرك {اسم_المتجر} تجاوز حدود باقة Starter، وأكملت تجارب ناجحة معنا.
-باقة Growth تفتح لك كل الفرص، والملخص اليومي بالبريد، وربط Google Analytics.
+متجرك {اسم_المتجر} تجاوز حدود الباقة الأساسية، وأكملت تجارب ناجحة معنا.
+باقة النمو تفتح لك الخطة التسويقية الكاملة، ومراقبة السوشيال، ونبض الذكي.
 استخدم الكود GROW30 لخصم 30% لأول 3 أشهر.</textarea></div>
    <div class="row" style="justify-content:flex-end"><button type="button" class="btn" data-close>إلغاء</button><button class="btn primary" type="submit">جدولة الإرسال</button></div>
   </form></div>`;
