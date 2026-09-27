@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>نبض — تشغيل محلي</title>
+<style>
+:root{--ground:#EEF2EF;--surface:#fff;--line:#D9E1DC;--ink:#12241F;--ink2:#4A5C56;--accent:#1D6B58;--soft:#DCEDE6}
+@media (prefers-color-scheme:dark){:root{--ground:#0D1614;--surface:#15211E;--line:#2A3A35;--ink:#E6EFEB;--ink2:#A9BAB3;--accent:#5CC2A5;--soft:#1C3A32;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;line-height:1.7;padding:32px 16px}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:18px}
+h1{margin:0;font-size:1.8rem} p{margin:0;color:var(--ink2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+a.card{display:grid;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;text-decoration:none;color:var(--ink)}
+a.card:hover{border-color:var(--accent)}
+a.card b{font-size:1.1rem;color:var(--accent)}
+.note{background:var(--soft);border-radius:12px;padding:12px 14px;font-size:.92rem}
+ul{margin:0;padding-inline-start:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>نبض</h1>
+  <p>كل شاشات المشروع تشتغل من جهازك مباشرة. اختر اللوحة اللي تبي تفتحها:</p>
+  <div class="grid">
+    <a class="card" href="preview/nabd-preview.html"><b>لوحة التاجر</b><span>الرئيسية، الفرص، التجارب، الذاكرة، التقرير، الوكالة</span></a>
+    <a class="card" href="preview/nabd-admin-preview.html"><b>لوحة الإدارة</b><span>الإيراد، المتاجر، المستخدمون، الباقات، الاستهداف، التدقيق</span></a>
+  </div>
+  <div class="note">هذي نماذج تفاعلية ببيانات تجريبية. ما فيها ربط حقيقي مع سلة ولا قاعدة بيانات، وأي تعديل تسويه يرجع لأصله إذا حدّثت الصفحة.</div>
+  <h2 style="margin:8px 0 0;font-size:1.2rem">الملفات الثانية</h2>
+  <ul>
+    <li><a href="README.md">فهرس الوثائق</a> ومجلد <code>docs</code> (خطة المنتج كاملة)</li>
+    <li><a href="presentation/nabd-overview.pptx">عرض الاجتماع (PowerPoint)</a></li>
+  </ul>
+</div>
+</body>
+</html>
