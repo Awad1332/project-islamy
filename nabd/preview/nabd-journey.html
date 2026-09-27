@@ -203,6 +203,73 @@ td.cur{background:rgba(16,185,129,.05)}
 .theme-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:inline-grid;place-items:center;cursor:pointer;flex:none}
 .theme-btn:hover{border-color:var(--accent-fg)}
 .theme-btn svg{width:19px;height:19px}
+/* ---- v2 additions ---- */
+.go-link{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 12px;font-size:.82rem;font-weight:600;color:var(--accent-fg);white-space:nowrap}
+.go-link:hover{border-color:var(--accent)}
+.go-link svg{width:14px;height:14px}
+a.btn{text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:inherit}
+a.btn svg{width:15px;height:15px}
+.salla-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 14px;border-top:1px solid var(--line);background:var(--surface-2)}
+.path{font-size:.82rem;background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:3px 8px}
+.verify{display:flex;gap:10px;align-items:center;background:var(--mint);border-radius:12px;padding:10px 12px;font-size:.9rem}
+.verify svg{width:20px;height:20px;color:var(--accent-fg);flex:none}
+
+.score{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.factors{display:grid;gap:8px}
+.factor{display:grid;grid-template-columns:120px 1fr 64px;gap:10px;align-items:center;font-size:.88rem}
+.factor .bar{height:8px}
+.factor b{text-align:end;font-variant-numeric:tabular-nums}
+.heat{display:grid;grid-template-columns:62px repeat(4,1fr);gap:4px;font-size:.78rem}
+.heat .hd{color:var(--ink-3);text-align:center;font-weight:600}
+.heat .dl{color:var(--ink-2);font-weight:600;align-self:center}
+.heat .c{height:30px;border-radius:6px;display:grid;place-items:center;font-weight:700;font-size:.75rem}
+.legend{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--ink-3)}
+.legend i{width:18px;height:10px;border-radius:3px;display:inline-block}
+.mix{display:grid;grid-template-columns:70px 1fr 90px;gap:10px;align-items:center;padding:6px 0;font-size:.88rem}
+.mix .track{height:14px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+.mix .fill{height:100%;background:var(--accent);border-radius:4px}
+.mix b{text-align:end;font-variant-numeric:tabular-nums}
+.check{display:flex;gap:8px;align-items:flex-start;padding:6px 0;font-size:.9rem}
+.check .ok{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:2px}
+.check .ok svg{width:12px;height:12px}
+.act{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.act:last-child{border-bottom:0}
+.act .n{width:30px;height:30px;border-radius:50%;background:var(--gold-fill);color:#0F172A;display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.post{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.post:last-child{border-bottom:0}
+.post .th{width:54px;height:54px;border-radius:10px;background:linear-gradient(135deg,#D8C6AE,#A88B69)}
+.simple-note{background:var(--gold-soft);border-radius:12px;padding:12px 14px;display:grid;gap:8px}
+
+/* chat */
+.chat-fab{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:20px;z-index:60;display:flex;align-items:center;gap:8px;background:var(--ad-bg);color:var(--ad-ink);border:1px solid var(--line);border-radius:99px;padding:10px 16px 10px 12px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.25)}
+.chat-fab .dot{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#0F172A;display:grid;place-items:center}
+.chat-fab .dot svg{width:17px;height:17px}
+.chat{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:20px;z-index:70;width:min(380px,calc(100vw - 32px));height:min(600px,calc(100vh - 40px));background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 16px 48px rgba(15,23,42,.3);display:flex;flex-direction:column;overflow:hidden}
+.chat-h{background:var(--ad-bg);color:var(--ad-ink);padding:12px 14px;display:flex;align-items:center;gap:10px}
+.chat-h .dot{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#0F172A;display:grid;place-items:center}
+.chat-h .dot svg{width:19px;height:19px}
+.chat-h small{display:block;opacity:.75;font-size:.75rem}
+.chat-h button{margin-inline-start:auto;border:0;background:none;color:inherit;width:30px;height:30px;display:grid;place-items:center}
+.chat-h button svg{width:18px;height:18px}
+.chat-b{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--ground)}
+.msg{max-width:88%;padding:10px 12px;border-radius:14px;font-size:.9rem;white-space:pre-line}
+.msg.bot{background:var(--surface);border:1px solid var(--line);align-self:flex-start;border-start-start-radius:4px}
+.msg.me{background:var(--accent);color:#0F172A;align-self:flex-end;border-start-end-radius:4px;font-weight:600}
+.msg .up{margin-top:8px;background:var(--gold-soft);border-radius:10px;padding:8px 10px;font-size:.84rem;white-space:normal}
+.msg .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.msg .src{margin-top:6px;font-size:.72rem;color:var(--ink-3)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 14px;border-top:1px solid var(--line);background:var(--surface)}
+.chips button{border:1px solid var(--line);background:var(--surface-2);border-radius:99px;padding:4px 10px;font-size:.8rem}
+.chat-f{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);background:var(--surface)}
+.chat-f input{flex:1;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 10px;min-width:0}
+.typing{display:flex;gap:4px;padding:12px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:bl 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,100%{opacity:.3}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.typing i{animation:none}}
+#overlay .scrim{z-index:80}
+.toast{z-index:95}
+@media (max-width:900px){.factor{grid-template-columns:96px 1fr 56px}.score{grid-template-columns:1fr}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -218,28 +285,30 @@ td.cur{background:rgba(16,185,129,.05)}
   <symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
   <symbol id="check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   <symbol id="x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
-  <symbol id="star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
   <symbol id="auto" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></symbol>
-  <symbol id="bag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></symbol>
   <symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
   <symbol id="spark" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
   <symbol id="ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
   <symbol id="alert" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3l10 18H2zM12 10v4M12 17.5h.01"/></symbol>
   <symbol id="tag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 12V4h8l10 10-8 8zM7.5 7.5h.01"/></symbol>
   <symbol id="box" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M4 20l1.4-4A8 8 0 1 1 8 18.6z"/></symbol>
+  <symbol id="send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M21 3L3 11l7 2 2 7z"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4"/></symbol>
 </svg>
 
 <div class="shell">
   <aside class="side" aria-label="القائمة">
     <div class="brand"><div class="mark"><svg><use href="#pulse"/></svg></div><div><b>نبض</b><small>مدير نمو متجرك</small></div></div>
     <nav class="nav" id="nav"></nav>
-    <div class="side-foot"><div class="plan-pill"><span>باقتك: <b id="plan-name"></b></span><button class="btn ghost sm" data-go="plans" style="padding:0">ترقية</button></div></div>
+    <div class="side-foot"><div class="plan-pill"><span>باقتك: <b id="plan-name"></b></span><button class="btn ghost sm" data-go="plans" style="padding:0">رقّ باقتك</button></div></div>
   </aside>
   <div class="main">
     <header class="top">
-      <div class="store"><div class="avatar">ع</div><div><b>متجر العود</b><div class="faint">مربوط بسلة · آخر تحديث قبل 5 دقائق</div></div></div>
+      <div class="store"><div class="avatar">ع</div><div><b>متجر العود</b><div class="faint">مربوط بسلة · آخر تحديث قبل 5 دقايق</div></div></div>
       <div class="row" style="gap:8px"><button class="theme-btn" type="button" data-theme-toggle aria-label="الوضع الداكن" title="تبديل الوضع الداكن والفاتح"></button><div class="demo" role="group" aria-label="أدوات العرض">
-        <b>للعرض فقط:</b>
+        <b>للعرض بس:</b>
         <label for="demo-orders">المتجر عنده</label>
         <select id="demo-orders"><option value="0">0 طلب</option><option value="6" selected>6 طلبات</option><option value="14">14 طلب</option><option value="42">42 طلب</option><option value="180">180 طلب</option></select>
         <label for="demo-plan">الباقة</label>
@@ -260,129 +329,130 @@ td.cur{background:rgba(16,185,129,.05)}
   </div>
 </div>
 <div id="overlay"></div>
+<button class="chat-fab" id="chat-fab" type="button" aria-label="افتح مساعد نبض"><span class="dot"><svg><use href="#chat"/></svg></span>اسأل نبض</button>
+<div id="chat-root"></div>
 
 <script>
 (function(){
 /* ================= DATA ================= */
-const PLANS=[
- {id:'free',name:'المجانية',price:0},
- {id:'basic',name:'الأساسية',price:59},
- {id:'growth',name:'النمو',price:120},
- {id:'pro',name:'الاحترافية',price:340}
-];
+const PLANS=[{id:'free',name:'المجانية',price:0},{id:'basic',name:'الأساسية',price:59},{id:'growth',name:'النمو',price:120},{id:'pro',name:'الاحترافية',price:340}];
 const RANK={free:0,basic:1,growth:2,pro:3};
 const CAT={store:['المتجر','c-store'],content:['المحتوى','c-content'],social:['السوشيال','c-social'],market:['التسويق','c-market'],ops:['التشغيل','c-ops']};
+const SALLA='https://s.salla.sa/';
+const SALLA_HELP='https://help.salla.sa/';
 
-/* Salla guides — menu names are illustrative and must be verified against the live Salla dashboard */
+/* Salla guides. Menu names and paths are illustrative; verify against the live Salla dashboard. */
 const GUIDES={
- coupon:{title:'إنشاء كوبون خصم في سلة',steps:[
-   {t:'من القائمة الجانبية في لوحة سلة، افتح «التسويق».',side:'التسويق',btn:null},
+ coupon:{title:'تسوي كوبون خصم في سلة',path:'التسويق ← كوبونات التخفيض',check:'نبض يتأكد من سلة إن الكوبون انضاف',steps:[
+   {t:'من القائمة اللي على الجنب في لوحة سلة، افتح «التسويق».',side:'التسويق',btn:null},
    {t:'اختر «كوبونات التخفيض».',side:'كوبونات التخفيض',btn:null},
-   {t:'اضغط زر «إضافة كوبون» في أعلى الصفحة.',side:'كوبونات التخفيض',btn:'إضافة كوبون'},
-   {t:'اكتب الكود (مثل: WELCOME10)، واختر نوع الخصم «نسبة» والقيمة 10%.',side:'كوبونات التخفيض',btn:'نوع الخصم'},
-   {t:'حدد تاريخ الانتهاء وعدد مرات الاستخدام لكل عميل (مرة واحدة).',side:'كوبونات التخفيض',btn:'تاريخ الانتهاء'},
-   {t:'اضغط «حفظ». الكوبون جاهز للمشاركة.',side:'كوبونات التخفيض',btn:'حفظ'}],auto:true},
- pages:{title:'إضافة صفحة سياسة الاستبدال والاسترجاع',steps:[
+   {t:'اضغط «إضافة كوبون» فوق.',side:'كوبونات التخفيض',btn:'إضافة كوبون'},
+   {t:'اكتب الكود مثل WELCOME10، واختر نوع الخصم «نسبة» و10%.',side:'كوبونات التخفيض',btn:'نوع الخصم'},
+   {t:'حط تاريخ الانتهاء، وخلّ الكوبون مرة وحدة لكل عميل.',side:'كوبونات التخفيض',btn:'تاريخ الانتهاء'},
+   {t:'اضغط «حفظ»، وخلاص الكوبون جاهز.',side:'كوبونات التخفيض',btn:'حفظ'}],auto:true,found:'لقينا في متجرك كوبون WELCOME10 بخصم 10%'},
+ pages:{title:'تضيف صفحة سياسة الاستبدال والاسترجاع',path:'الإعدادات ← الصفحات التعريفية',check:'نبض يتأكد إن الصفحة ظاهرة في متجرك',steps:[
    {t:'افتح «الإعدادات» من لوحة سلة.',side:'الإعدادات',btn:null},
    {t:'اختر «الصفحات التعريفية».',side:'الصفحات التعريفية',btn:null},
    {t:'اضغط «إضافة صفحة» والصق النص الجاهز من نبض.',side:'الصفحات التعريفية',btn:'إضافة صفحة'},
-   {t:'فعّل ظهورها في أسفل المتجر، ثم احفظ.',side:'الصفحات التعريفية',btn:'حفظ'}],auto:false},
- payment:{title:'تفعيل طرق الدفع',steps:[
-   {t:'افتح «الإعدادات» ثم «طرق الدفع».',side:'طرق الدفع',btn:null},
+   {t:'خلّها تطلع تحت في المتجر، واحفظ.',side:'الصفحات التعريفية',btn:'حفظ'}],auto:false,found:'لقينا صفحة «سياسة الاستبدال والاسترجاع» في متجرك'},
+ payment:{title:'تفعّل طرق الدفع',path:'الإعدادات ← طرق الدفع',check:'نبض يتأكد من طرق الدفع المفعّلة',steps:[
+   {t:'افتح «الإعدادات» وبعدها «طرق الدفع».',side:'طرق الدفع',btn:null},
    {t:'فعّل مدى وApple Pay والبطاقات.',side:'طرق الدفع',btn:'تفعيل'},
-   {t:'فعّل «اشتر الآن وادفع لاحقًا» مثل تابي أو تمارا إذا كانت متاحة لك.',side:'طرق الدفع',btn:'تابي / تمارا'},
-   {t:'احفظ، ثم جرّب طلبًا تجريبيًا بنفسك.',side:'طرق الدفع',btn:'حفظ'}],auto:false},
- product:{title:'إضافة منتج بشكل احترافي',steps:[
-   {t:'افتح «المنتجات» ثم اضغط «إضافة منتج».',side:'المنتجات',btn:'إضافة منتج'},
-   {t:'أضف 4 صور على الأقل بخلفية نظيفة، وصورة تبين الحجم.',side:'المنتجات',btn:'الصور'},
-   {t:'اكتب الاسم والوصف من قالب نبض: الفائدة، المواصفات، طريقة الاستخدام.',side:'المنتجات',btn:'الوصف'},
-   {t:'حدد السعر والكمية والوزن (مهم لحساب الشحن)، ثم احفظ.',side:'المنتجات',btn:'حفظ'}],auto:false},
- carts:{title:'تفعيل تذكير السلات المتروكة',steps:[
-   {t:'افتح «التسويق» ثم «السلات المتروكة».',side:'السلات المتروكة',btn:null},
+   {t:'إذا متاح لك، فعّل تابي أو تمارا.',side:'طرق الدفع',btn:'تابي / تمارا'},
+   {t:'احفظ، وجرّب طلب بنفسك.',side:'طرق الدفع',btn:'حفظ'}],auto:false,found:'لقينا مدى وApple Pay مفعّلة'},
+ product:{title:'تضيف منتج بشكل مرتب',path:'المنتجات ← إضافة منتج',check:'نبض يعد منتجاتك ويشيك على صورها ووصفها',steps:[
+   {t:'افتح «المنتجات» واضغط «إضافة منتج».',side:'المنتجات',btn:'إضافة منتج'},
+   {t:'حط 4 صور على الأقل بخلفية نظيفة، وصورة توضح الحجم.',side:'المنتجات',btn:'الصور'},
+   {t:'اكتب الوصف من قالب نبض: الفايدة، المواصفات، وطريقة الاستخدام.',side:'المنتجات',btn:'الوصف'},
+   {t:'حط السعر والكمية والوزن (مهم للشحن)، واحفظ.',side:'المنتجات',btn:'حفظ'}],auto:false,found:'عندك 10 منتجات، و8 منها فيها 4 صور أو أكثر'},
+ carts:{title:'تفعّل تذكير السلات المتروكة',path:'التسويق ← السلات المتروكة',check:'نبض يتأكد إن التذكير شغال',steps:[
+   {t:'افتح «التسويق» وبعدها «السلات المتروكة».',side:'السلات المتروكة',btn:null},
    {t:'اضغط «إعدادات التذكير».',side:'السلات المتروكة',btn:'إعدادات التذكير'},
-   {t:'فعّل التذكير بعد ساعة، وأضف كوبونًا صغيرًا للتذكير الثاني.',side:'السلات المتروكة',btn:'تفعيل'},
-   {t:'احفظ. نبض سيقيس كم سلة رجعت.',side:'السلات المتروكة',btn:'حفظ'}],auto:false},
- shipping:{title:'إعداد الشحن والشحن المجاني',steps:[
-   {t:'افتح «الإعدادات» ثم «شركات الشحن».',side:'شركات الشحن',btn:null},
-   {t:'فعّل شركة أو أكثر، وحدد المدن.',side:'شركات الشحن',btn:'تفعيل'},
-   {t:'حدد حد الشحن المجاني الذي يقترحه نبض لمتجرك.',side:'شركات الشحن',btn:'الشحن المجاني'},
-   {t:'احفظ.',side:'شركات الشحن',btn:'حفظ'}],auto:false}
+   {t:'فعّل التذكير بعد ساعة، وحط كوبون صغير في التذكير الثاني.',side:'السلات المتروكة',btn:'تفعيل'},
+   {t:'احفظ، ونبض بيقيس لك كم سلة رجعت.',side:'السلات المتروكة',btn:'حفظ'}],auto:false,found:'التذكير شغال، وانرسل لـ 9 سلات هالأسبوع'},
+ shipping:{title:'تضبط الشحن والشحن المجاني',path:'الإعدادات ← شركات الشحن',check:'نبض يتأكد من حد الشحن المجاني',steps:[
+   {t:'افتح «الإعدادات» وبعدها «شركات الشحن».',side:'شركات الشحن',btn:null},
+   {t:'فعّل شركة شحن أو أكثر، وحدد المدن.',side:'شركات الشحن',btn:'تفعيل'},
+   {t:'حط حد الشحن المجاني اللي يقترحه نبض لمتجرك.',side:'شركات الشحن',btn:'الشحن المجاني'},
+   {t:'احفظ.',side:'شركات الشحن',btn:'حفظ'}],auto:false,found:'حد الشحن المجاني عندك 229 ريال'}
 };
 const FREE_GUIDES=['product','payment','pages'];
 const SIDE_ITEMS=['الرئيسية','الطلبات','المنتجات','العملاء','التسويق','كوبونات التخفيض','السلات المتروكة','الإعدادات','طرق الدفع','شركات الشحن','الصفحات التعريفية'];
 
 const LEVELS=[
  {n:1,name:'التأسيس',goal:'جهّز متجرك قبل أول طلب',from:0,to:1,tasks:[
-  {id:'t1',cat:'store',t:'اختر اسمًا وشعارًا وألوانًا ثابتة',pts:10,auto:false,why:'الهوية الواضحة تبني الثقة من أول زيارة، وتسهّل على العميل تذكرك.',how:['اختر اسمًا قصيرًا سهل النطق والكتابة.','صمم شعارًا بسيطًا (أداة مجانية أو مصمم).','اختر لونين أساسيين واستخدمهما في المتجر والسوشيال.']},
-  {id:'t2',cat:'store',t:'أضف صفحات الثقة: من نحن، الاستبدال، الشحن، التواصل',pts:15,auto:true,guide:'pages',why:'العميل الجديد يبحث عن هذه الصفحات قبل ما يشتري من متجر ما يعرفه.',how:['اكتب «من نحن» في 3 أسطر: من أنت وماذا تبيع ولماذا.','استخدم نص سياسة الاستبدال الجاهز من نبض وعدّله.','أضف رقم واتساب وبريد للتواصل.']},
-  {id:'t3',cat:'ops',t:'وثّق متجرك عبر المركز السعودي للأعمال',pts:15,auto:false,why:'التوثيق يظهر شارة موثوقة ويزيد ثقة العميل، وهو مطلوب نظاميًا.',how:['جهّز السجل التجاري أو وثيقة العمل الحر.','سجّل متجرك في منصة التوثيق.','أضف رقم التوثيق في إعدادات متجرك.']},
-  {id:'t4',cat:'ops',t:'فعّل طرق الدفع والشحن',pts:15,auto:true,guide:'payment',why:'كل طريقة دفع ناقصة تعني عميلًا يترك السلة.',how:['فعّل مدى وApple Pay.','فعّل تابي أو تمارا إن أمكن.','فعّل شركة شحن واحدة على الأقل وحدد المدن.']},
-  {id:'t5',cat:'store',t:'أضف أول 10 منتجات بصور ووصف واضح',pts:20,auto:true,guide:'product',why:'المنتج بصور جيدة ووصف واضح يجيب على أسئلة العميل بدل ما يسألك.',how:['4 صور لكل منتج على الأقل.','وصف فيه: الفائدة، المواصفات، طريقة الاستخدام.','سعر واضح ووزن صحيح للشحن.']},
-  {id:'t6',cat:'store',t:'رتّب الصفحة الرئيسية: بنر، تصنيفات، الأكثر مبيعًا',pts:10,auto:false,why:'الصفحة الرئيسية هي واجهة محلك. الترتيب يوصل العميل للمنتج بسرعة.',how:['بنر واحد واضح فيه عرض أو رسالة.','3 إلى 5 تصنيفات فقط.','قسم «الأكثر طلبًا».']},
-  {id:'t7',cat:'social',t:'أنشئ حسابات السوشيال باسم موحد ورابط المتجر',pts:10,auto:false,why:'العميل يبحث عنك في إنستقرام وتيك توك قبل ما يشتري.',how:['نفس الاسم في كل المنصات.','البايو: ماذا تبيع + رابط المتجر.','صورة الحساب = شعارك.']},
-  {id:'t8',cat:'content',t:'انشر أول 6 منشورات قبل الإطلاق',pts:15,auto:false,premium:'basic',why:'الحساب الفاضي لا يطمّن العميل. 6 منشورات تعطي انطباع متجر حقيقي.',how:['منشور تعريفي بالمتجر.','3 منشورات لأفضل المنتجات.','منشور عن التغليف.','منشور «قريبًا» بموعد الافتتاح.']},
-  {id:'t9',cat:'ops',t:'اطلب طلبًا تجريبيًا بنفسك',pts:10,auto:false,why:'تكتشف أي مشكلة في الدفع أو الشحن قبل عميلك.',how:['اطلب منتجًا وادفع.','تابع رسائل الطلب.','ألغِ الطلب بعد التجربة.']}]},
- {n:2,name:'أول الطريق',goal:'من أول طلب إلى 10 طلبات',from:1,to:10,tasks:[
-  {id:'t10',cat:'market',t:'أعلن افتتاح المتجر لمعارفك مع كوبون افتتاح',pts:15,guide:'coupon',why:'أول الطلبات تأتي غالبًا من دائرتك القريبة، وتقييماتهم تفتح الباب لغيرهم.',how:['أنشئ كوبون افتتاح 10% لمدة أسبوع.','أرسل رسالة للأهل والأصدقاء مع الرابط.','اطلب منهم مشاركة الحساب.']},
-  {id:'t11',cat:'social',t:'فعّل واتساب للأعمال مع كتالوج ورسالة ترحيب',pts:10,why:'كثير من العملاء في السعودية يسألون في واتساب قبل الشراء.',how:['حمّل واتساب للأعمال.','أضف الكتالوج ورابط المتجر.','اكتب رسالة ترحيب ورد تلقائي.']},
-  {id:'t12',cat:'content',t:'انشر ستوري يوميًا لمدة أسبوعين',pts:15,premium:'basic',why:'الاستمرارية أهم من الكمال. الستوري اليومي يذكّر المتابع بمتجرك.',how:['صورة تغليف طلب.','سؤال للمتابعين.','منتج اليوم.']},
-  {id:'t13',cat:'market',t:'اطلب تقييمًا من كل عميل',pts:15,why:'التقييمات أقوى إعلان مجاني للمتجر الجديد.',how:['أرسل رسالة شكر بعد الاستلام بيومين.','أضف رابط التقييم.','اشكر من يقيّم.']},
-  {id:'t14',cat:'content',t:'صوّر تغليف الطلبات وانشره',pts:10,premium:'basic',why:'محتوى التغليف يبني الثقة ويحفّز الشراء.',how:['صوّر فيديو قصير لتغليف طلب.','أضف موسيقى هادئة.','انشره ريلز.']}]},
- {n:3,name:'بناء الثقة',goal:'من 10 إلى 20 طلبًا',from:10,to:20,tasks:[
-  {id:'t15',cat:'market',t:'فعّل تذكير السلات المتروكة',pts:20,guide:'carts',why:'جزء من الزوار يضيفون للسلة ولا يكملون. التذكير يرجع بعضهم.',how:['فعّل التذكير في سلة.','أضف كوبونًا صغيرًا للتذكير الثاني.','تابع النتيجة في نبض.']},
-  {id:'t16',cat:'store',t:'حسّن صفحات أكثر 3 منتجات زيارة',pts:20,why:'تحسين المنتجات اللي عليها زيارات يعطي أسرع أثر.',how:['أضف صورًا أكثر.','أضف 3 أسئلة شائعة.','وضّح مدة الشحن.']},
-  {id:'t17',cat:'content',t:'انشر 3 ريلز أسبوعيًا من صانع المحتوى',pts:20,premium:'basic',why:'الفيديو القصير هو أكثر محتوى يوصل لناس جدد مجانًا.',how:['استخدم أفكار صانع المحتوى.','الثواني 3 الأولى أهم شيء.','أضف رابط المتجر في البايو.']},
-  {id:'t18',cat:'market',t:'كوبون خاص لعملائك الأوائل للطلب الثاني',pts:15,guide:'coupon',why:'العميل اللي اشترى مرة أسهل بكثير يشتري مرة ثانية.',how:['كوبون 10% للطلب الثاني.','أرسله مع الطلب في كرت مطبوع.','صلاحية شهر.']}]},
- {n:4,name:'الانتشار',goal:'من 20 إلى 50 طلبًا',from:20,to:50,tasks:[
-  {id:'t19',cat:'market',t:'أول إعلان ممول صغير مع قياس النتيجة',pts:25,premium:'growth',why:'الإعلان الصغير المقاس يعلّمك وش يبيع قبل ما تصرف أكثر.',how:['ميزانية 300 إلى 500 ريال.','منتج واحد هو الأكثر مبيعًا.','نبض يقيس الطلبات من الإعلان.']},
-  {id:'t20',cat:'social',t:'تعاون مع مؤثر صغير بكود خاص',pts:25,premium:'growth',why:'المؤثر الصغير أرخص وتفاعله أعلى، والكود يقيس النتيجة.',how:['اختر مؤثرًا من 5 إلى 50 ألف متابع في مجالك.','أعطه كودًا باسمه.','قِس الطلبات بالكود.']},
-  {id:'t21',cat:'ops',t:'حدد حد الشحن المجاني المناسب',pts:15,guide:'shipping',why:'حد مدروس يخلي العميل يضيف منتجًا ليحصل على الشحن المجاني.',how:['نبض يقترح الحد من طلباتك.','عدّله في سلة.','نقيس متوسط الطلب بعدها.']},
-  {id:'t22',cat:'content',t:'التزم بتقويم المحتوى لشهر كامل',pts:25,premium:'basic',why:'الخطة الشهرية تنهي سؤال «وش أنزل اليوم؟».',how:['افتح تقويم المحتوى.','جهّز منشورات الأسبوع مرة واحدة.','راقب نشاطك في صفحة السوشيال.']}]},
- {n:5,name:'الثبات',goal:'من 50 إلى 100 طلب',from:50,to:100,tasks:[
-  {id:'t23',cat:'market',t:'اعمل عرضًا مجمّعًا لمنتجين يُشتريان معًا',pts:25,why:'العرض المجمع يرفع قيمة الطلب بدون خصم كبير.',how:['نبض يحدد المنتجين من طلباتك.','أنشئ العرض في سلة.','نقيس متوسط الطلب.']},
-  {id:'t24',cat:'market',t:'جهّز حملة موسم قادم (يوم الراتب أو مناسبة)',pts:25,premium:'growth',why:'المواسم في السعودية تصنع فرقًا كبيرًا في المبيعات.',how:['اختر الموسم من الخطة التسويقية.','جهّز المحتوى قبلها بأسبوع.','كوبون بمدة محددة.']},
-  {id:'t25',cat:'ops',t:'راجع هامش الربح لكل منتج',pts:20,why:'بعض المنتجات تبيع كثير لكن ربحها قليل.',how:['أدخل تكلفة المنتجات في نبض.','نبض يرتبها حسب الربح.','راجع أسعار الأقل ربحًا.']}]},
- {n:6,name:'النمو الذكي',goal:'من 100 إلى 300 طلب — يفتح «نبض الذكي»',from:100,to:300,tasks:[
-  {id:'t26',cat:'market',t:'نفّذ أول فرصة من «نبض الذكي»',pts:30,premium:'growth',why:'الآن بياناتك تكفي لاكتشاف فرص خاصة بمتجرك.',how:['افتح نبض الذكي.','اختر أهم فرصة.','ابدأ التجربة.']},
-  {id:'t27',cat:'market',t:'أعد تنشيط العملاء الذين لم يعودوا',pts:30,premium:'growth',why:'العميل القديم أرخص من جلب عميل جديد.',how:['نبض يحدد الشريحة.','رسالة وكوبون جاهزين.','نقيس بمجموعة ضابطة.']}]},
- {n:7,name:'الاحتراف',goal:'300 طلب فأكثر',from:300,to:1000,tasks:[
-  {id:'t28',cat:'ops',t:'أضف فريقك ووزّع المهام',pts:20,premium:'pro',why:'النمو يحتاج أكثر من شخص.',how:['ادعُ أعضاء الفريق.','حدد صلاحيات كل عضو.','كل عضو يرى مهامه.']},
-  {id:'t29',cat:'market',t:'جلسة شهرية مع خبير نمو',pts:30,premium:'pro',why:'خبير يراجع أرقامك وخطتك معك.',how:['احجز موعدًا من نبض.','جهّز أسئلتك.','الخطة تُحفظ في ذاكرة المتجر.']}]}
+  {id:'t1',cat:'store',t:'اختر اسم وشعار وألوان ثابتة',pts:10,why:'الهوية الواضحة تطمّن العميل من أول ما يدخل، وتخليه يتذكرك.',how:['اختر اسم قصير سهل ينقال وينكتب.','سوّ شعار بسيط (أداة مجانية أو مصمم).','اختر لونين أساسيين واستخدمهم في المتجر والسوشيال.']},
+  {id:'t2',cat:'store',t:'أضف صفحات الثقة: من نحن، الاستبدال، الشحن، التواصل',pts:15,auto:true,guide:'pages',why:'العميل الجديد يدوّر على هالصفحات قبل ما يشتري من متجر ما يعرفه.',how:['اكتب «من نحن» في 3 أسطر: مين أنت، وش تبيع، وليش.','استخدم نص سياسة الاستبدال الجاهز من نبض وعدّل عليه.','حط رقم واتساب وإيميل للتواصل.']},
+  {id:'t3',cat:'ops',t:'وثّق متجرك عن طريق المركز السعودي للأعمال',pts:15,why:'التوثيق يطلّع شارة موثوق ويزيد ثقة العميل، وهو مطلوب نظاميًا.',how:['جهّز السجل التجاري أو وثيقة العمل الحر.','سجّل متجرك في منصة التوثيق.','حط رقم التوثيق في إعدادات متجرك.']},
+  {id:'t4',cat:'ops',t:'فعّل طرق الدفع والشحن',pts:15,auto:true,guide:'payment',why:'كل طريقة دفع ناقصة معناها عميل يطلع ويخلي السلة.',how:['فعّل مدى وApple Pay.','فعّل تابي أو تمارا إذا تقدر.','فعّل شركة شحن وحدة على الأقل وحدد المدن.']},
+  {id:'t5',cat:'store',t:'أضف أول 10 منتجات بصور ووصف واضح',pts:20,auto:true,guide:'product',why:'المنتج اللي صوره حلوة ووصفه واضح يجاوب العميل بدل ما يسألك.',how:['4 صور لكل منتج على الأقل.','وصف فيه: الفايدة، المواصفات، وطريقة الاستخدام.','سعر واضح ووزن صحيح عشان الشحن.']},
+  {id:'t6',cat:'store',t:'رتّب الصفحة الرئيسية: بنر، تصنيفات، الأكثر مبيعًا',pts:10,why:'الصفحة الرئيسية هي واجهة محلك، وترتيبها يوصّل العميل للمنتج بسرعة.',how:['بنر واحد واضح فيه عرض أو رسالة.','من 3 إلى 5 تصنيفات بس.','قسم «الأكثر طلبًا».']},
+  {id:'t7',cat:'social',t:'سوّ حسابات السوشيال بنفس الاسم وحط رابط المتجر',pts:10,why:'العميل يدوّر عليك في إنستقرام وتيك توك قبل ما يشتري.',how:['نفس الاسم في كل المنصات.','البايو: وش تبيع + رابط المتجر.','صورة الحساب هي شعارك.']},
+  {id:'t8',cat:'content',t:'انشر أول 6 منشورات قبل الافتتاح',pts:15,premium:'basic',why:'الحساب الفاضي ما يطمّن. 6 منشورات تعطي إحساس إن المتجر حقيقي.',how:['منشور يعرّف بالمتجر.','3 منشورات لأفضل منتجاتك.','منشور عن التغليف.','منشور «قريب» بموعد الافتتاح.']},
+  {id:'t9',cat:'ops',t:'اطلب طلب تجريبي بنفسك',pts:10,why:'تكتشف أي مشكلة في الدفع أو الشحن قبل ما يواجهها عميلك.',how:['اطلب منتج وادفع.','تابع رسايل الطلب.','ألغِ الطلب بعد ما تخلص التجربة.']}]},
+ {n:2,name:'أول الطريق',goal:'من أول طلب لين 10 طلبات',from:1,to:10,tasks:[
+  {id:'t10',cat:'market',t:'بلّغ معارفك بالافتتاح مع كوبون افتتاح',pts:15,auto:true,guide:'coupon',why:'أول الطلبات غالبًا تجي من ناسك القريبين، وتقييماتهم تفتح الباب لغيرهم.',how:['سوّ كوبون افتتاح 10% لمدة أسبوع.','أرسل رسالة للأهل والربع مع الرابط.','اطلب منهم يشاركون الحساب.']},
+  {id:'t11',cat:'social',t:'فعّل واتساب للأعمال مع كتالوج ورسالة ترحيب',pts:10,why:'كثير من العملاء في السعودية يسألون في واتساب قبل ما يشترون.',how:['نزّل واتساب للأعمال.','حط الكتالوج ورابط المتجر.','اكتب رسالة ترحيب ورد تلقائي.']},
+  {id:'t12',cat:'content',t:'نزّل ستوري كل يوم لمدة أسبوعين',pts:15,premium:'basic',why:'الاستمرار أهم من الكمال. الستوري اليومي يذكّر المتابع بمتجرك.',how:['صورة تغليف طلب.','سؤال للمتابعين.','منتج اليوم.']},
+  {id:'t13',cat:'market',t:'اطلب تقييم من كل عميل',pts:15,why:'التقييمات أقوى إعلان مجاني للمتجر الجديد.',how:['أرسل رسالة شكر بعد الاستلام بيومين.','حط رابط التقييم.','اشكر اللي يقيّم.']},
+  {id:'t14',cat:'content',t:'صوّر تغليف الطلبات وانشره',pts:10,premium:'basic',why:'محتوى التغليف يبني الثقة ويشهّي العميل يطلب.',how:['صوّر فيديو قصير وأنت تغلّف طلب.','حط موسيقى هادية.','انشره ريلز.']}]},
+ {n:3,name:'بناء الثقة',goal:'من 10 لين 20 طلب',from:10,to:20,tasks:[
+  {id:'t15',cat:'market',t:'فعّل تذكير السلات المتروكة',pts:20,auto:true,guide:'carts',why:'فيه ناس يضيفون للسلة وما يكملون. التذكير يرجّع بعضهم.',how:['فعّل التذكير في سلة.','حط كوبون صغير في التذكير الثاني.','تابع النتيجة في نبض.']},
+  {id:'t16',cat:'store',t:'حسّن صفحات أكثر 3 منتجات عليها زيارات',pts:20,why:'تحسين المنتجات اللي عليها زيارات يعطيك أسرع نتيجة.',how:['زد الصور.','أضف 3 أسئلة شائعة.','وضّح مدة الشحن.']},
+  {id:'t17',cat:'content',t:'انشر 3 ريلز كل أسبوع من صانع المحتوى',pts:20,premium:'basic',why:'الفيديو القصير أكثر شي يوصّلك لناس جدد ببلاش.',how:['استخدم أفكار صانع المحتوى.','أول 3 ثواني أهم شي.','حط رابط المتجر في البايو.']},
+  {id:'t18',cat:'market',t:'كوبون خاص لعملائك الأوائل على الطلب الثاني',pts:15,auto:true,guide:'coupon',why:'العميل اللي اشترى مرة أسهل بكثير يشتري مرة ثانية.',how:['كوبون 10% للطلب الثاني.','حطه مع الطلب في كرت مطبوع.','صلاحيته شهر.']}]},
+ {n:4,name:'الانتشار',goal:'من 20 لين 50 طلب',from:20,to:50,tasks:[
+  {id:'t19',cat:'market',t:'أول إعلان ممول صغير وقِس نتيجته',pts:25,premium:'growth',why:'الإعلان الصغير المقاس يعلمك وش يبيع قبل ما تصرف أكثر.',how:['ميزانية من 300 لين 500 ريال.','منتج واحد، الأكثر مبيعًا.','نبض يقيس الطلبات اللي جت من الإعلان.']},
+  {id:'t20',cat:'social',t:'تعاون مع مؤثر صغير بكود باسمه',pts:25,premium:'growth',why:'المؤثر الصغير أرخص وتفاعله أعلى، والكود يقيس النتيجة.',how:['اختر مؤثر عنده من 5 لين 50 ألف متابع في مجالك.','عطه كود باسمه.','قِس الطلبات بالكود.']},
+  {id:'t21',cat:'ops',t:'حدد حد الشحن المجاني المناسب',pts:15,auto:true,guide:'shipping',why:'الحد المدروس يخلي العميل يضيف منتج عشان ياخذ شحن مجاني.',how:['نبض يقترح الحد من طلباتك.','عدّله في سلة.','نقيس متوسط الطلب بعدها.']},
+  {id:'t22',cat:'content',t:'التزم بتقويم المحتوى شهر كامل',pts:25,premium:'basic',why:'الخطة الشهرية تفكّك من سؤال «وش أنزّل اليوم؟».',how:['افتح تقويم المحتوى.','جهّز منشورات الأسبوع مرة وحدة.','تابع نشاطك في صفحة السوشيال.']}]},
+ {n:5,name:'الثبات',goal:'من 50 لين 100 طلب',from:50,to:100,tasks:[
+  {id:'t23',cat:'market',t:'سوّ عرض مجمّع لمنتجين ينشرون مع بعض',pts:25,why:'العرض المجمّع يرفع قيمة الطلب بدون خصم كبير.',how:['نبض يحدد المنتجين من طلباتك.','سوّ العرض في سلة.','نقيس متوسط الطلب.']},
+  {id:'t24',cat:'market',t:'جهّز حملة للموسم الجاي (يوم الراتب أو مناسبة)',pts:25,premium:'growth',why:'المواسم في السعودية تفرق كثير في المبيعات.',how:['اختر الموسم من الخطة التسويقية.','جهّز المحتوى قبلها بأسبوع.','كوبون بمدة محددة.']},
+  {id:'t25',cat:'ops',t:'راجع ربحك في كل منتج',pts:20,why:'فيه منتجات تبيع كثير بس ربحها قليل.',how:['حط تكلفة منتجاتك في نبض.','نبض يرتبها حسب الربح.','راجع أسعار الأقل ربح.']}]},
+ {n:6,name:'النمو الذكي',goal:'من 100 لين 300 طلب، ويفتح لك «نبض الذكي»',from:100,to:300,tasks:[
+  {id:'t26',cat:'market',t:'نفّذ أول فرصة من «نبض الذكي»',pts:30,premium:'growth',why:'الحين بياناتك تكفي نكتشف فرص خاصة بمتجرك.',how:['افتح نبض الذكي.','اختر أهم فرصة.','ابدأ التجربة.']},
+  {id:'t27',cat:'market',t:'رجّع العملاء اللي ما عادوا',pts:30,premium:'growth',why:'العميل القديم أرخص من إنك تجيب عميل جديد.',how:['نبض يحدد مين هم.','الرسالة والكوبون جاهزين.','نقيس بمجموعة ضابطة.']}]},
+ {n:7,name:'الاحتراف',goal:'300 طلب وفوق',from:300,to:1000,tasks:[
+  {id:'t28',cat:'ops',t:'أضف فريقك ووزّع المهام',pts:20,premium:'pro',why:'النمو يحتاج أكثر من شخص.',how:['ادعُ أعضاء الفريق.','حدد صلاحيات كل واحد.','كل واحد يشوف مهامه.']},
+  {id:'t29',cat:'market',t:'جلسة شهرية مع خبير نمو',pts:30,premium:'pro',why:'خبير يراجع أرقامك وخطتك معك.',how:['احجز موعد من نبض.','جهّز أسئلتك.','الخطة تنحفظ في ذاكرة المتجر.']}]}
 ];
 
 const ADS={
- free:{tag:'باقة الأساسية',title:'أدلة سلة خطوة بخطوة لكل مهمة + صانع محتوى بـ 20 منشورًا شهريًا',sub:'لا تضيّع وقتك تبحث: نوريك وين تضغط بالضبط.',to:'basic'},
- basic:{tag:'باقة النمو',title:'خطتك التسويقية لشهر أكتوبر جاهزة، ومراقبة لحساباتك في السوشيال',sub:'شوف أول أسبوع من الخطة مجانًا الآن.',to:'growth'},
+ free:{tag:'الباقة الأساسية',title:'أدلة سلة خطوة بخطوة لكل مهمة + صانع محتوى بـ 20 منشور في الشهر',sub:'لا تضيّع وقتك تدوّر: نوريك وين تضغط بالضبط.',to:'basic'},
+ basic:{tag:'باقة النمو',title:'خطتك التسويقية لشهر أكتوبر جاهزة، وتحليل كامل لحسابك في السوشيال',sub:'شوف أول أسبوع من الخطة ببلاش الحين.',to:'growth'},
  growth:{tag:'الباقة الاحترافية',title:'جلسة شهرية مع خبير نمو + تنبيهات يومية على جوالك',sub:'خبير يراجع أرقامك ويبني خطتك معك.',to:'pro'},
  pro:null
 };
-
-const IDEAS=['تعريف بمنتج الأسبوع','فيديو تغليف طلب','سؤال: وش أكثر عطر تحبه؟','تجربة عميل حقيقية','عرض يوم الراتب','خلف الكواليس','نصيحة: كيف تثبّت العطر'];
+const IDEAS=['عرّف بمنتج الأسبوع','فيديو تغليف طلب','سؤال: وش أكثر عطر تحبه؟','تجربة عميل حقيقية','عرض يوم الراتب','ورا الكواليس','نصيحة: كيف تثبّت العطر'];
 const CAPTIONS=[
  'ريحة تثبت معك من الصبح لآخر الليل 🤍\nدهن العود الملكي، مختار بعناية لمحبين العود الأصيل.\nاطلبه الحين من الرابط في البايو.\n#عود #عطور #دهن_عود',
- 'كل طلب نغلّفه كأنه هدية 🎁\nلأن تجربتك تبدأ من لحظة فتح الصندوق.\nوش أول شي تسويه لما يوصلك طلب؟ قولنا بالتعليقات 👇',
+ 'كل طلب نغلّفه كأنه هدية 🎁\nلأن تجربتك تبدأ من لحظة ما تفتح الصندوق.\nوش أول شي تسويه لما يوصلك طلب؟ قولنا بالتعليقات 👇',
  'يوم الراتب قرّب 💸\nجهزنا لك خصم 10% على كل العطور لمدة 3 أيام بس.\nالكود: RATEB10\n#يوم_الراتب'
 ];
 
 /* ================= STATE ================= */
-let S={orders:6,plan:'basic',done:new Set(),adHidden:false,view:'home',cal:0};
-function levelOf(o){for(let i=LEVELS.length-1;i>=0;i--){if(o>=LEVELS[i].from&&(i===0?o<1:true)&&o>=LEVELS[i].from)return LEVELS[i]}return LEVELS[0]}
+let S={orders:6,plan:'basic',done:new Set(),adHidden:false,view:'home'};
 function curLevel(){const o=S.orders;if(o<1)return LEVELS[0];for(let i=LEVELS.length-1;i>=1;i--){if(o>=LEVELS[i].from)return LEVELS[i]}return LEVELS[1]}
 function seedDone(){S.done=new Set();const L=curLevel();LEVELS.forEach(l=>{if(l.n<L.n)l.tasks.forEach(t=>S.done.add(t.id));if(l.n===L.n)l.tasks.slice(0,Math.floor(l.tasks.length/2)).forEach(t=>S.done.add(t.id))})}
 const planAt=id=>RANK[S.plan]>=RANK[id];
 const planName=id=>PLANS.find(p=>p.id===id).name;
-function totalPts(){let s=0;LEVELS.forEach(l=>l.tasks.forEach(t=>{if(S.done.has(t.id))s+=t.pts}));return s}
+const planPrice=id=>PLANS.find(p=>p.id===id).price;
+const allTasks=()=>LEVELS.flatMap(l=>l.tasks);
+function totalPts(){let s=0;allTasks().forEach(t=>{if(S.done.has(t.id))s+=t.pts});return s}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2800)}
+const goLink=(view,label)=>`<button class="go-link" data-go="${view}">${esc(label)}<svg><use href="#arrow"/></svg></button>`;
 
 /* ================= NAV ================= */
 const VIEWS=[
  ['home','الرئيسية','home',null,'تعلّم وابدأ'],['journey','رحلتي','map',null],
- ['content','صانع المحتوى','pen','basic','التسويق'],['social','السوشيال ميديا','heart','growth'],['mplan','الخطة التسويقية','plan','growth'],
+ ['content','صانع المحتوى','pen','basic','التسويق'],['social','السوشيال ميديا','heart',null],['mplan','الخطة التسويقية','plan','growth'],
  ['monitor','مراقبة المتجر','eye','growth','التحليل'],['smart','نبض الذكي','bulb','growth'],
- ['plans','الباقات','crown',null,'الحساب']
+ ['plans','الباقات','crown',null,'حسابك']
 ];
+const VNAME=Object.fromEntries(VIEWS.map(v=>[v[0],v[1]]));
 function nav(){
   $('#nav').innerHTML=VIEWS.map(([id,l,ic,req,grp])=>`${grp?`<div class="grp">${grp}</div>`:''}<button data-go="${id}" ${S.view===id?'aria-current="page"':''}><svg><use href="#${ic}"/></svg>${l}${req&&!planAt(req)?'<svg class="lock"><use href="#lock"/></svg>':''}</button>`).join('');
   $('#mnav').innerHTML=VIEWS.map(([id,l])=>`<button data-go="${id}" ${S.view===id?'aria-current="page"':''}>${l}</button>`).join('');
@@ -393,21 +463,21 @@ function render(id){({home:rHome,journey:rJourney,content:rContent,social:rSocia
 
 function adHTML(){
   const a=ADS[S.plan];if(!a||S.adHidden)return '';
-  return `<aside class="ad" aria-label="إعلان باقة"><button class="x" data-hidead aria-label="إخفاء الإعلان"><svg><use href="#x"/></svg></button><div class="ic"><svg><use href="#crown"/></svg></div><div class="tx"><span class="tag">${a.tag}</span><b>${a.title}</b><span style="font-size:.85rem;opacity:.9">${a.sub}</span></div><button class="btn" data-upgrade="${a.to}">اعرف أكثر</button></aside>`;
+  return `<aside class="ad" aria-label="إعلان باقة"><button class="x" data-hidead aria-label="سكّر الإعلان"><svg><use href="#x"/></svg></button><div class="ic"><svg><use href="#crown"/></svg></div><div class="tx"><span class="tag">${a.tag}</span><b>${a.title}</b><span style="font-size:.85rem;opacity:.9">${a.sub}</span></div><button class="btn" data-upgrade="${a.to}">اعرف أكثر</button></aside>`;
 }
 function lockHTML(req,inner,title,desc){
-  return `<div class="lockwrap"><div class="blur" aria-hidden="true">${inner}</div><div class="lockbox"><div class="lockcard"><div class="lk"><svg><use href="#lock"/></svg></div><h3>${title}</h3><p class="muted" style="font-size:.9rem">${desc}</p><span class="chip c-market">متاحة في باقة ${planName(req)}</span><button class="btn primary" data-upgrade="${req}">ترقية إلى ${planName(req)}</button></div></div></div>`;
+  return `<div class="lockwrap"><div class="blur" aria-hidden="true">${inner}</div><div class="lockbox"><div class="lockcard"><div class="lk"><svg><use href="#lock"/></svg></div><h3>${title}</h3><p class="muted" style="font-size:.9rem">${desc}</p><span class="chip c-market">موجودة في باقة ${planName(req)} (${planPrice(req)} ريال)</span><button class="btn primary" data-upgrade="${req}">رقّ لباقة ${planName(req)}</button></div></div></div>`;
 }
 
 /* ================= HOME ================= */
 function rHome(){
   const L=curLevel();const next=L.n<7?LEVELS[L.n]:null;
   const done=L.tasks.filter(t=>S.done.has(t.id)).length,tot=L.tasks.length;
-  const span=L.to-L.from, prog=L.n===1?0:Math.min(1,(S.orders-L.from)/span);
+  const prog=L.n===1?0:Math.min(1,(S.orders-L.from)/(L.to-L.from));
   const nextTask=L.tasks.find(t=>!S.done.has(t.id));
   const C=2*Math.PI*46, off=C*(1-done/tot);
   $('#v-home').innerHTML=`
-   <div class="row between"><div><h1>هلا أبو فهد 👋</h1><p class="muted">أنت في المرحلة ${L.n} من 7. كل مرحلة فيها مهام بسيطة، كمّلها وتنتقل للي بعدها.</p></div></div>
+   <div><h1>هلا والله أبو فهد 👋</h1><p class="muted">أنت في المرحلة ${L.n} من 7. كل مرحلة فيها مهام بسيطة، خلّصها وتنتقل للي بعدها.</p></div>
    ${adHTML()}
    <div class="grid2">
     <div class="card level">
@@ -415,30 +485,30 @@ function rHome(){
       <div style="display:grid;gap:8px;width:100%">
         <span class="chip c-ops" style="justify-self:start">المرحلة ${L.n}</span>
         <h2>${L.name}</h2><p class="muted">${L.goal}</p>
-        ${L.n>1?`<div><div class="row between faint"><span>طلباتك: <b class="num" style="color:var(--ink)">${S.orders}</b></span><span>الهدف: ${L.to} طلب</span></div><div class="bar"><i style="width:${Math.round(prog*100)}%"></i></div></div>`:`<p class="faint">المرحلة تكتمل مع أول طلب يوصلك.</p>`}
+        ${L.n>1?`<div><div class="row between faint"><span>طلباتك: <b class="num" style="color:var(--ink)">${S.orders}</b></span><span>الهدف: ${L.to} طلب</span></div><div class="bar"><i style="width:${Math.round(prog*100)}%"></i></div></div>`:`<p class="faint">المرحلة تخلص مع أول طلب يوصلك.</p>`}
       </div>
     </div>
     <div class="card" style="display:grid;gap:10px">
       <div class="grid3" style="grid-template-columns:1fr 1fr">
         <div class="stat"><span>نقاطك</span><b class="num" style="color:var(--gold)">${totalPts()}</b></div>
-        <div class="stat"><span>مهام خلصتها</span><b class="num">${S.done.size}</b></div>
+        <div class="stat"><span>مهام خلّصتها</span><b class="num">${S.done.size}</b></div>
       </div>
-      <p class="faint">النقاط تبيّن تقدمك في التعلم. الانتقال للمرحلة التالية يكون بعدد الطلبات الحقيقي من سلة، مع إكمال المهام الأساسية.</p>
+      <p class="faint">النقاط توريك وين وصلت في التعلّم. والانتقال للمرحلة الجاية يكون بعدد طلباتك الحقيقي من سلة، مع إنك تخلّص المهام الأساسية.</p>
       ${next?`<p style="font-size:.9rem">المرحلة الجاية: <b>${next.name}</b></p>`:''}
     </div>
    </div>
    ${nextTask?`<div class="card next" style="display:grid;gap:10px">
-     <div class="row between"><span class="chip c-ops">مهمتك التالية</span><span class="pts">+${nextTask.pts} نقطة</span></div>
+     <div class="row between"><span class="chip c-ops">مهمتك الجاية</span><span class="pts">+${nextTask.pts} نقطة</span></div>
      <h2>${esc(nextTask.t)}</h2>
      <p class="muted"><b style="color:var(--ink)">ليش مهمة؟</b> ${esc(nextTask.why)}</p>
-     <div class="row"><button class="btn primary" data-task="${nextTask.id}">ابدأ المهمة</button>${nextTask.guide?`<span class="faint">فيها دليل سلة خطوة بخطوة</span>`:''}</div>
-   </div>`:`<div class="card next"><h2>أحسنت! خلّصت كل مهام هذه المرحلة</h2><p class="muted">تنتقل للمرحلة التالية لما يوصل عدد طلباتك للهدف.</p></div>`}
+     <div class="row"><button class="btn primary" data-task="${nextTask.id}">يلا نبدأ</button>${nextTask.guide?`<span class="faint">فيها دليل سلة خطوة بخطوة</span>`:''}</div>
+   </div>`:`<div class="card next"><h2>يعطيك العافية! خلّصت كل مهام هالمرحلة</h2><p class="muted">تنتقل للمرحلة الجاية أول ما توصل طلباتك للهدف.</p></div>`}
    <div class="card"><div class="row between" style="margin-bottom:8px"><h2>باقي مهام المرحلة</h2><button class="btn ghost sm" data-go="journey">شوف الرحلة كاملة</button></div>${L.tasks.map(taskRow).join('')}</div>`;
 }
 function taskRow(t){
   const d=S.done.has(t.id);const locked=t.premium&&!planAt(t.premium);
-  return `<div class="task ${d?'done':''}"><button class="tick" data-toggle="${t.id}" aria-label="${d?'إلغاء الإكمال':'تم'}"><svg><use href="#check"/></svg></button>
-   <div style="display:grid;gap:3px"><button class="tt" data-task="${t.id}">${esc(t.t)}</button><div class="row" style="gap:6px"><span class="chip ${CAT[t.cat][1]}">${CAT[t.cat][0]}</span>${t.guide?`<span class="chip">دليل سلة</span>`:''}${t.auto?`<span class="chip" title="نبض يتحقق منها تلقائيًا من سلة"><svg><use href="#auto"/></svg>تتحقق تلقائيًا</span>`:''}${locked?`<span class="chip c-market"><svg><use href="#lock"/></svg>${planName(t.premium)}</span>`:''}</div></div>
+  return `<div class="task ${d?'done':''}"><button class="tick" data-toggle="${t.id}" aria-label="${d?'رجّعها ما خلصت':'خلصت'}"><svg><use href="#check"/></svg></button>
+   <div style="display:grid;gap:3px"><button class="tt" data-task="${t.id}">${esc(t.t)}</button><div class="row" style="gap:6px"><span class="chip ${CAT[t.cat][1]}">${CAT[t.cat][0]}</span>${t.guide?`<span class="chip">دليل سلة</span>`:''}${t.auto?`<span class="chip" title="نبض يتأكد منها من سلة لحاله"><svg><use href="#auto"/></svg>نبض يتأكد منها</span>`:''}${locked?`<span class="chip c-market"><svg><use href="#lock"/></svg>${planName(t.premium)}</span>`:''}</div></div>
    <span class="pts">+${t.pts}</span></div>`;
 }
 
@@ -446,41 +516,48 @@ function taskRow(t){
 let openStage=null;
 function rJourney(){
   const L=curLevel();if(openStage===null)openStage=L.n;
-  $('#v-journey').innerHTML=`<div><h1>رحلتي</h1><p class="muted">7 مراحل من متجر جديد إلى متجر محترف. كل مرحلة لها هدف بعدد الطلبات، ومهام مع شرح.</p></div>
+  $('#v-journey').innerHTML=`<div><h1>رحلتي</h1><p class="muted">7 مراحل من متجر جديد لين متجر محترف. كل مرحلة لها هدف بعدد الطلبات، ومهام وكل مهمة معها شرح.</p></div>
   <div class="stages">${LEVELS.map(l=>{
     const st=l.n<L.n?'done':l.n===L.n?'cur':'locked';const d=l.tasks.filter(t=>S.done.has(t.id)).length;
     const freeLock=S.plan==='free'&&l.n>2;
     return `<div class="stage ${st}"><button class="stage-h" data-stage="${l.n}" aria-expanded="${openStage===l.n}"><span class="st-n">${st==='done'?'<svg><use href="#check"/></svg>':l.n}</span><span><b>${l.name}</b><div class="faint">${l.goal}</div></span><span class="faint num">${d}/${l.tasks.length}${freeLock?' · <svg style="width:14px;height:14px;vertical-align:-2px"><use href="#lock"/></svg>':''}</span></button>
-    ${openStage===l.n?`<div class="stage-b">${freeLock?`<div class="warnbox" style="margin-top:8px">المراحل من 3 إلى 7 متاحة من الباقة الأساسية. <button class="btn ghost sm" data-upgrade="basic">ترقية</button></div>`:l.tasks.map(taskRow).join('')}</div>`:''}</div>`}).join('')}</div>`;
+    ${openStage===l.n?`<div class="stage-b">${freeLock?`<div class="warnbox" style="margin-top:8px">المراحل من 3 لين 7 تفتح لك من الباقة الأساسية (59 ريال). <button class="btn ghost sm" data-upgrade="basic">رقّ باقتك</button></div>`:l.tasks.map(taskRow).join('')}</div>`:''}</div>`}).join('')}</div>`;
 }
 
-/* ================= TASK DRAWER ================= */
-let gi=0;
+/* ================= TASK DRAWER + SALLA LINK ================= */
+let gi=0,curTask=null;
 function taskDrawer(id){
-  const t=LEVELS.flatMap(l=>l.tasks).find(x=>x.id===id);if(!t)return;gi=0;
+  const t=allTasks().find(x=>x.id===id);if(!t)return;
+  if(curTask!==id)gi=0;curTask=id;
   const L=LEVELS.find(l=>l.tasks.includes(t));
   const locked=t.premium&&!planAt(t.premium);
+  const g=t.guide?GUIDES[t.guide]:null;
   $('#overlay').innerHTML=`<div class="scrim" data-close><aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="dt">
-   <div class="dr-h"><div class="row between"><span class="faint">المرحلة ${L.n}: ${L.name}</span><button class="btn sm" data-close>إغلاق</button></div>
+   <div class="dr-h"><div class="row between"><span class="faint">المرحلة ${L.n}: ${L.name}</span><button class="btn sm" data-close>سكّر</button></div>
      <h2 id="dt">${esc(t.t)}</h2><div class="row" style="gap:6px"><span class="chip ${CAT[t.cat][1]}">${CAT[t.cat][0]}</span><span class="pts">+${t.pts} نقطة</span></div></div>
    <div class="dr-b">
-     <div class="card"><h3 style="margin-bottom:4px">ليش هذي المهمة مهمة؟</h3><p class="muted">${esc(t.why)}</p></div>
-     ${locked?`<div class="card" style="display:grid;gap:8px;justify-items:start"><span class="chip c-market"><svg><use href="#lock"/></svg>تحتاج باقة ${planName(t.premium)}</span><p class="muted">هذي المهمة تستخدم ميزة من باقة ${planName(t.premium)}. تقدر تقرأ الشرح وتسويها بنفسك، أو ترقّي عشان نبض يجهزها لك.</p><button class="btn primary sm" data-upgrade="${t.premium}">ترقية</button></div>`:''}
+     <div class="card"><h3 style="margin-bottom:4px">ليش هالمهمة مهمة؟</h3><p class="muted">${esc(t.why)}</p></div>
+     ${locked?`<div class="card" style="display:grid;gap:8px;justify-items:start"><span class="chip c-market"><svg><use href="#lock"/></svg>تحتاج باقة ${planName(t.premium)}</span><p class="muted">هالمهمة تستخدم ميزة من باقة ${planName(t.premium)}. تقدر تقرأ الشرح وتسويها بنفسك، أو ترقّي باقتك ونبض يجهزها لك.</p><button class="btn primary sm" data-upgrade="${t.premium}">رقّ باقتك</button></div>`:''}
      <div class="card"><h3 style="margin-bottom:8px">كيف تسويها؟</h3><ol class="steps">${t.how.map(h=>`<li><span>${esc(h)}</span></li>`).join('')}</ol></div>
-     ${t.guide?guideHTML(t.guide):''}
-     <div class="row"><button class="btn primary" data-complete="${t.id}" ${S.done.has(t.id)?'disabled':''}>${S.done.has(t.id)?'مكتملة ✓':'سويتها ✓'}</button>${t.auto?`<span class="faint">أو انتظر، نبض يتحقق منها تلقائيًا من سلة</span>`:''}</div>
+     ${g?guideHTML(t.guide):''}
+     ${S.done.has(t.id)?`<div class="verify"><svg><use href="#check"/></svg><span>المهمة خالصة. يعطيك العافية!</span></div>`:
+       `<div class="row">${t.auto?`<button class="btn primary" data-verify="${t.id}"><svg style="width:16px;height:16px;vertical-align:-3px"><use href="#shield"/></svg> خلصت؟ خلّ نبض يتأكد من سلة</button>`:`<button class="btn primary" data-complete="${t.id}">سوّيتها ✓</button>`}</div>`}
    </div></aside></div>`;
 }
 function guideHTML(key){
   const g=GUIDES[key];const allowed=planAt('basic')||FREE_GUIDES.includes(key);
-  if(!allowed)return lockHTML('basic',`<div class="guide"><div class="guide-h"><b>${g.title}</b></div><div class="gstep"><div>خطوات مصورة داخل لوحة سلة</div>${mock(g.steps[0])}</div></div>`,'دليل سلة خطوة بخطوة','نوريك وين تضغط بالضبط في لوحة سلة، خطوة بخطوة.');
+  if(!allowed)return lockHTML('basic',`<div class="guide"><div class="guide-h"><b>${g.title}</b></div><div class="gstep"><div>خطوات مصوّرة داخل لوحة سلة</div>${mock(g.steps[0])}</div></div>`,'دليل سلة خطوة بخطوة','نوريك وين تضغط بالضبط في لوحة سلة، خطوة خطوة.');
   const st=g.steps[gi];
   return `<div class="guide" id="guide" data-g="${key}"><div class="guide-h"><b>دليل سلة: ${g.title}</b><span class="faint num">الخطوة ${gi+1} من ${g.steps.length}</span></div>
    <div class="gstep"><p style="font-weight:600">${esc(st.t)}</p>${mock(st)}</div>
-   <div class="gnav"><button class="btn sm" data-gprev ${gi===0?'disabled':''}>السابق</button><div class="dots">${g.steps.map((_,i)=>`<i class="${i===gi?'on':''}"></i>`).join('')}</div><button class="btn sm primary" data-gnext ${gi===g.steps.length-1?'disabled':''}>التالي</button></div>
-   <div class="gnav" style="flex-wrap:wrap;gap:8px"><button class="btn sm" data-fake="في النسخة الحقيقية يفتح لك الصفحة المطلوبة في لوحة سلة"><svg style="width:15px;height:15px;vertical-align:-2px"><use href="#ext"/></svg> افتح الصفحة في سلة</button>
-   ${g.auto?(planAt('growth')?`<button class="btn sm primary" data-doit="${key}"><svg style="width:15px;height:15px;vertical-align:-2px"><use href="#spark"/></svg> سوّها لي تلقائيًا</button>`:`<button class="btn sm" data-upgrade="growth"><svg style="width:15px;height:15px;vertical-align:-2px"><use href="#lock"/></svg> سوّها لي تلقائيًا (باقة النمو)</button>`):''}</div>
-   <p class="faint" style="padding:0 14px 12px">أسماء القوائم هنا للتوضيح، وتُطابق مع لوحة سلة الحالية في النسخة الحقيقية.</p></div>`;
+   <div class="gnav"><button class="btn sm" data-gprev ${gi===0?'disabled':''}>اللي قبل</button><div class="dots">${g.steps.map((_,i)=>`<i class="${i===gi?'on':''}"></i>`).join('')}</div><button class="btn sm primary" data-gnext ${gi===g.steps.length-1?'disabled':''}>اللي بعده</button></div>
+   <div class="salla-bar">
+     <a class="btn sm primary" href="${SALLA}" target="_blank" rel="noopener noreferrer"><svg><use href="#ext"/></svg>افتح لوحة سلة</a>
+     <span class="path">روح لـ: ${g.path}</span>
+     <a class="btn sm" href="${SALLA_HELP}" target="_blank" rel="noopener noreferrer"><svg><use href="#ext"/></svg>مركز مساعدة سلة</a>
+     ${g.auto?(planAt('growth')?`<button class="btn sm" data-doit="${key}"><svg style="width:15px;height:15px;vertical-align:-2px"><use href="#spark"/></svg> سوّها لي بدالي</button>`:`<button class="btn sm" data-upgrade="growth"><svg style="width:15px;height:15px;vertical-align:-2px"><use href="#lock"/></svg> سوّها لي بدالي (باقة النمو)</button>`):''}
+   </div>
+   <p class="faint" style="padding:8px 14px 12px">بعد ما تخلص، ${g.check}. أسماء القوائم هنا للتوضيح، وتتطابق مع لوحة سلة الحالية في النسخة الحقيقية.</p></div>`;
 }
 function mock(st){
   const items=SIDE_ITEMS.filter((x,i)=>i<5||x===st.side).slice(0,7);
@@ -489,81 +566,111 @@ function mock(st){
 
 /* ================= CONTENT ================= */
 function rContent(){
-  const days=['السبت','الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
-  const quota={free:0,basic:20,growth:60,pro:'غير محدود'}[S.plan];
+  const days=['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
+  const quota={free:0,basic:20,growth:60,pro:'بلا حد'}[S.plan];
   const inner=`<div class="cal">${days.map((d,i)=>`<div class="day ${i===4?'today':''}"><span class="d">${d}</span><span class="idea">${IDEAS[i]}</span><span class="chip ${i%2?'c-social':'c-content'}">${i%2?'ستوري':'ريلز'}</span><button class="btn sm" data-caption="${i%3}">اكتب لي المنشور</button></div>`).join('')}</div>`;
-  $('#v-content').innerHTML=`<div class="row between"><div><h1>صانع المحتوى</h1><p class="muted">أفكار منشورات أسبوعية مبنية على منتجاتك والمواسم، ونص جاهز للنشر.</p></div>${planAt('basic')?`<span class="chip c-content">رصيدك هذا الشهر: ${quota===0?0:quota==='غير محدود'?quota:`${quota-7} من ${quota}`} منشور</span>`:''}</div>
+  $('#v-content').innerHTML=`<div class="row between"><div><h1>صانع المحتوى</h1><p class="muted">أفكار منشورات كل أسبوع حسب منتجاتك والمواسم، ونص جاهز تنسخه وتنشره.</p></div>${planAt('basic')?`<span class="chip c-content">رصيدك هالشهر: ${quota==='بلا حد'?quota:`${quota-7} من ${quota}`} منشور</span>`:''}</div>
   ${planAt('basic')?`${inner}<div class="card" id="cap-out"><p class="faint">اضغط «اكتب لي المنشور» على أي يوم.</p></div>
-   <div class="card"><h3>المواسم القادمة</h3><div class="row" style="margin-top:8px"><span class="chip c-market">يوم الراتب · 27 أكتوبر</span><span class="chip c-market">الجمعة البيضاء · نوفمبر</span><span class="chip c-market">اليوم الوطني · 23 سبتمبر (انتهى)</span></div></div>`
+   <div class="card"><div class="row between"><h3>المواسم الجاية</h3>${goLink('mplan','شوف الخطة التسويقية')}</div><div class="row" style="margin-top:8px"><span class="chip c-market">يوم الراتب · 27 أكتوبر</span><span class="chip c-market">الجمعة البيضاء · نوفمبر</span></div></div>`
   :lockHTML('basic',inner,'صانع المحتوى','أفكار ومنشورات جاهزة كل أسبوع، بلهجة قريبة من عميلك.')}`;
 }
 
-/* ================= SOCIAL ================= */
+/* ================= SOCIAL (deep analysis) ================= */
+const HEAT={days:['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'],slots:['الصبح','الظهر','العصر','الليل'],
+ v:[[12,20,34,71],[10,18,30,64],[9,15,28,58],[11,17,31,62],[14,22,38,80],[18,26,44,92],[22,30,40,76]]};
+function heatColor(v){const t=v/92;return `color-mix(in srgb, var(--accent) ${Math.round(12+t*88)}%, var(--surface-2))`}
 function rSocial(){
-  const inner=`<div class="grid2"><div class="card" style="display:grid;gap:12px">
-     <div class="acct"><div class="lg" style="background:#C13584">IG</div><div style="flex:1"><b>إنستقرام · @oud.store</b><div class="faint">مربوط</div></div><span class="chip c-ops">نشط</span></div>
-     <div class="grid3"><div class="stat"><span>المتابعون</span><b class="num">1,240</b><span class="up" style="color:var(--good);font-size:.78rem">+38 هذا الأسبوع</span></div><div class="stat"><span>متوسط الوصول</span><b class="num">860</b></div><div class="stat"><span>زيارات للمتجر</span><b class="num">132</b></div></div>
-     <div class="meter"><div class="row between"><span>نشاطك هذا الأسبوع</span><b class="num">2 من 4 منشورات</b></div><div class="bar"><i style="width:50%"></i></div><p class="faint">باقي لك منشوران عشان توصل هدف الأسبوع.</p></div>
-     <div class="warnbox">أفضل وقت للنشر عند متابعينك: من 9 إلى 11 مساءً. آخر منشورين نزلوا الساعة 2 الظهر.</div>
-   </div>
-   <div class="card" style="display:grid;gap:12px">
-     <div class="acct"><div class="lg" style="background:#111">TT</div><div style="flex:1"><b>تيك توك</b><div class="faint">غير مربوط</div></div><button class="btn sm primary" data-fake="في النسخة الحقيقية يفتح ربط حساب تيك توك للأعمال">اربط</button></div>
-     <div class="acct"><div class="lg" style="background:#E5C300;color:#111">SC</div><div style="flex:1"><b>سناب شات</b><div class="faint">قريبًا</div></div></div>
-     <h3>أفضل منشور هذا الأسبوع</h3><div class="stat"><b style="font-size:1rem">ريلز: تغليف طلب</b><span>2,300 مشاهدة · 41 زيارة للمتجر · 3 طلبات</span></div>
-   </div></div>`;
-  $('#v-social').innerHTML=`<div><h1>السوشيال ميديا</h1><p class="muted">نراقب نشاطك وتفاعل حساباتك، ونربطها بالزيارات والطلبات في متجرك.</p></div>
-  ${planAt('growth')?inner:lockHTML('growth',inner,'مراقبة السوشيال ميديا ونشاطك','تعرف أي منشور جاب زيارات وطلبات، ومتى أفضل وقت تنشر فيه.')}`;
+  const full=planAt('growth');
+  const score=`<div class="card score">
+     <div class="ring"><svg viewBox="0 0 108 108"><circle cx="54" cy="54" r="46" fill="none" stroke="var(--surface-2)" stroke-width="10"/><circle cx="54" cy="54" r="46" fill="none" stroke="var(--gold-fill)" stroke-width="10" stroke-linecap="round" stroke-dasharray="${2*Math.PI*46}" stroke-dashoffset="${2*Math.PI*46*(1-.62)}"/></svg><div class="in"><div><b class="num">62</b><div class="faint">من 100</div></div></div></div>
+     <div style="display:grid;gap:10px"><div><h2>صحة حسابك في إنستقرام: متوسطة</h2><p class="muted">حسابك يجيب زيارات، بس النشر متقطّع والبروفايل ناقص. لو ضبطت هالنقطتين تقدر توصل فوق 75.</p></div>
+     <div class="factors">
+       <div class="factor"><span>الانتظام</span><div class="bar"><i style="width:50%;background:var(--gold-fill)"></i></div><b>2 من 4</b></div>
+       <div class="factor"><span>التفاعل</span><div class="bar"><i style="width:72%"></i></div><b>3.1%</b></div>
+       <div class="factor"><span>البروفايل</span><div class="bar"><i style="width:60%;background:var(--gold-fill)"></i></div><b>3 من 5</b></div>
+       <div class="factor"><span>يجيب طلبات؟</span><div class="bar"><i style="width:45%;background:var(--gold-fill)"></i></div><b>3%</b></div>
+     </div></div></div>`;
+  const quick=`<div class="card" style="display:grid;gap:8px"><h2>أهم نصيحتين لك الحين</h2>
+     <div class="check"><span class="ok" style="background:var(--gold-soft);color:var(--gold)"><svg><use href="#alert"/></svg></span><div><b>انشر 4 مرات في الأسبوع بدل 2.</b> الحسابات اللي تنشر بانتظام توصل لناس أكثر. ${goLink('content','خذ أفكار من صانع المحتوى')}</div></div>
+     <div class="check"><span class="ok" style="background:var(--gold-soft);color:var(--gold)"><svg><use href="#alert"/></svg></span><div><b>انشر الساعة 9 بالليل مو 2 الظهر.</b> متابعينك متواجدين بالليل أكثر.</div></div></div>`;
+  const heat=`<div class="card"><div class="row between" style="margin-bottom:10px"><h2>متى متابعينك متواجدين؟</h2><div class="legend">أقل<i style="background:${heatColor(10)}"></i><i style="background:${heatColor(45)}"></i><i style="background:${heatColor(92)}"></i>أكثر</div></div>
+     <div class="heat" role="table" aria-label="تفاعل المتابعين حسب اليوم والوقت"><span></span>${HEAT.slots.map(s=>`<span class="hd">${s}</span>`).join('')}
+     ${HEAT.days.map((d,i)=>`<span class="dl">${d}</span>${HEAT.v[i].map((v,j)=>`<span class="c num" style="background:${heatColor(v)};color:${v>55?'#0F172A':'var(--ink-2)'}" title="${d} ${HEAT.slots[j]}: تفاعل ${v}">${v}</span>`).join('')}`).join('')}</div>
+     <p class="faint" style="margin-top:8px">أفضل وقت: الخميس والجمعة بالليل. آخر منشورين نزلوا الساعة 2 الظهر، وهذا من أضعف الأوقات عندك.</p></div>`;
+  const mix=`<div class="card"><h2 style="margin-bottom:6px">وش نوع المحتوى اللي يمشي عندك؟</h2>
+     ${[['ريلز',1900,'متوسط الوصول'],['صور',520,'متوسط الوصول'],['ستوري',310,'متوسط المشاهدة']].map(m=>`<div class="mix" title="${m[0]}: ${m[1]}"><span>${m[0]}</span><div class="track"><div class="fill" style="width:${m[1]/1900*100}%"></div></div><b>${m[1].toLocaleString('en-US')}</b></div>`).join('')}
+     <p class="muted" style="margin-top:6px;font-size:.9rem">الريلز يوصل لـ 3 أضعاف الصور تقريبًا. خلّ نص منشوراتك ريلز على الأقل. ${goLink('content','أفكار ريلز جاهزة')}</p></div>`;
+  const profile=`<div class="card"><h2 style="margin-bottom:6px">البروفايل</h2>
+     ${[[1,'اسم الحساب نفس اسم المتجر'],[1,'صورة الحساب هي الشعار'],[1,'رابط المتجر في البايو'],[0,'البايو ما يقول وش تبيع بوضوح'],[0,'ما فيه هايلايت للتقييمات والأسئلة']].map(c=>`<div class="check"><span class="ok" style="background:var(--${c[0]?'good':'bad'}-soft);color:var(--${c[0]?'good':'bad'})"><svg><use href="#${c[0]?'check':'x'}"/></svg></span><span>${c[1]}</span></div>`).join('')}
+     <div class="caption" style="margin-top:8px">بايو مقترح:\nعطور ودهن عود أصلي 🤍\nتوصيل لكل مدن المملكة 🚚\nاطلب من الرابط 👇</div></div>`;
+  const posts=`<div class="card"><h2 style="margin-bottom:6px">أفضل وأضعف منشور هالأسبوع</h2>
+     <div class="post"><span class="th"></span><div><b>ريلز: تغليف طلب</b><div class="faint">2,300 مشاهدة · 41 زيارة للمتجر · 3 طلبات</div></div><span class="chip c-ops">الأفضل</span></div>
+     <div class="post"><span class="th" style="filter:grayscale(.6)"></span><div><b>صورة: عرض المنتج على خلفية بيضاء</b><div class="faint">340 وصول · زيارتين · ولا طلب</div></div><span class="chip">الأضعف</span></div>
+     <p class="muted" style="font-size:.9rem;margin-top:6px">الناس تتفاعل مع المحتوى الحقيقي (التغليف والتجربة) أكثر من صور المنتج الجامدة.</p></div>`;
+  const convert=`<div class="card"><h2 style="margin-bottom:6px">من السوشيال للمتجر</h2>
+     <div class="grid3"><div class="stat"><span>زيارات من إنستقرام</span><b class="num">132</b></div><div class="stat"><span>طلبات منها</span><b class="num">4</b></div><div class="stat"><span>نسبة الشراء</span><b class="num">3%</b></div></div>
+     <p class="muted" style="font-size:.9rem;margin-top:8px">الزيارات زينة بس الشراء قليل. غالبًا الناس تدخل صفحة «مسك الطهارة» وتطلع. ${S.orders>=100?goLink('smart','شوف التحليل في نبض الذكي'):goLink('journey','حسّن صفحات منتجاتك (مهمة في رحلتي)')}</p></div>`;
+  const plan=`<div class="card"><div class="row between" style="margin-bottom:6px"><h2>خطة تنشيط حسابك هالأسبوع</h2><span class="chip c-market">5 خطوات</span></div>
+     ${[['نزّل 3 ريلز: تغليف، تجربة عميل، ورا الكواليس','content','صانع المحتوى'],['انشر الخميس والجمعة الساعة 9 بالليل',null,null],['عدّل البايو وأضف هايلايت للتقييمات',null,null],['جهّز حملة يوم الراتب (27 أكتوبر)','mplan','الخطة التسويقية'],['حط كود خاص للمتابعين عشان تقيس الطلبات','journey','مهمة الكوبون في رحلتي']].map((a,i)=>`<div class="act"><span class="n">${i+1}</span><span>${a[0]}</span>${a[1]?goLink(a[1],a[2]):'<span></span>'}</div>`).join('')}</div>`;
+  const acct=`<div class="card" style="display:grid;gap:10px">
+     <div class="acct"><div class="lg" style="background:#C13584">IG</div><div style="flex:1"><b>إنستقرام · @oud.store</b><div class="faint">مربوط · 1,240 متابع (+38 هالأسبوع)</div></div><span class="chip c-ops">شغّال</span></div>
+     <div class="acct"><div class="lg" style="background:#111">TT</div><div style="flex:1"><b>تيك توك</b><div class="faint">مو مربوط</div></div><button class="btn sm primary" data-fake="في النسخة الحقيقية يفتح لك ربط حساب تيك توك للأعمال">اربط</button></div>
+     <div class="acct"><div class="lg" style="background:#E5C300;color:#111">SC</div><div style="flex:1"><b>سناب شات</b><div class="faint">قريب</div></div></div></div>`;
+  const fullHTML=`${score}<div class="grid2">${heat}${mix}</div><div class="grid2">${posts}${profile}</div>${convert}${plan}`;
+  $('#v-social').innerHTML=`<div><h1>السوشيال ميديا</h1><p class="muted">نحلل حسابك ونربطه بالزيارات والطلبات في متجرك، ونعطيك خطة واضحة تنشّط فيها حسابك.</p></div>
+   ${acct}
+   ${full?fullHTML:`${score}${quick}<div class="simple-note"><b>هذا تحليل مختصر.</b><span>التحليل الكامل فيه: أفضل أوقات النشر لمتابعينك، ووش نوع المحتوى اللي يجيب طلبات، وأفضل وأضعف منشور، وخطة تنشيط كل أسبوع.</span></div>${lockHTML('growth',`<div class="grid2">${heat}${mix}</div>${plan}`,'التحليل الكامل وخطة التنشيط','تعرف أي منشور جاب زيارات وطلبات، ومتى أفضل وقت تنشر، ووش تسوي هالأسبوع بالضبط.')}`}`;
 }
 
 /* ================= MARKETING PLAN ================= */
 function rMplan(){
   const weeks=[
-   ['الأسبوع 1','تعريف بمنتجاتك الأكثر طلبًا','3 ريلز + 5 ستوري · بدون ميزانية إعلانية'],
-   ['الأسبوع 2','حملة يوم الراتب (27 أكتوبر)','كوبون 10% لمدة 3 أيام · إعلان سناب بميزانية 300 ريال'],
-   ['الأسبوع 3','تجارب العملاء وبناء الثقة','انشر 3 تقييمات حقيقية · تعاون مع مؤثر صغير'],
-   ['الأسبوع 4','الاستعداد للجمعة البيضاء','قائمة المنتجات المشاركة · تجهيز المحتوى مسبقًا']];
-  const wk=(w,i)=>`<div class="card" style="display:grid;gap:6px"><div class="row between"><span class="chip c-market">${w[0]}</span>${i===0?'<span class="chip c-ops">هذا الأسبوع</span>':''}</div><h3>${w[1]}</h3><p class="muted" style="font-size:.9rem">${w[2]}</p></div>`;
-  const inner=`<div class="grid3" style="grid-template-columns:1fr 1fr">${weeks.map(wk).join('')}</div>`;
-  $('#v-mplan').innerHTML=`<div><h1>الخطة التسويقية · أكتوبر</h1><p class="muted">خطة شهرية كاملة مبنية على مرحلتك ومنتجاتك والمواسم: وش تنشر، ووش تعلن، وكم تصرف.</p></div>
-  <div class="card"><div class="row" style="gap:18px"><div class="stat"><span>هدف الشهر</span><b>الوصول لـ 20 طلبًا</b></div><div class="stat"><span>الميزانية المقترحة</span><b class="num">500 – 800 ريال</b></div><div class="stat"><span>المواسم</span><b>يوم الراتب</b></div></div></div>
-  ${planAt('growth')?inner:`${wk(weeks[0],0)}${lockHTML('growth',`<div class="grid3" style="grid-template-columns:1fr 1fr">${weeks.slice(1).map(wk).join('')}</div>`,'باقي الخطة في باقة النمو','أول أسبوع مجاني. الخطة الكاملة تتجدد كل شهر حسب نتائجك.')}`}`;
+   ['الأسبوع 1','عرّف بمنتجاتك الأكثر طلب','3 ريلز + 5 ستوري · بدون ميزانية إعلانات','content','أفكار المحتوى'],
+   ['الأسبوع 2','حملة يوم الراتب (27 أكتوبر)','كوبون 10% لمدة 3 أيام · إعلان سناب بميزانية 300 ريال','journey','سوّ الكوبون'],
+   ['الأسبوع 3','تجارب العملاء وبناء الثقة','انشر 3 تقييمات حقيقية · تعاون مع مؤثر صغير','social','شوف تحليل حسابك'],
+   ['الأسبوع 4','استعد للجمعة البيضاء','قائمة المنتجات المشاركة · جهّز المحتوى من بدري','monitor','راجع المخزون']];
+  const wk=(w,i)=>`<div class="card" style="display:grid;gap:6px"><div class="row between"><span class="chip c-market">${w[0]}</span>${i===0?'<span class="chip c-ops">هالأسبوع</span>':''}</div><h3>${w[1]}</h3><p class="muted" style="font-size:.9rem">${w[2]}</p><div>${goLink(w[3],w[4])}</div></div>`;
+  $('#v-mplan').innerHTML=`<div><h1>الخطة التسويقية · أكتوبر</h1><p class="muted">خطة شهر كامل حسب مرحلتك ومنتجاتك والمواسم: وش تنشر، ووش تعلن، وكم تصرف.</p></div>
+  <div class="card"><div class="row" style="gap:18px"><div class="stat"><span>هدف الشهر</span><b>توصل 20 طلب</b></div><div class="stat"><span>الميزانية المقترحة</span><b class="num">500 – 800 ريال</b></div><div class="stat"><span>المواسم</span><b>يوم الراتب</b></div></div></div>
+  ${planAt('growth')?`<div class="grid3" style="grid-template-columns:1fr 1fr">${weeks.map(wk).join('')}</div>`:`${wk(weeks[0],0)}${lockHTML('growth',`<div class="grid3" style="grid-template-columns:1fr 1fr">${weeks.slice(1).map(wk).join('')}</div>`,'باقي الخطة في باقة النمو','أول أسبوع ببلاش. الخطة الكاملة تتجدد كل شهر حسب نتايجك.')}`}`;
 }
 
 /* ================= MONITOR ================= */
 function rMonitor(){
   const items=[
-   ['اليوم','alert','bad','«دهن العود الملكي» باقي منه 3 حبات','المنتج الأكثر مبيعًا عندك. أعد الطلب من المورد.'],
-   ['أمس','tag','info','تغيّر سعر «عطر الورد» من 189 إلى 229 ريال','سنراقب أثر التغيير على مبيعاته خلال أسبوعين.'],
-   ['قبل 3 أيام','box','gold','أضفت منتجًا جديدًا بدون وصف وبصورة واحدة','المنتج بدون وصف يبيع أقل. أكمل بياناته.'],
-   ['قبل 5 أيام','eye','info','أخفيت تصنيف «البخور»','انتبه: هذا التصنيف جاب 12% من طلبات الشهر الماضي.']];
-  const inner=`<div class="card"><div class="tl">${items.map(x=>`<div class="tl-i"><span class="faint">${x[0]}</span><span class="ic" style="background:var(--${x[2]}-soft);color:var(--${x[2]})"><svg><use href="#${x[1]}"/></svg></span><div><b>${x[3]}</b><p class="muted" style="font-size:.88rem">${x[4]}</p></div></div>`).join('')}</div></div>`;
-  $('#v-monitor').innerHTML=`<div><h1>مراقبة المتجر</h1><p class="muted">نبض ينتبه لكل تغيير في متجرك (أسعار، مخزون، منتجات، تصنيفات) ويقولك إذا كان له أثر.</p></div>
-  ${planAt('growth')?inner:lockHTML('growth',inner,'مراقبة تغييراتك في المتجر','تنبيه لما يخلص منتج، أو يتغير سعر، أو يضاف منتج ناقص البيانات.')}`;
+   ['اليوم','alert','bad','«دهن العود الملكي» باقي منه 3 حبات','هذا أكثر منتج يبيع عندك. اطلب من المورد الحين.',null],
+   ['أمس','tag','info','سعر «عطر الورد» تغيّر من 189 لـ 229 ريال','بنراقب أثر التغيير على مبيعاته لمدة أسبوعين.',null],
+   ['قبل 3 أيام','box','gold','أضفت منتج جديد بدون وصف وبصورة وحدة','المنتج اللي ما له وصف يبيع أقل. كمّل بياناته.',['journey','دليل إضافة منتج']],
+   ['قبل 5 أيام','eye','info','أخفيت تصنيف «البخور»','انتبه: هالتصنيف جاب 12% من طلبات الشهر اللي راح.',null]];
+  const inner=`<div class="card"><div class="tl">${items.map(x=>`<div class="tl-i"><span class="faint">${x[0]}</span><span class="ic" style="background:var(--${x[2]}-soft);color:var(--${x[2]})"><svg><use href="#${x[1]}"/></svg></span><div><b>${x[3]}</b><p class="muted" style="font-size:.88rem">${x[4]}</p>${x[5]?`<div style="margin-top:4px">${goLink(x[5][0],x[5][1])}</div>`:''}</div></div>`).join('')}</div></div>`;
+  $('#v-monitor').innerHTML=`<div><h1>مراقبة المتجر</h1><p class="muted">نبض ينتبه لأي تغيير في متجرك (أسعار، مخزون، منتجات، تصنيفات) ويقولك إذا له أثر.</p></div>
+  ${planAt('growth')?inner:lockHTML('growth',inner,'مراقبة تغييراتك في المتجر','نعلمك لما يخلص منتج، أو يتغير سعر، أو ينضاف منتج بياناته ناقصة.')}`;
 }
 
 /* ================= SMART ================= */
 function rSmart(){
-  const opps=`<div class="card" style="display:grid;gap:8px"><span class="chip c-market" style="justify-self:start">أهم فرصة</span><h3>214 عميلًا اشتروا قبل 2–4 أشهر ولم يعودوا</h3><p class="muted">الأثر المحتمل: 800 – 2,500 ريال/شهر (تقدير). رسالة وكوبون مع مجموعة ضابطة للقياس.</p><button class="btn primary sm" style="justify-self:start" data-fake="في النسخة الكاملة تفتح التجربة هنا">ابدأ التجربة</button></div>
-   <div class="card" style="display:grid;gap:8px"><span class="chip c-store" style="justify-self:start">منتج</span><h3>«مسك الطهارة»: زيارات كثيرة وشراء قليل</h3><p class="muted">1,240 مشاهدة و7 طلبات فقط. صفحته أضعف من المنتجات المشابهة.</p></div>`;
+  const opps=`<div class="card" style="display:grid;gap:8px"><span class="chip c-market" style="justify-self:start">أهم فرصة</span><h3>عندك 214 عميل اشتروا من شهرين لأربعة وما رجعوا</h3><p class="muted">ممكن تكسب تقريبًا من 800 لين 2,500 ريال في الشهر (تقدير مو وعد). رسالة وكوبون، ونقيس النتيجة بمجموعة ما نرسل لها.</p><button class="btn primary sm" style="justify-self:start" data-fake="في النسخة الكاملة تبدأ التجربة من هنا">ابدأ التجربة</button></div>
+   <div class="card" style="display:grid;gap:8px"><span class="chip c-store" style="justify-self:start">منتج</span><h3>«مسك الطهارة»: ناس كثير يشوفونه وقليل يشترونه</h3><p class="muted">1,240 شخص فتحوا صفحته واشترى منهم 7 بس. صفحته أضعف من المنتجات اللي تشبهه.</p></div>`;
   let body;
-  if(S.orders<100){const p=Math.round(S.orders/100*100);
-    body=`<div class="card" style="display:grid;gap:10px"><div class="row" style="gap:10px"><span class="lk" style="width:42px;height:42px;border-radius:50%;background:var(--gold-soft);color:var(--gold);display:grid;place-items:center"><svg style="width:22px;height:22px"><use href="#lock"/></svg></span><div><h2>يفتح عند 100 طلب</h2><p class="muted">نبض الذكي يكتشف فرصًا خاصة بمتجرك من بياناته. تحت 100 طلب، البيانات ما تكفي لاستنتاج دقيق، فنركز الحين على الأساسيات في رحلتك.</p></div></div><div><div class="row between faint"><span>طلباتك: <b class="num" style="color:var(--ink)">${S.orders}</b></span><span>100</span></div><div class="bar"><i style="width:${p}%"></i></div></div><button class="btn primary" style="justify-self:start" data-go="journey">كمّل رحلتي</button></div>
-    <div class="faint">شكل الفرص لما تفتح:</div><div class="lockwrap"><div class="blur" aria-hidden="true">${opps}</div></div>`;
-  } else body=planAt('growth')?opps:lockHTML('growth',opps,'نبض الذكي','فرص مكتشفة من بيانات متجرك، وتجارب تقيس النتيجة.');
+  if(S.orders<100){const p=Math.round(S.orders);
+    body=`<div class="card" style="display:grid;gap:10px"><div class="row" style="gap:10px"><span style="width:42px;height:42px;border-radius:50%;background:var(--gold-soft);color:var(--gold);display:grid;place-items:center"><svg style="width:22px;height:22px"><use href="#lock"/></svg></span><div><h2>يفتح لك عند 100 طلب</h2><p class="muted">نبض الذكي يكتشف فرص خاصة بمتجرك من بياناته. تحت 100 طلب البيانات ما تكفي لاستنتاج دقيق، فخلّنا الحين نركز على الأساسيات في رحلتك.</p></div></div><div><div class="row between faint"><span>طلباتك: <b class="num" style="color:var(--ink)">${S.orders}</b></span><span>100</span></div><div class="bar"><i style="width:${p}%"></i></div></div><button class="btn primary" style="justify-self:start" data-go="journey">كمّل رحلتي</button></div>
+    <div class="faint">كذا بتطلع لك الفرص لما تفتح:</div><div class="lockwrap"><div class="blur" aria-hidden="true">${opps}</div></div>`;
+  } else body=planAt('growth')?opps:lockHTML('growth',opps,'نبض الذكي','فرص نكتشفها من بيانات متجرك، وتجارب تقيس النتيجة.');
   $('#v-smart').innerHTML=`<div><h1>نبض الذكي</h1><p class="muted">الفرص والتجارب المبنية على بيانات متجرك.</p></div>${body}`;
 }
 
 /* ================= PLANS ================= */
 function rPlans(){
   const rows=[
-   ['رحلة التاجر: المراحل والمهام والشرح',['المرحلتان 1 و2','كل المراحل','كل المراحل','كل المراحل']],
+   ['رحلة التاجر: المراحل والمهام والشرح',['المرحلة 1 و2','كل المراحل','كل المراحل','كل المراحل']],
    ['النقاط والشارات',[1,1,1,1]],
-   ['أدلة سلة خطوة بخطوة',['3 أدلة','كل الأدلة','كل الأدلة','كل الأدلة']],
-   ['«سوّها لي» تلقائيًا في سلة (كوبونات، عروض)',[0,0,1,1]],
-   ['صانع المحتوى',[0,'20 منشورًا/شهر','60 منشورًا/شهر','غير محدود']],
+   ['أدلة سلة خطوة بخطوة + التأكد من سلة',['3 أدلة','كل الأدلة','كل الأدلة','كل الأدلة']],
+   ['«سوّها لي» بدالك في سلة (كوبونات وعروض)',[0,0,1,1]],
+   ['مساعد نبض (اسأل نبض)',['إجابات مختصرة','إجابات مختصرة + أدلة','إجابات كاملة بأرقامك','كاملة + تحويل لخبير']],
+   ['صانع المحتوى',[0,'20 منشور بالشهر','60 منشور بالشهر','بلا حد']],
    ['تقويم المحتوى والمواسم',[0,1,1,1]],
-   ['الخطة التسويقية الشهرية الكاملة',['الأسبوع الأول فقط','الأسبوع الأول فقط',1,1]],
-   ['مراقبة السوشيال ميديا ونشاطك',[0,0,1,1]],
+   ['تحليل السوشيال ميديا',['تحليل مختصر','تحليل مختصر','تحليل كامل + خطة تنشيط','تحليل كامل + خطة تنشيط']],
+   ['الخطة التسويقية الشهرية',['أول أسبوع','أول أسبوع',1,1]],
    ['مراقبة تغييرات المتجر',[0,0,1,1]],
    ['نبض الذكي: الفرص والتجارب (من 100 طلب)',[0,0,1,1]],
    ['التقرير الأسبوعي',[0,1,1,1]],
@@ -572,38 +679,104 @@ function rPlans(){
    ['أعضاء الفريق',['1','1','3','10']]
   ];
   const cell=(v,i)=>`<td class="${PLANS[i].id===S.plan?'cur':''}">${v===1?'<span class="yes">✓</span>':v===0?'<span class="no">—</span>':esc(v)}</td>`;
-  $('#v-plans').innerHTML=`<div><h1>الباقات</h1><p class="muted">كل باقة تضيف أدوات جديدة. ابدأ مجانًا وترقّى لما يكبر متجرك.</p></div>
-  <div class="tbl"><table><thead><tr><th>الميزة</th>${PLANS.map(p=>`<th class="ph ${p.id===S.plan?'cur':''}"><b>${p.name}</b><span class="pr num">${p.price}</span> <small>ريال/شهر</small><div style="margin-top:6px">${p.id===S.plan?'<span class="chip c-ops">باقتك الحالية</span>':RANK[p.id]>RANK[S.plan]?`<button class="btn sm primary" data-setplan="${p.id}">ترقية</button>`:''}</div></th>`).join('')}</tr></thead>
+  $('#v-plans').innerHTML=`<div><h1>الباقات</h1><p class="muted">كل باقة تضيف لك أدوات جديدة. ابدأ ببلاش ورقّ باقتك لما يكبر متجرك.</p></div>
+  <div class="tbl"><table><thead><tr><th>الميزة</th>${PLANS.map(p=>`<th class="ph ${p.id===S.plan?'cur':''}"><b>${p.name}</b><span class="pr num">${p.price}</span> <small>ريال بالشهر</small><div style="margin-top:6px">${p.id===S.plan?'<span class="chip c-ops">باقتك الحين</span>':RANK[p.id]>RANK[S.plan]?`<button class="btn sm primary" data-setplan="${p.id}">رقّ لها</button>`:''}</div></th>`).join('')}</tr></thead>
   <tbody>${rows.map(r=>`<tr><td>${r[0]}</td>${r[1].map(cell).join('')}</tr>`).join('')}</tbody></table></div>
-  <p class="faint">الأسعار مبدئية للاختبار. الاشتراك عبر متجر تطبيقات سلة.</p>`;
+  <p class="faint">الاشتراك عن طريق متجر تطبيقات سلة.</p>`;
 }
+
+/* ================= CHAT ================= */
+/* Each intent: full answer (needs plan `need`), simple answer for lower plans, and where to go. */
+function nextTaskTitle(){const L=curLevel();const t=L.tasks.find(x=>!S.done.has(x.id));return t?`«${t.t}» في المرحلة ${L.n} (${L.name})`:'خلّصت مهام مرحلتك، وتنتقل لما توصل طلباتك للهدف'}
+const INTENTS=[
+ {id:'task',keys:['مهمت','وش اسوي','ايش اسوي','وش أسوي','ابدأ','أبدأ','وش الخطوة'],need:'free',
+  full:()=>`مهمتك الجاية: ${nextTaskTitle()}.\nخلّصها وتاخذ نقاطها، وكل ما خلصت مهام تقرّب من المرحلة الجاية.`,go:['home','افتح مهمتك']},
+ {id:'coupon',keys:['كوبون','خصم','كود'],need:'basic',
+  full:()=>'تسوي الكوبون من لوحة سلة: التسويق ← كوبونات التخفيض ← إضافة كوبون.\nحط الكود (مثل WELCOME10)، ونوع الخصم نسبة 10%، وتاريخ انتهاء، ومرة وحدة لكل عميل، واحفظ.\nوبعدها نبض يتأكد من سلة إنه انضاف.',
+  simple:()=>'تسويه من لوحة سلة في قسم التسويق، وتحدد الكود ونسبة الخصم وتاريخ الانتهاء.',up:'الدليل المصوّر خطوة بخطوة وتأكد نبض من سلة',go:['journey','مهمة الكوبون']},
+ {id:'sales',keys:['مبيعات','نزل','نزلت','قلّت','قلت','ليش ما','ما يبيع','ضعيف'],need:'growth',
+  full:()=>S.orders>=100?'حسب بيانات متجرك: التراجع من «عطر الورد الطائفي» بعد ما رفعت سعره من 189 لـ 229 ريال في 2 سبتمبر (هذا مؤكد من السجل). المتجر كله شبه ثابت (−3%).\nأنصحك تجرّب سعر أقرب للقديم أو عرض على عبوتين لمدة أسبوعين، ونقيس النتيجة.':'متجرك لسه تحت 100 طلب، فأي نزول بسيط ممكن يكون طبيعي. من بياناتك: الزيارات من إنستقرام زينة (132 هالأسبوع) بس الشراء منها 3%. أغلبهم يدخلون «مسك الطهارة» ويطلعون.\nالأولوية: حسّن صفحة المنتج (صور أكثر ووصف واضح)، وانتظم في النشر.',
+  simple:()=>'أكثر الأسباب شيوعًا: قلة النشر، أو صفحات منتجات ضعيفة، أو تغيير في الأسعار، أو منتج خلص. راجع هالأشياء الأربعة أول.',up:'تحليل بأرقام متجرك يقولك السبب بالضبط والخطوة الجاية',go:['monitor','مراقبة المتجر']},
+ {id:'followers',keys:['متابع','انستقرام','إنستقرام','تيك','سوشيال','أنشط','انشط','حسابي','تفاعل'],need:'growth',
+  full:()=>'حسب تحليل حسابك: صحة الحساب 62 من 100.\n١. تنشر مرتين بالأسبوع، خلّها 4.\n٢. تنشر الظهر، ومتابعينك متواجدين الخميس والجمعة الساعة 9 بالليل.\n٣. الريلز يوصل 3 أضعاف الصور، فخلّ نص منشوراتك ريلز.\n٤. البايو ما يوضح وش تبيع.',
+  simple:()=>'القاعدة العامة: انتظم (3 لين 4 منشورات بالأسبوع)، وركّز على الريلز، وانشر بالليل، وخلّ البايو يقول وش تبيع ومعه رابط المتجر.',up:'تحليل حسابك أنت: أفضل أوقاتك، ووش المحتوى اللي يجيب لك طلبات، وخطة تنشيط كل أسبوع',go:['social','السوشيال ميديا']},
+ {id:'post',keys:['انشر','أنشر','منشور','محتوى','ريلز','ستوري','فكرة'],need:'basic',
+  full:()=>'اليوم الأربعاء، وفكرة اليوم في تقويمك: «تجربة عميل حقيقية».\nصوّر رسالة أو تقييم من عميل (بعد إذنه) مع المنتج، وانشره ريلز بالليل. النص الجاهز تلقاه في صانع المحتوى.',
+  simple:()=>'فكرة سهلة: صوّر وأنت تغلّف طلب وانشره ريلز. هذا النوع يمشي زين مع المتاجر الجديدة.',up:'تقويم محتوى كامل كل أسبوع مع نصوص جاهزة',go:['content','صانع المحتوى']},
+ {id:'mplan',keys:['خطة','تسويق','اعلان','إعلان','حملة','راتب','موسم'],need:'growth',
+  full:()=>'خطتك لأكتوبر: الأسبوع الأول تعريف بمنتجاتك، والثاني حملة يوم الراتب (27 أكتوبر) بكوبون 10% لـ 3 أيام وإعلان سناب بـ 300 ريال، والثالث تقييمات ومؤثر صغير، والرابع استعداد للجمعة البيضاء.\nالميزانية المقترحة من 500 لين 800 ريال.',
+  simple:()=>'أهم موسم قريب: يوم الراتب 27 أكتوبر. جهّز كوبون لـ 3 أيام، وانشر عنه قبلها بيومين.',up:'خطة تسويقية شهرية كاملة: وش تنشر، ووش تعلن، وكم تصرف',go:['mplan','الخطة التسويقية']},
+ {id:'ship',keys:['شحن','توصيل'],need:'basic',
+  full:()=>'من طلباتك: فيه طلبات كثير بين 150 و199 ريال. حط حد الشحن المجاني 229 ريال، وخلّ شريط في المتجر يقول «باقي لك كذا وتاخذ شحن مجاني». بعدها نقيس متوسط الطلب لمدة أسبوعين.',
+  simple:()=>'حد الشحن المجاني يكون فوق متوسط طلباتك بشوي، عشان العميل يضيف منتج ويوصل له.',up:'اقتراح الحد المناسب من طلبات متجرك ودليل ضبطه في سلة',go:['journey','مهمة الشحن المجاني']},
+ {id:'expert',keys:['خبير','استشارة','أكلم','اكلم','جلسة'],need:'pro',
+  full:()=>'تقدر تحجز جلستك الشهرية مع خبير نمو من هنا، ونبض يجهز له أرقامك وخطتك قبل الجلسة.',
+  simple:()=>'أقدر أساعدك هنا بالإجابات والأدلة. الجلسة مع خبير نمو موجودة في الباقة الاحترافية.',up:'جلسة شهرية مع خبير يراجع أرقامك ويبني خطتك معك',go:['plans','الباقات']}
+];
+let chatOpen=false,chatLog=[];
+function findIntent(q){q=q.replace(/[أإآ]/g,'ا');return INTENTS.find(it=>it.keys.some(k=>q.includes(k.replace(/[أإآ]/g,'ا'))))}
+function answer(q){
+  const it=findIntent(q);
+  if(!it)return {text:'ما فهمت عليك زين 🙏 جرّب تسألني عن: مهمتك الجاية، الكوبون، المبيعات، السوشيال، وش تنشر اليوم، الشحن، أو الخطة التسويقية.',src:null};
+  if(planAt(it.need))return {text:it.full(),go:it.go,src:'من بيانات متجرك في سلة ونبض'};
+  return {text:it.simple(),go:it.go,up:{plan:it.need,what:it.up},src:'إجابة عامة، مو من أرقام متجرك'};
+}
+function renderChat(){
+  if(!chatOpen){$('#chat-root').innerHTML='';$('#chat-fab').hidden=false;return}
+  $('#chat-fab').hidden=true;
+  $('#chat-root').innerHTML=`<section class="chat" role="dialog" aria-label="مساعد نبض">
+   <div class="chat-h"><span class="dot"><svg><use href="#pulse"/></svg></span><div><b>مساعد نبض</b><small>يجاوبك من بيانات متجرك · باقتك: ${planName(S.plan)}</small></div><button data-chatclose aria-label="سكّر المحادثة"><svg><use href="#x"/></svg></button></div>
+   <div class="chat-b" id="chat-b">${chatLog.map(m=>msgHTML(m)).join('')}</div>
+   <div class="chips">${['وش مهمتي الحين؟','كيف أسوي كوبون؟','ليش مبيعاتي نزلت؟','كيف أنشّط حسابي؟','وش أنشر اليوم؟'].map(c=>`<button data-ask="${c}">${c}</button>`).join('')}</div>
+   <form class="chat-f" id="chat-form"><input id="chat-in" placeholder="اسأل نبض أي شي عن متجرك..." aria-label="سؤالك" autocomplete="off"><button class="btn primary sm" type="submit" aria-label="أرسل"><svg style="width:16px;height:16px;vertical-align:-3px"><use href="#send"/></svg></button></form>
+  </section>`;
+  const b=$('#chat-b');b.scrollTop=b.scrollHeight;
+}
+function msgHTML(m){
+  if(m.typing)return `<div class="msg bot typing" aria-label="نبض يكتب"><i></i><i></i><i></i></div>`;
+  if(m.me)return `<div class="msg me">${esc(m.text)}</div>`;
+  return `<div class="msg bot">${esc(m.text)}${m.up?`<div class="up"><b>هذي إجابة مختصرة.</b> إذا تبي إجابة بمسار أوضح (${esc(m.up.what)})، اشترك في باقة ${planName(m.up.plan)} (${planPrice(m.up.plan)} ريال) وتفتح لك هالميزة.<div class="acts"><button class="btn sm primary" data-upgrade="${m.up.plan}">شوف باقة ${planName(m.up.plan)}</button></div></div>`:''}${m.go?`<div class="acts">${goLink(m.go[0],m.go[1])}</div>`:''}${m.src?`<div class="src">${esc(m.src)}</div>`:''}</div>`;
+}
+function ask(q){
+  q=q.trim();if(!q)return;
+  chatLog.push({me:true,text:q});chatLog.push({typing:true});renderChat();
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  setTimeout(()=>{chatLog=chatLog.filter(m=>!m.typing);chatLog.push(answer(q));renderChat();const i=$('#chat-in');if(i)i.focus()},reduce?50:700);
+}
+function openChat(){chatOpen=true;if(!chatLog.length)chatLog.push({text:`هلا أبو فهد 👋 أنا مساعد نبض.\nاسألني عن متجرك، أو اختر سؤال من تحت.`,src:null});renderChat();const i=$('#chat-in');if(i)i.focus()}
 
 /* ================= EVENTS ================= */
 const close=()=>{$('#overlay').innerHTML=''};
-function complete(id){if(S.done.has(id))return;S.done.add(id);const t=LEVELS.flatMap(l=>l.tasks).find(x=>x.id===id);toast(`أحسنت! +${t.pts} نقطة`);render(S.view)}
+function complete(id,msg){if(S.done.has(id))return;S.done.add(id);const t=allTasks().find(x=>x.id===id);toast(msg||`كفو! +${t.pts} نقطة`);render(S.view)}
 document.addEventListener('click',e=>{
+  if(e.target.closest('[data-theme-toggle]'))return;
   const t=e.target.closest('button,[data-close]');if(!t)return;
   if(t.classList.contains('scrim')&&e.target!==t)return;
   const d=t.dataset;
-  if(d.go){close();go(d.go)}
+  if(t.id==='chat-fab'){openChat();return}
+  if(d.chatclose!==undefined){chatOpen=false;renderChat();return}
+  if(d.ask){ask(d.ask);return}
+  if(d.go){close();if(chatOpen&&window.innerWidth<700){chatOpen=false;renderChat()}go(d.go)}
   else if(d.task)taskDrawer(d.task);
   else if(d.toggle){if(S.done.has(d.toggle)){S.done.delete(d.toggle);render(S.view)}else complete(d.toggle)}
   else if(d.complete){complete(d.complete);taskDrawer(d.complete)}
+  else if(d.verify){const tk=allTasks().find(x=>x.id===d.verify);const g=tk.guide?GUIDES[tk.guide]:null;t.disabled=true;t.textContent='نبض يتأكد من سلة...';setTimeout(()=>{complete(tk.id,g?`تأكدنا من سلة: ${g.found} ✓ (+${tk.pts} نقطة)`:`تأكدنا من سلة ✓ (+${tk.pts} نقطة)`);taskDrawer(tk.id)},900)}
   else if(d.stage){const n=+d.stage;openStage=openStage===n?-1:n;rJourney()}
   else if(d.gnext!==undefined||d.gprev!==undefined){const key=$('#guide').dataset.g;gi=Math.max(0,Math.min(GUIDES[key].steps.length-1,gi+(d.gnext!==undefined?1:-1)));$('#guide').outerHTML=guideHTML(key)}
-  else if(d.doit){toast('أنشأنا كوبون WELCOME10 في متجرك على سلة (معاينة)')}
+  else if(d.doit){toast('سوّينا كوبون WELCOME10 في متجرك على سلة (معاينة)');if(curTask)complete(curTask);if(curTask)taskDrawer(curTask)}
   else if(d.fake)toast(d.fake);
   else if(d.upgrade){close();go('plans')}
-  else if(d.setplan){S.plan=d.setplan;$('#demo-plan').value=S.plan;S.adHidden=false;toast('تمت الترقية إلى '+planName(S.plan)+' (معاينة)');nav();rPlans()}
+  else if(d.setplan){S.plan=d.setplan;$('#demo-plan').value=S.plan;S.adHidden=false;toast('رقّينا باقتك لـ '+planName(S.plan)+' (معاينة)');nav();rPlans();if(chatOpen)renderChat()}
   else if(d.hidead!==undefined){S.adHidden=true;render(S.view)}
-  else if(d.caption){const c=CAPTIONS[+d.caption];$('#cap-out').innerHTML=`<div class="row between" style="margin-bottom:8px"><h3>منشورك جاهز</h3><button class="btn sm" data-copy="${+d.caption}"><svg style="width:15px;height:15px;vertical-align:-2px"><use href="#copy"/></svg> انسخ</button></div><div class="caption">${esc(c)}</div><p class="faint" style="margin-top:6px">راجع النص قبل النشر، وعدّله بأسلوبك.</p>`}
-  else if(d.copy!==undefined){const txt=CAPTIONS[+d.copy];try{navigator.clipboard.writeText(txt).then(()=>toast('نُسخ النص'),()=>toast('ظلّل النص وانسخه يدويًا'))}catch(err){toast('ظلّل النص وانسخه يدويًا')}}
+  else if(d.caption){const c=CAPTIONS[+d.caption];$('#cap-out').innerHTML=`<div class="row between" style="margin-bottom:8px"><h3>منشورك جاهز</h3><button class="btn sm" data-copy="${+d.caption}"><svg style="width:15px;height:15px;vertical-align:-2px"><use href="#copy"/></svg> انسخ</button></div><div class="caption">${esc(c)}</div><p class="faint" style="margin-top:6px">راجع النص قبل ما تنشر، وعدّله على أسلوبك.</p>`}
+  else if(d.copy!==undefined){const txt=CAPTIONS[+d.copy];try{navigator.clipboard.writeText(txt).then(()=>toast('انسخ النص ✓'),()=>toast('ظلّل النص وانسخه بيدك'))}catch(err){toast('ظلّل النص وانسخه بيدك')}}
   else if(d.close!==undefined)close();
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+document.addEventListener('submit',e=>{if(e.target.id==='chat-form'){e.preventDefault();const i=$('#chat-in');const v=i.value;i.value='';ask(v)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#overlay').innerHTML)close();else if(chatOpen){chatOpen=false;renderChat()}}});
 document.addEventListener('change',e=>{
   if(e.target.id==='demo-orders'){S.orders=+e.target.value;openStage=null;seedDone();render(S.view)}
-  if(e.target.id==='demo-plan'){S.plan=e.target.value;S.adHidden=false;nav();render(S.view)}
+  if(e.target.id==='demo-plan'){S.plan=e.target.value;S.adHidden=false;nav();render(S.view);if(chatOpen)renderChat()}
 });
 
 seedDone();
@@ -611,6 +784,7 @@ const h=(location.hash||'').slice(1);
 go(VIEWS.some(v=>v[0]===h)?h:'home');
 })();
 </script>
+
 <script>
 (function(){
   var r=document.documentElement;
