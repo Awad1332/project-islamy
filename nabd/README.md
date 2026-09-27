@@ -18,6 +18,8 @@
 | 07 | [الاشتراكات + Roadmap 90 يوم + أول 100 متجر + أول عملاء مدفوعين](docs/07-business-and-gtm.md) | 14، 18، 19، 20 |
 | 08 | [لوحة تحكم الإدارة: الباقات، المتاجر، المستخدمون، الاستهداف](docs/08-admin-console.md) | إضافة |
 
+**عرض الاجتماع**: [nabd-overview.pptx](presentation/nabd-overview.pptx)
+
 **معاينات تفاعلية**: [تطبيق التاجر](preview/nabd-preview.html) · [لوحة الإدارة](preview/nabd-admin-preview.html)
 
 ## الحلقة التي يجب أن يخدمها كل شيء
