@@ -17,10 +17,11 @@
 | 06 | [Wireframes + UX Flows + Daily Brief + Weekly Report](docs/06-ux-and-wireframes.md) | 12، 13 |
 | 07 | [الاشتراكات + Roadmap 90 يوم + أول 100 متجر + أول عملاء مدفوعين](docs/07-business-and-gtm.md) | 14، 18، 19، 20 |
 | 08 | [لوحة تحكم الإدارة: الباقات، المتاجر، المستخدمون، الاستهداف](docs/08-admin-console.md) | إضافة |
+| 09 | [رحلة التاجر: المراحل، المهام، أدلة سلة، المحتوى، السوشيال، الباقات الجديدة](docs/09-merchant-journey.md) | إضافة |
 
 **عرض الاجتماع**: [nabd-overview.pptx](presentation/nabd-overview.pptx)
 
-**معاينات تفاعلية**: [تطبيق التاجر](preview/nabd-preview.html) · [لوحة الإدارة](preview/nabd-admin-preview.html)
+**معاينات تفاعلية**: [لوحة التاجر: رحلة التاجر (الأحدث)](preview/nabd-journey.html) · [تطبيق التاجر: نبض الذكي](preview/nabd-preview.html) · [لوحة الإدارة](preview/nabd-admin-preview.html)
 
 ## الحلقة التي يجب أن يخدمها كل شيء
 
