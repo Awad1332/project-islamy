@@ -17,9 +17,8 @@
 | 06 | [Wireframes + UX Flows + Daily Brief + Weekly Report](docs/06-ux-and-wireframes.md) | 12، 13 |
 | 07 | [الاشتراكات + Roadmap 90 يوم + أول 100 متجر + أول عملاء مدفوعين](docs/07-business-and-gtm.md) | 14، 18، 19، 20 |
 | 08 | [لوحة تحكم الإدارة: الباقات، المتاجر، المستخدمون، الاستهداف](docs/08-admin-console.md) | إضافة |
-| 09 | [التجربة المبسطة، الهوية، وأدوات البيع](docs/09-simple-ux-and-sales-tools.md) | إضافة |
 
-**معاينات تفاعلية**: [تطبيق التاجر المبسط](preview/nabd-merchant-simple.html) · [تطبيق التاجر (النسخة الأولى)](preview/nabd-preview.html) · [لوحة الإدارة](preview/nabd-admin-preview.html)
+**معاينات تفاعلية**: [تطبيق التاجر](preview/nabd-preview.html) · [لوحة الإدارة](preview/nabd-admin-preview.html)
 
 ## الحلقة التي يجب أن يخدمها كل شيء
 
