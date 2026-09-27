@@ -5,21 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>نبض — تشغيل محلي</title>
 <style>
-:root{--ground:#EEF2EF;--surface:#fff;--line:#D9E1DC;--ink:#12241F;--ink2:#4A5C56;--accent:#1D6B58;--soft:#DCEDE6}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1614;--surface:#15211E;--line:#2A3A35;--ink:#E6EFEB;--ink2:#A9BAB3;--accent:#5CC2A5;--soft:#1C3A32;color-scheme:dark}}
-:root[data-theme="dark"]{--ground:#0D1614;--surface:#15211E;--line:#2A3A35;--ink:#E6EFEB;--ink2:#A9BAB3;--accent:#5CC2A5;--soft:#1C3A32;color-scheme:dark}
+:root{
+  --ground:#F8FAFC; --surface:#FFFFFF; --line:#E2E8F0; --ink:#0F172A; --ink2:#475569; --accent:#10B981; --soft:#D1FAE5; --accent-fg:#047857;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0F172A; --surface:#1E293B; --line:#334155; --ink:#F8FAFC; --ink2:#CBD5E1; --accent:#10B981; --soft:#0F3D33; color-scheme:dark; --accent-fg:#34D399;
+}}
+:root[data-theme="dark"]{
+  --ground:#0F172A; --surface:#1E293B; --line:#334155; --ink:#F8FAFC; --ink2:#CBD5E1; --accent:#10B981; --soft:#0F3D33; color-scheme:dark; --accent-fg:#34D399;
+}
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;line-height:1.7;padding:32px 16px}
 .wrap{max-width:760px;margin:0 auto;display:grid;gap:18px}
 h1{margin:0;font-size:1.8rem} p{margin:0;color:var(--ink2)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 a.card{display:grid;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;text-decoration:none;color:var(--ink)}
-a.card:hover{border-color:var(--accent)}
-a.card b{font-size:1.1rem;color:var(--accent)}
+a.card:hover{border-color:var(--accent-fg)}
+a.card b{font-size:1.1rem;color:var(--accent-fg)}
 .note{background:var(--soft);border-radius:12px;padding:12px 14px;font-size:.92rem}
 ul{margin:0;padding-inline-start:20px}
 .theme-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:inline-grid;place-items:center;cursor:pointer;flex:none}
-.theme-btn:hover{border-color:var(--accent)}
+.theme-btn:hover{border-color:var(--accent-fg)}
 .theme-btn svg{width:19px;height:19px}
 </style>
 </head>
