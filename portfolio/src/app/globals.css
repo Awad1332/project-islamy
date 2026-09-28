@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-plex), "IBM Plex Sans Arabic", system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+
+  --color-primary: #7047eb;
+  --color-primary-600: #5f38dc;
+  --color-deep: #40218c;
+  --color-deeper: #2a1463;
+  --color-lilac: #f2edff;
+  --color-lilac-2: #e6ddff;
+  --color-alt: #f8f7fc;
+  --color-ink: #19152b;
+  --color-muted: #777487;
+  --color-line: #eae7f1;
+
+  --shadow-soft: 0 1px 2px rgb(25 21 43 / 0.04), 0 8px 24px -12px rgb(25 21 43 / 0.12);
+  --shadow-card: 0 1px 2px rgb(25 21 43 / 0.04), 0 24px 48px -24px rgb(64 33 140 / 0.22);
+  --shadow-float: 0 2px 6px rgb(25 21 43 / 0.06), 0 30px 60px -20px rgb(64 33 140 / 0.35);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 10s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(50%);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-white text-ink antialiased;
+    font-feature-settings: "kern";
+  }
+  ::selection {
+    background: var(--color-primary);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8;
+}
+@utility section-y {
+  @apply py-20 sm:py-24 lg:py-32;
+}
+
+@layer components {
+  .text-gradient {
+    background: linear-gradient(95deg, var(--color-primary) 0%, #9a74ff 45%, var(--color-deep) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(112 71 235 / 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(112 71 235 / 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .glass {
+    background: rgb(255 255 255 / 0.78);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+  }
+  /* Mockups scale their typography with their own width */
+  .mock {
+    container-type: inline-size;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ─── Scroll reveal (progressive enhancement: content is visible without JS) ─── */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Native <dialog> backdrop for the project modal */
+dialog.project-dialog::backdrop {
+  background: rgb(25 21 43 / 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+dialog.project-dialog[open] {
+  animation: dialog-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
