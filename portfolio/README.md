@@ -36,6 +36,23 @@ Before publishing, update:
 "مثال توضيحي" label on the page, so visitors are never misled. When all content is real you can
 turn the labels off globally with `site.showPlaceholderBadges = false`.
 
+## Pages
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Sales page: promise → pain points → solution → services → work → process → packages → comparison → testimonials → commitments → FAQ → offer |
+| `/about/` | Story, approach, numbers, clients, testimonials |
+| `/services/` | The five services in detail, industries, process, packages |
+| `/work/` | Filterable portfolio |
+| `/projects/<slug>/` | One case-study page per project |
+| `/expertise/` | Customer-journey methodology, tools, comparison |
+| `/contact/` | Form that prepares a WhatsApp message, direct channels, FAQ |
+
+The main call to action everywhere is a **free store review** (`primaryOffer` in `site.ts`), sent
+over WhatsApp. On phones a fixed bottom bar keeps it one tap away. Homepage copy lives in `home`
+in `site.ts`; review the package contents (revision rounds, support period) and the scarcity note in
+`finalCta.note` so they match what you actually offer.
+
 ## Structure
 
 ```
@@ -58,7 +75,9 @@ src/
 - Sticky glass header with active-section highlighting; accessible mobile menu (focus trap, Esc)
 - Scroll reveals as progressive enhancement: content is visible without JS and with reduced motion
 - Count-up statistics that start when they scroll into view
-- Filterable portfolio; each project opens its own static page (`/projects/<slug>/`)
+- Separate page per section, plus one static page per project (`/projects/<slug>/`)
+- Conversion-focused homepage with packages, comparison table and a free-review offer
+- Contact form that prepares a WhatsApp message (nothing is stored on the site)
 - Customer-journey tabs (arrow-key navigation, auto-advance only while visible)
 - Swipeable testimonial carousel with buttons and dots
 - Accessible FAQ accordion; WhatsApp CTAs with pre-filled messages

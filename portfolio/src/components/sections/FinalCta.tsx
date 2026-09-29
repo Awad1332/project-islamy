@@ -1,4 +1,4 @@
-import { finalCta, whatsappLink } from "@/content/site";
+import { finalCta, primaryOffer, whatsappLink } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { ArrowIcon, WhatsAppIcon } from "@/components/ui/Icons";
@@ -26,7 +26,7 @@ export function FinalCta() {
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl sm:leading-9">{finalCta.text}</p>
         <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
           <Button
-            href={whatsappLink()}
+            href={whatsappLink(primaryOffer.message)}
             target="_blank"
             rel="noopener noreferrer"
             variant="white"
@@ -36,7 +36,7 @@ export function FinalCta() {
             {finalCta.primary}
           </Button>
           <Button
-            href="#work"
+            href="/work/"
             variant="outlineWhite"
             size="lg"
             icon={<ArrowIcon className="size-5 transition-transform group-hover:-translate-x-1" />}
@@ -44,6 +44,7 @@ export function FinalCta() {
             {finalCta.secondary}
           </Button>
         </div>
+        {finalCta.note && <p className="mx-auto mt-8 max-w-xl text-sm text-white/65">{finalCta.note}</p>}
       </Reveal>
     </section>
   );

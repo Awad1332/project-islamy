@@ -1,41 +1,39 @@
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { BackToTop } from "@/components/layout/BackToTop";
+import { faq, home } from "@/content/site";
+import { PageShell } from "@/components/layout/PageShell";
 import { Hero } from "@/components/sections/Hero";
-import { Stats } from "@/components/sections/Stats";
 import { Clients } from "@/components/sections/Clients";
-import { Industries } from "@/components/sections/Industries";
-import { Services } from "@/components/sections/Services";
-import { Journey } from "@/components/sections/Journey";
-import { Portfolio } from "@/components/sections/Portfolio";
-import { Tools } from "@/components/sections/Tools";
+import { Problems } from "@/components/sections/home/Problems";
+import { Outcomes } from "@/components/sections/home/Outcomes";
+import { ServicesOverview } from "@/components/sections/home/ServicesOverview";
+import { Process } from "@/components/sections/home/Process";
+import { FeaturedWork } from "@/components/sections/home/FeaturedWork";
+import { Packages } from "@/components/sections/home/Packages";
+import { Comparison } from "@/components/sections/home/Comparison";
+import { Commitment } from "@/components/sections/home/Commitment";
 import { Testimonials } from "@/components/sections/Testimonials";
-import { About } from "@/components/sections/About";
 import { Faq } from "@/components/sections/Faq";
 import { FinalCta } from "@/components/sections/FinalCta";
 
+/**
+ * Sales page structure: promise → pain → solution → offer → proof →
+ * process → packages → objections → risk reversal → call to action.
+ */
 export default function HomePage() {
   return (
-    <>
-      <AnnouncementBar />
-      <Header />
-      <main id="main">
-        <Hero />
-        <Stats />
-        <Clients />
-        <Industries />
-        <Services />
-        <Journey />
-        <Portfolio />
-        <Tools />
-        <Testimonials />
-        <About />
-        <Faq />
-        <FinalCta />
-      </main>
-      <Footer />
-      <BackToTop />
-    </>
+    <PageShell>
+      <Hero />
+      <Clients />
+      <Problems />
+      <Outcomes />
+      <ServicesOverview />
+      <FeaturedWork />
+      <Process />
+      <Packages />
+      <Comparison />
+      <Testimonials />
+      <Commitment />
+      <Faq items={[...home.faq.extra, ...faq.items.filter((_, i) => [1, 4, 5].includes(i))]} />
+      <FinalCta />
+    </PageShell>
   );
 }

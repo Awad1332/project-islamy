@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { nav, site } from "@/content/site";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { nav, primaryOffer, site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { ArrowIcon, CloseIcon, MenuIcon } from "@/components/ui/Icons";
 import { Logo } from "./Logo";
@@ -9,7 +11,13 @@ import { Logo } from "./Logo";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("#home");
+  const pathname = usePathname();
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    // Project case studies live under /projects but belong to "أعمالي".
+    if (href === "/work/" && pathname.startsWith("/projects")) return true;
+    return pathname.startsWith(href.replace(/\/$/, ""));
+  };
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -19,21 +27,6 @@ export function Header() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Scroll-spy: highlight the nav link of the section in view
-  useEffect(() => {
-    const sections = nav.map((n) => document.querySelector<HTMLElement>(n.href)).filter((el): el is HTMLElement => Boolean(el));
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(`#${e.target.id}`);
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
   }, []);
 
   // Mobile menu: lock scroll, close on Escape, move focus
@@ -91,12 +84,12 @@ export function Header() {
           <ul className="flex items-center gap-1">
             {nav.map((item) => (
               <li key={item.href}>
-                <a
+                <Link
                   href={item.href}
-                  aria-current={active === item.href ? "true" : undefined}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
                     "relative rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors",
-                    active === item.href ? "text-primary" : "text-ink/75 hover:text-ink",
+                    isActive(item.href) ? "text-primary" : "text-ink/75 hover:text-ink",
                   )}
                 >
                   {item.label}
@@ -104,23 +97,23 @@ export function Header() {
                     aria-hidden
                     className={cn(
                       "absolute inset-x-4 -bottom-0.5 h-0.5 origin-center rounded-full bg-primary transition-transform duration-300",
-                      active === item.href ? "scale-x-100" : "scale-x-0",
+                      isActive(item.href) ? "scale-x-100" : "scale-x-0",
                     )}
                   />
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href="#contact"
+          <Link
+            href="/contact/"
             className="group hidden h-11 items-center gap-2 rounded-full bg-primary px-5 text-[0.95rem] font-semibold text-white shadow-[0_10px_30px_-12px_rgb(112_71_235/0.8)] transition-all hover:bg-primary-600 sm:inline-flex"
           >
-            لنبدأ مشروعك
+            {primaryOffer.label}
             <ArrowIcon className="size-4 transition-transform group-hover:-translate-x-0.5" />
-          </a>
+          </Link>
           <button
             ref={toggleRef}
             type="button"
@@ -146,28 +139,28 @@ export function Header() {
           <ul className="grid gap-1">
             {nav.map((item) => (
               <li key={item.href}>
-                <a
+                <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className={cn(
                     "flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-medium transition-colors",
-                    active === item.href ? "bg-lilac text-primary" : "text-ink hover:bg-alt",
+                    isActive(item.href) ? "bg-lilac text-primary" : "text-ink hover:bg-alt",
                   )}
                 >
                   {item.label}
                   <ArrowIcon className="size-4 opacity-40" />
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
-          <a
-            href="#contact"
+          <Link
+            href="/contact/"
             onClick={() => setOpen(false)}
             className="mt-4 flex h-13 items-center justify-center gap-2 rounded-full bg-primary py-3.5 text-base font-semibold text-white"
           >
-            لنبدأ مشروعك
+            {primaryOffer.label}
             <ArrowIcon className="size-4" />
-          </a>
+          </Link>
           <p className="mt-4 text-center text-sm text-muted">{site.descriptor}</p>
         </nav>
       </div>

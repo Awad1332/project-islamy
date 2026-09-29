@@ -1,4 +1,4 @@
-import { hero } from "@/content/site";
+import { hero, primaryOffer, whatsappLink } from "@/content/site";
 import type { StoreTheme } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { ArrowIcon, CheckIcon, CursorIcon, DevicesIcon, FlowIcon, PaletteIcon } from "@/components/ui/Icons";
@@ -40,7 +40,9 @@ export function Hero() {
 
           <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center lg:justify-start">
             <Button
-              href={hero.primaryCta.href}
+              href={whatsappLink(primaryOffer.message)}
+              target="_blank"
+              rel="noopener noreferrer"
               size="lg"
               icon={<ArrowIcon className="size-5 transition-transform group-hover:-translate-x-1" />}
             >
@@ -51,12 +53,18 @@ export function Hero() {
             </Button>
           </div>
 
-          <p className="mt-8 flex items-center justify-center gap-2.5 text-[0.95rem] text-muted lg:justify-start">
-            <span className="grid size-6 place-items-center rounded-full bg-lilac text-primary">
-              <CheckIcon className="size-3.5" />
-            </span>
-            {hero.trust}
-          </p>
+          <p className="mt-4 text-[0.95rem] text-muted">{hero.trust}</p>
+
+          <ul className="mx-auto mt-8 grid max-w-md grid-cols-2 gap-x-4 gap-y-3 text-start lg:mx-0">
+            {hero.bullets.map((b) => (
+              <li key={b} className="flex items-center gap-2 text-[0.95rem] font-medium text-ink">
+                <span className="grid size-5 shrink-0 place-items-center rounded-full bg-lilac text-primary">
+                  <CheckIcon className="size-3" />
+                </span>
+                {b}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Visual */}

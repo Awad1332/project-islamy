@@ -19,7 +19,7 @@ export function LogoMark({ className }: { className?: string }) {
 
 export function Logo({ tone = "dark", withDescriptor = true }: { tone?: "dark" | "light"; withDescriptor?: boolean }) {
   return (
-    <Link href="/#home" className="flex items-center gap-3" aria-label={`${site.nameAr} — الصفحة الرئيسية`}>
+    <Link href="/" className="flex items-center gap-3" aria-label={`${site.nameAr} — الصفحة الرئيسية`}>
       <LogoMark />
       <span className="flex flex-col leading-tight">
         <span className={cn("text-lg font-bold", tone === "dark" ? "text-ink" : "text-white")}>{site.nameAr}</span>

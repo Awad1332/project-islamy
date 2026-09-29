@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { PlusIcon, WhatsAppIcon } from "@/components/ui/Icons";
 import { cn } from "@/lib/cn";
 
-export function Faq() {
+export function Faq({ items = faq.items }: { items?: { q: string; a: string }[] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -37,7 +37,7 @@ export function Faq() {
 
         <Reveal>
           <ul className="grid gap-3">
-            {faq.items.map((item, i) => {
+            {items.map((item, i) => {
               const isOpen = open === i;
               return (
                 <li

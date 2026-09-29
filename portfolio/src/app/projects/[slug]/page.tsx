@@ -3,9 +3,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects, site } from "@/content/site";
 import { ProjectDetail } from "@/components/portfolio/ProjectDetail";
-import { Footer } from "@/components/layout/Footer";
-import { LogoMark } from "@/components/layout/Logo";
-import { ArrowRightIcon, ArrowIcon } from "@/components/ui/Icons";
+import { PageShell } from "@/components/layout/PageShell";
+import { ArrowIcon } from "@/components/ui/Icons";
 
 type Params = { slug: string };
 
@@ -41,23 +40,8 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const next = projects[(index + 1) % projects.length];
 
   return (
-    <>
-      <header className="glass sticky top-0 z-50 border-b border-line">
-        <div className="container-x flex h-[72px] items-center justify-between">
-          <Link href="/" className="flex items-center gap-3" aria-label={`${site.nameAr} — الصفحة الرئيسية`}>
-            <LogoMark />
-            <span className="text-lg font-bold text-ink">{site.nameAr}</span>
-          </Link>
-          <Link
-            href="/#work"
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 font-semibold text-primary ring-1 ring-line transition hover:bg-lilac"
-          >
-            <ArrowRightIcon className="size-4" />
-            كل الأعمال
-          </Link>
-        </div>
-      </header>
-      <main id="main" className="bg-white">
+    <PageShell>
+      <div className="bg-white">
         <div className="container-x max-w-[1100px] py-12 sm:py-16">
           <nav aria-label="مسار التنقل" className="mb-8 text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">
@@ -68,7 +52,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
               </li>
               <li aria-hidden>/</li>
               <li>
-                <Link href="/#work" className="hover:text-primary">
+                <Link href="/work/" className="hover:text-primary">
                   أعمالي
                 </Link>
               </li>
@@ -93,8 +77,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             </span>
           </a>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </PageShell>
   );
 }

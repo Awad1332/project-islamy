@@ -20,7 +20,7 @@ export function Industries() {
           {industries.items.map((item, i) => (
             <Reveal as="li" key={item.title} delay={(i % 3) * 80}>
               <a
-                href="#work"
+                href="/work/"
                 className={cn(
                   "group relative flex h-full min-h-[190px] items-stretch overflow-hidden rounded-[1.75rem] border border-line bg-white transition-all duration-500",
                   "hover:-translate-y-1 hover:border-transparent hover:shadow-card focus-visible:-translate-y-1",

@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
 
 type FilterKey = ProjectCategory | "all";
 
-export function Portfolio() {
+export function Portfolio({ bare = false }: { bare?: boolean }) {
   const [filter, setFilter] = useState<FilterKey>("all");
   const counts = useMemo(() => {
     const c: Record<string, number> = { all: projects.length };
@@ -22,12 +22,18 @@ export function Portfolio() {
   const visible = filter === "all" ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section id="work" aria-labelledby="work-title" className="section-y">
+    <section id="work" aria-labelledby="work-title" className={bare ? "pt-4 pb-20 sm:pb-24 lg:pb-32" : "section-y"}>
       <div className="container-x">
-        <SectionHeading id="work-title" eyebrow={portfolio.eyebrow} title={portfolio.title} subtitle={portfolio.subtitle} />
+        {bare ? (
+          <h2 id="work-title" className="sr-only">
+            {portfolio.title}
+          </h2>
+        ) : (
+          <SectionHeading id="work-title" eyebrow={portfolio.eyebrow} title={portfolio.title} subtitle={portfolio.subtitle} />
+        )}
 
         {/* Filters */}
-        <Reveal className="mt-10 lg:mt-12">
+        <Reveal className={bare ? undefined : "mt-10 lg:mt-12"}>
           <div className="no-scrollbar -mx-4 overflow-x-auto px-4">
             <div role="group" aria-label="تصفية المشاريع حسب القطاع" className="mx-auto flex w-max gap-2">
               {portfolio.filters.map((f) => {
