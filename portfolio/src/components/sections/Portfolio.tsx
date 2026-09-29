@@ -1,23 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
-import { portfolio, projects, type Project, type ProjectCategory } from "@/content/site";
+import { useMemo, useState } from "react";
+import { portfolio, projects, type ProjectCategory } from "@/content/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlaceholderBadge } from "@/components/ui/PlaceholderBadge";
-import { ArrowIcon, CloseIcon, ExternalIcon } from "@/components/ui/Icons";
+import { ArrowIcon } from "@/components/ui/Icons";
 import { ProjectCover } from "@/components/portfolio/ProjectVisual";
-import { ProjectDetail } from "@/components/portfolio/ProjectDetail";
 import { cn } from "@/lib/cn";
 
 type FilterKey = ProjectCategory | "all";
 
 export function Portfolio() {
   const [filter, setFilter] = useState<FilterKey>("all");
-  const [openProject, setOpenProject] = useState<Project | null>(null);
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const lastTrigger = useRef<HTMLElement | null>(null);
-
   const counts = useMemo(() => {
     const c: Record<string, number> = { all: projects.length };
     projects.forEach((p) => (c[p.category] = (c[p.category] ?? 0) + 1));
@@ -25,32 +20,6 @@ export function Portfolio() {
   }, []);
 
   const visible = filter === "all" ? projects : projects.filter((p) => p.category === filter);
-
-  useEffect(() => {
-    const d = dialogRef.current;
-    if (!d) return;
-    if (openProject && !d.open) {
-      d.showModal();
-      d.scrollTop = 0;
-      d.querySelector<HTMLElement>("[data-autofocus]")?.focus();
-      document.documentElement.style.overflow = "hidden";
-    }
-    if (!openProject && d.open) d.close();
-  }, [openProject]);
-
-  const open = (p: Project, e: MouseEvent<HTMLAnchorElement>) => {
-    // Progressive enhancement: modifier-clicks still open the dedicated page.
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-    e.preventDefault();
-    lastTrigger.current = e.currentTarget;
-    setOpenProject(p);
-  };
-
-  const onClose = () => {
-    document.documentElement.style.overflow = "";
-    setOpenProject(null);
-    lastTrigger.current?.focus();
-  };
 
   return (
     <section id="work" aria-labelledby="work-title" className="section-y">
@@ -110,7 +79,6 @@ export function Portfolio() {
                   </ul>
                   <a
                     href={`/projects/${p.slug}/`}
-                    onClick={(e) => open(p, e)}
                     className="mt-7 inline-flex items-center gap-2 font-semibold text-primary after:absolute after:inset-0 after:content-['']"
                     aria-label={`عرض تفاصيل مشروع ${p.name}`}
                   >
@@ -131,42 +99,6 @@ export function Portfolio() {
           </p>
         )}
       </div>
-
-      {/* Project modal */}
-      <dialog
-        ref={dialogRef}
-        onClose={onClose}
-        onClick={(e) => {
-          if (e.target === dialogRef.current) dialogRef.current?.close();
-        }}
-        aria-labelledby="project-title"
-        className="project-dialog m-auto h-[100dvh] max-h-[100dvh] w-full max-w-[1100px] overflow-y-auto bg-white p-0 text-ink backdrop:bg-transparent sm:h-auto sm:max-h-[calc(100dvh-3rem)] sm:w-[calc(100%-2rem)] sm:rounded-[2rem]"
-      >
-        {openProject && (
-          <div className="relative">
-            <div className="glass sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-line px-5 py-3 sm:px-8">
-              <a
-                href={`/projects/${openProject.slug}/`}
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-              >
-                صفحة المشروع الكاملة <ExternalIcon className="size-4" />
-              </a>
-              <button
-                type="button"
-                data-autofocus
-                onClick={() => dialogRef.current?.close()}
-                className="grid size-10 place-items-center rounded-full bg-alt text-ink ring-1 ring-line transition hover:bg-lilac hover:text-primary"
-                aria-label="إغلاق تفاصيل المشروع"
-              >
-                <CloseIcon className="size-5" />
-              </button>
-            </div>
-            <div className="px-5 pt-6 pb-10 sm:px-10 sm:pt-8">
-              <ProjectDetail project={openProject} />
-            </div>
-          </div>
-        )}
-      </dialog>
 
       <style>{`@keyframes card-in { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }`}</style>
     </section>

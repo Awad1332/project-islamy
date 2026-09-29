@@ -46,7 +46,7 @@ src/
     layout/            AnnouncementBar, Header (sticky + scroll-spy + mobile menu), Footer, BackToTop, Logo
     sections/          Hero, Stats, Clients, Industries, Services, Journey, Portfolio, Tools,
                        Testimonials, About, Faq, FinalCta
-    portfolio/         ProjectCover, ProjectDetail (shared by modal and project pages)
+    portfolio/         ProjectCover, ProjectDetail (used by the project pages)
     visuals/           Original SVG/CSS art: ProductArt, Store mockups (desktop/tablet/mobile),
                        MiniScreen, service visuals, abstract 3D shapes
     ui/                Button, SectionHeading, Reveal, Icons, PlaceholderBadge
@@ -58,7 +58,7 @@ src/
 - Sticky glass header with active-section highlighting; accessible mobile menu (focus trap, Esc)
 - Scroll reveals as progressive enhancement: content is visible without JS and with reduced motion
 - Count-up statistics that start when they scroll into view
-- Filterable portfolio, project modal (native `<dialog>`), plus a static page per project
+- Filterable portfolio; each project opens its own static page (`/projects/<slug>/`)
 - Customer-journey tabs (arrow-key navigation, auto-advance only while visible)
 - Swipeable testimonial carousel with buttons and dots
 - Accessible FAQ accordion; WhatsApp CTAs with pre-filled messages

@@ -140,23 +140,3 @@
     transition-duration: 0.001ms !important;
   }
 }
-
-/* Native <dialog> backdrop for the project modal */
-dialog.project-dialog::backdrop {
-  background: rgb(25 21 43 / 0.55);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-}
-dialog.project-dialog[open] {
-  animation: dialog-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-@keyframes dialog-in {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}

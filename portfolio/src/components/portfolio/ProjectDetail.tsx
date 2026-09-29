@@ -4,7 +4,7 @@ import { DesktopMockup, MobileMockup, TabletMockup } from "@/components/visuals/
 import { PlaceholderBadge } from "@/components/ui/PlaceholderBadge";
 import { CheckIcon, ExternalIcon, WhatsAppIcon } from "@/components/ui/Icons";
 
-/** Full project case study — shared by the modal and the dedicated project page. */
+/** Full project case study rendered on each project page. */
 export function ProjectDetail({ project, headingLevel = "h2" }: { project: Project; headingLevel?: "h1" | "h2" }) {
   const H = headingLevel;
   const hasImages = Boolean(project.images?.length);
