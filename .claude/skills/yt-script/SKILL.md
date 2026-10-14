@@ -19,6 +19,9 @@ python3 hookscore.py hooks.txt              # rank your hook options
 python3 hookscore.py --hook "one line"      # score a single one
 ```
 
+Arabic hooks (Modern Standard or Egyptian) are scored directly; do not translate them to English
+first. The Arabic word lists are unmeasured, so use those scores to compare options, not as a grade.
+
 ## Before you write
 
 1. Read `.claude/youtube/voice.md` (in this repo) if it exists, else `~/.claude/youtube/voice.md`. That is the user's voice profile: how they talk
