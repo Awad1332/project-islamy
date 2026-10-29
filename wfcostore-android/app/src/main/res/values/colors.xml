@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Brand colours are NEUTRAL PLACEHOLDERS: the store's real palette could not be
+        verified. Replace brand_primary (and system_bar_background, if the store has a
+        coloured header) with the store's actual colours.
+    -->
+    <color name="brand_primary">#1F2937</color>
+    <color name="brand_on_primary">#FFFFFF</color>
+
+    <color name="system_bar_background">#FFFFFF</color>
+    <color name="page_background">#FFFFFF</color>
+    <color name="splash_background">#FFFFFF</color>
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Store name taken from the domain; confirm the official spelling with the store owner. -->
+    <string name="app_name">WFCostore</string>
+
+    <string name="retry">Try again</string>
+    <string name="error_offline_title">No internet connection</string>
+    <string name="error_offline_message">Check your connection. The page will reload automatically when you are back online.</string>
+    <string name="error_generic_title">Couldn\'t open the page</string>
+    <string name="error_generic_message">The store could not be reached. Please try again.</string>
+    <string name="error_server_message">The store is temporarily unavailable. Please try again shortly.</string>
+    <string name="error_ssl_title">Secure connection failed</string>
+    <string name="error_ssl_message">The page\'s security certificate could not be verified, so it was not opened to protect your data.</string>
+
+    <string name="no_app_to_open">No app found to open this link</string>
+    <string name="download_started">Downloading…</string>
+    <string name="download_failed">Download failed</string>
+    <string name="download_unsupported">This file can\'t be downloaded in the app</string>
+
+    <string name="leave_page_message">Leave this page? Changes you made may not be saved.</string>
+    <string name="leave">Leave</string>
+    <string name="stay">Stay</string>
+</resources>

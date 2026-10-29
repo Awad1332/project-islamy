@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WFCostore</string>
+
+    <string name="retry">إعادة المحاولة</string>
+    <string name="error_offline_title">لا يوجد اتصال بالإنترنت</string>
+    <string name="error_offline_message">تحقّق من اتصالك. ستُعاد محاولة تحميل الصفحة تلقائيًا عند عودة الاتصال.</string>
+    <string name="error_generic_title">تعذّر فتح الصفحة</string>
+    <string name="error_generic_message">تعذّر الوصول إلى المتجر. حاول مرة أخرى.</string>
+    <string name="error_server_message">المتجر غير متاح مؤقتًا. حاول مرة أخرى بعد قليل.</string>
+    <string name="error_ssl_title">فشل الاتصال الآمن</string>
+    <string name="error_ssl_message">تعذّر التحقق من شهادة أمان الصفحة، لذلك لم تُفتح حمايةً لبياناتك.</string>
+
+    <string name="no_app_to_open">لا يوجد تطبيق لفتح هذا الرابط</string>
+    <string name="download_started">جارٍ التنزيل…</string>
+    <string name="download_failed">فشل التنزيل</string>
+    <string name="download_unsupported">لا يمكن تنزيل هذا الملف داخل التطبيق</string>
+
+    <string name="leave_page_message">هل تريد مغادرة هذه الصفحة؟ قد لا تُحفظ التغييرات.</string>
+    <string name="leave">مغادرة</string>
+    <string name="stay">البقاء</string>
+</resources>
