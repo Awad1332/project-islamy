@@ -1,6 +1,16 @@
 # Deployment
 
-## Option A — Docker Compose (single host)
+## Easiest — one command
+
+```bash
+cd abaya-os
+./start.sh          # add --demo for a labelled demo store; ./start.sh --stop to stop
+```
+
+It checks Docker, creates `.env` with strong random secrets on first run, builds and starts all
+services, waits for the API, seeds plans + a platform admin, and prints the URL and logins.
+
+## Option A — Docker Compose (manual)
 
 ```bash
 cd abaya-os

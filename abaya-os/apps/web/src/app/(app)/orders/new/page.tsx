@@ -16,10 +16,13 @@ import { Field } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TBody, TD, TH, THead, TR } from '@/components/ui/table';
 import { VariantPicker } from '@/components/orders/variant-picker';
+import { MoreOptions } from '@/components/ui/details';
+import { useUiMode } from '@/lib/mode';
 
 export default function NewOrder() {
   const { t, money, locale } = useI18n();
   const { me } = useAuth();
+  const { pro } = useUiMode();
   const router = useRouter();
   const [items, setItems] = useState<{ v: any; quantity: number }[]>([]);
   const [customerQ, setCustomerQ] = useState('');
@@ -85,10 +88,14 @@ export default function NewOrder() {
               <Field label={t('orders.recipient')}><Input value={f.shippingName} onChange={(e) => set('shippingName', e.target.value)} /></Field>
               <Field label={t('orders.phone')} error={create.errors.shippingPhone}><Input dir="ltr" placeholder="05XXXXXXXX" value={f.shippingPhone} onChange={(e) => set('shippingPhone', e.target.value)} /></Field>
               <Field label={t('orders.city')}><Input value={f.shippingCity} onChange={(e) => set('shippingCity', e.target.value)} /></Field>
-              <Field label={t('orders.district')}><Input value={f.shippingDistrict} onChange={(e) => set('shippingDistrict', e.target.value)} /></Field>
               <Field label={t('orders.address')} className="sm:col-span-2"><Input value={f.shippingAddress} onChange={(e) => set('shippingAddress', e.target.value)} /></Field>
-              <Field label={t('orders.giftMessage')}><Input value={f.giftMessage} onChange={(e) => set('giftMessage', e.target.value)} /></Field>
-              <Field label={t('common.notes')}><Textarea rows={2} value={f.notes} onChange={(e) => set('notes', e.target.value)} /></Field>
+              <div className="sm:col-span-2">
+                <MoreOptions key={String(pro)} label={t('common.moreOptions')} defaultOpen={pro}>
+                  <Field label={t('orders.district')}><Input value={f.shippingDistrict} onChange={(e) => set('shippingDistrict', e.target.value)} /></Field>
+                  <Field label={t('orders.giftMessage')}><Input value={f.giftMessage} onChange={(e) => set('giftMessage', e.target.value)} /></Field>
+                  <Field label={t('common.notes')}><Textarea rows={2} value={f.notes} onChange={(e) => set('notes', e.target.value)} /></Field>
+                </MoreOptions>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -102,13 +109,15 @@ export default function NewOrder() {
                   {customers.data?.items.map((c: any) => <option key={c.id} value={c.id}>{c.fullName}{c.phone ? ` — ${c.phone}` : ''}</option>)}
                 </Select>
               </Field>
-              <Field label={t('orders.channel')}><Select value={f.channel} onChange={(e) => set('channel', e.target.value)}>{ORDER_CHANNELS.map((c) => <option key={c} value={c}>{t(`orders.channels.${c}`)}</option>)}</Select></Field>
               <Field label={t('orders.paymentMethod')}><Select value={f.paymentMethod} onChange={(e) => set('paymentMethod', e.target.value)}><option value="">—</option>{PAYMENT_METHODS.map((c) => <option key={c} value={c}>{t(`orders.methods.${c}`)}</option>)}</Select></Field>
+              <MoreOptions key={String(pro)} label={t('common.moreOptions')} defaultOpen={pro}>
+              <Field label={t('orders.channel')}><Select value={f.channel} onChange={(e) => set('channel', e.target.value)}>{ORDER_CHANNELS.map((c) => <option key={c} value={c}>{t(`orders.channels.${c}`)}</option>)}</Select></Field>
               <Field label={t('inventory.location')}><Select value={f.locationId} onChange={(e) => set('locationId', e.target.value)}><option value="">{t('inventory.default')}</option>{locations.data?.map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</Select></Field>
               <div className="grid grid-cols-2 gap-3">
                 <Field label={`${t('orders.shipping')} (${t('common.sar')})`}><Input type="number" min={0} step="0.01" placeholder={me ? String(me.tenant.defaultShippingFee / 100) : ''} value={f.shippingFee} onChange={(e) => set('shippingFee', e.target.value)} /></Field>
                 <Field label={`${t('orders.discount')} (${t('common.sar')})`}><Input type="number" min={0} step="0.01" value={f.discount} onChange={(e) => set('discount', e.target.value)} /></Field>
               </div>
+              </MoreOptions>
             </CardContent>
           </Card>
           {preview && (

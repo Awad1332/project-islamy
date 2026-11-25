@@ -3,7 +3,7 @@ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YA
 import { useI18n } from '@/i18n';
 
 export function SalesChart({ data }: { data: { day: string; revenue: number; orders: number }[] }) {
-  const { money, locale } = useI18n();
+  const { money, locale, t } = useI18n();
   return (
     <div className="h-64 w-full" dir="ltr">
       <ResponsiveContainer>
@@ -18,7 +18,7 @@ export function SalesChart({ data }: { data: { day: string; revenue: number; ord
           <XAxis dataKey="day" tickFormatter={(d: string) => d.slice(5)} tick={{ fontSize: 11, fill: '#6B6866' }} axisLine={false} tickLine={false} reversed={locale === 'ar'} />
           <YAxis tickFormatter={(v: number) => `${Math.round(v / 100)}`} tick={{ fontSize: 11, fill: '#6B6866' }} axisLine={false} tickLine={false} width={48} orientation={locale === 'ar' ? 'right' : 'left'} />
           <Tooltip formatter={(v) => money(Number(v))} labelStyle={{ color: '#2B2B2B' }} contentStyle={{ borderRadius: 8, borderColor: '#E8DFD3' }} />
-          <Area type="monotone" dataKey="revenue" stroke="#9A7B43" strokeWidth={2} fill="url(#gold)" />
+          <Area name={t('analytics.revenue')} type="monotone" dataKey="revenue" stroke="#9A7B43" strokeWidth={2} fill="url(#gold)" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

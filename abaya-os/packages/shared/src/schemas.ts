@@ -26,7 +26,8 @@ export const registerSchema = z.object({
   password: passwordSchema,
   storeNameAr: z.string().trim().min(2).max(100),
   storeNameEn: z.string().trim().max(100).optional(),
-  slug: z.string().trim().toLowerCase().regex(/^[a-z0-9](?:[a-z0-9-]{1,38}[a-z0-9])$/, 'invalid_slug'),
+  /** Optional: generated from the store name when omitted. */
+  slug: z.string().trim().toLowerCase().regex(/^[a-z0-9](?:[a-z0-9-]{1,38}[a-z0-9])$/, 'invalid_slug').optional().or(z.literal('').transform(() => undefined)),
   locale: z.enum(['ar', 'en']).default('ar'),
 });
 export const loginSchema = z.object({
@@ -89,6 +90,8 @@ export const variantSchema = z.object({
   barcode: optText(64),
   weightGrams: z.number().int().min(0).max(100000).optional().nullable(),
   isActive: z.boolean().default(true),
+  /** Units received into the default location when the variant is first created. */
+  initialStock: z.number().int().min(0).max(100000).optional(),
 });
 
 export const productSchema = z.object({
@@ -96,7 +99,8 @@ export const productSchema = z.object({
   titleEn: optText(200),
   descriptionAr: optText(5000),
   descriptionEn: optText(5000),
-  slug: z.string().trim().toLowerCase().regex(/^[a-z0-9-]{2,100}$/, 'invalid_slug'),
+  /** Optional: generated when omitted. */
+  slug: z.string().trim().toLowerCase().regex(/^[a-z0-9-]{2,100}$/, 'invalid_slug').optional().or(z.literal('').transform(() => undefined)),
   status: z.enum(E.PRODUCT_STATUSES).default('DRAFT'),
   categoryId: id.optional().nullable(),
   sizeChartId: id.optional().nullable(),

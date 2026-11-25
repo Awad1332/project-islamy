@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Plus, Users } from 'lucide-react';
 import { api, type Paged } from '@/lib/api';
@@ -24,6 +24,7 @@ export default function CustomersPage() {
   const [tag, setTag] = useState('');
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
+  useEffect(() => { if (new URLSearchParams(window.location.search).get('new') === '1') setOpen(true); }, []);
   const list = useQuery({ queryKey: ['customers', q, tag, page], queryFn: () => api<Paged<any>>('/customers', { query: { q, tag, page } }) });
   const tags = useQuery({ queryKey: ['customer-tags'], queryFn: () => api<{ tag: string; count: number }[]>('/customers/tags') });
   return (

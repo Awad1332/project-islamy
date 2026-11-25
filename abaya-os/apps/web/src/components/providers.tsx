@@ -5,6 +5,7 @@ import { Toaster } from 'sonner';
 import { AuthProvider } from '@/lib/auth';
 import { I18nProvider, type Locale } from '@/i18n';
 import { ApiError } from '@/lib/api';
+import { UiModeProvider } from '@/lib/mode';
 
 export function Providers({ locale, children }: { locale: Locale; children: React.ReactNode }) {
   const [qc] = useState(() => new QueryClient({
@@ -15,7 +16,7 @@ export function Providers({ locale, children }: { locale: Locale; children: Reac
   return (
     <QueryClientProvider client={qc}>
       <I18nProvider locale={locale}>
-        <AuthProvider>{children}</AuthProvider>
+        <UiModeProvider><AuthProvider>{children}</AuthProvider></UiModeProvider>
         <Toaster position={locale === 'ar' ? 'top-left' : 'top-right'} dir={locale === 'ar' ? 'rtl' : 'ltr'} toastOptions={{ className: 'font-sans' }} richColors />
       </I18nProvider>
     </QueryClientProvider>

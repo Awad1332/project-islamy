@@ -1,15 +1,21 @@
 'use client';
+import { usePathname } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { iconForPath } from './icons';
 import { Button } from './ui/button';
 import { useI18n } from '@/i18n';
 
+/** Every page opens the same way: concept icon · title · one-line explanation · (one) primary action. */
 export function PageHeader({ title, description, actions }: { title: string; description?: string; actions?: React.ReactNode }) {
+  const Icon = iconForPath(usePathname());
   return (
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h1 className="font-display text-2xl font-semibold md:text-3xl">{title}</h1>
-        <div className="gold-rule mt-2" />
-        {description && <p className="mt-2 text-sm text-muted-foreground">{description}</p>}
+    <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div className="flex items-center gap-4">
+        {Icon && <span className="hidden size-12 shrink-0 items-center justify-center rounded-2xl bg-gold-100 text-gold-700 sm:flex"><Icon className="size-6" strokeWidth={1.75} /></span>}
+        <div>
+          <h1 className="font-display text-2xl font-semibold md:text-3xl">{title}</h1>
+          {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
+        </div>
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
     </div>

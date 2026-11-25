@@ -9,6 +9,8 @@ import {
 } from '@abaya/shared';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
+import { useUiMode } from '@/lib/mode';
+import { MoreOptions } from '@/components/ui/details';
 import { useI18n } from '@/i18n';
 import { attrLabel } from '@/i18n/attrs';
 import { useAction } from '@/lib/hooks';
@@ -21,7 +23,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Switch } from '@/components/ui/switch';
 import { Table, TBody, TD, TH, THead, TR } from '@/components/ui/table';
 
-interface VariantRow { id?: string; sku: string; size: string; color: string; colorHex?: string | null; length?: string | null; price: string; compareAtPrice: string; costPrice: string; isActive: boolean; stock?: number }
+interface VariantRow { id?: string; initialStock?: string; sku: string; size: string; color: string; colorHex?: string | null; length?: string | null; price: string; compareAtPrice: string; costPrice: string; isActive: boolean; stock?: number }
 
 function toForm(p: any) {
   return {
@@ -42,6 +44,7 @@ function toRows(p: any): VariantRow[] {
 export function ProductForm({ product }: { product?: any }) {
   const { t, locale } = useI18n();
   const { can, me } = useAuth();
+  const { pro } = useUiMode();
   const router = useRouter();
   const editable = can('catalog:write');
   const [f, setF] = useState(() => toForm(product));
@@ -76,13 +79,15 @@ export function ProductForm({ product }: { product?: any }) {
   function payload() {
     return {
       ...f,
+      slug: f.slug || undefined,
       titleEn: f.titleEn || null, descriptionAr: f.descriptionAr || null, descriptionEn: f.descriptionEn || null,
       categoryId: f.categoryId || null, sizeChartId: f.sizeChartId || null,
       cut: f.cut || null, fabric: f.fabric || null, sleeveType: f.sleeveType || null, closure: f.closure || null, embellishment: f.embellishment || null, opacity: f.opacity || null,
       careInstructionsAr: f.careInstructionsAr || null, careInstructionsEn: f.careInstructionsEn || null, seoTitle: f.seoTitle || null, seoDescription: f.seoDescription || null,
       tags: f.tags.split(/[,،]/).map((s) => s.trim()).filter(Boolean),
-      variants: rows.map((r) => ({
-        ...(r.id ? { id: r.id } : {}), sku: r.sku, size: r.size, color: r.color, colorHex: r.colorHex || null, length: r.length || null,
+      variants: rows.map((r, i) => ({
+        ...(r.id ? { id: r.id } : { initialStock: Math.max(0, Number(r.initialStock) || 0) }),
+        sku: r.sku.trim() || `${(f.slug || 'ABY').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6) || 'ABY'}-${Date.now().toString(36).slice(-3).toUpperCase()}${i}`, size: r.size, color: r.color, colorHex: r.colorHex || null, length: r.length || null,
         price: toHalalas(r.price), compareAtPrice: r.compareAtPrice ? toHalalas(r.compareAtPrice) : null, costPrice: r.costPrice ? toHalalas(r.costPrice) : null, isActive: r.isActive,
       })),
     };
@@ -143,7 +148,7 @@ export function ProductForm({ product }: { product?: any }) {
               <Field label={t('products.titleAr')} error={err('titleAr')}><Input value={f.titleAr} disabled={!editable} onChange={(e) => set('titleAr', e.target.value)} /></Field>
               <Field label={t('products.titleEn')}><Input dir="ltr" value={f.titleEn} disabled={!editable} onChange={(e) => { set('titleEn', e.target.value); if (!product && !f.slug) set('slug', slugify(e.target.value)); }} onBlur={() => !f.slug && set('slug', slugify(f.titleEn))} /></Field>
             </div>
-            <Field label={t('products.slug')} error={err('slug')} hint="a-z 0-9 -"><Input dir="ltr" value={f.slug} disabled={!editable} onChange={(e) => set('slug', slugify(e.target.value))} /></Field>
+            {pro && <Field label={t('products.slug')} error={err('slug')} hint="a-z 0-9 -"><Input dir="ltr" value={f.slug} disabled={!editable} onChange={(e) => set('slug', slugify(e.target.value))} /></Field>}
             <Field label={t('products.descriptionAr')}><Textarea rows={5} value={f.descriptionAr} disabled={!editable} onChange={(e) => set('descriptionAr', e.target.value)} /></Field>
             <Field label={t('products.descriptionEn')}><Textarea dir="ltr" rows={4} value={f.descriptionEn} disabled={!editable} onChange={(e) => set('descriptionEn', e.target.value)} /></Field>
             {product && can('ai:use') && <Button variant="outline" size="sm" onClick={() => router.push(`/ai?productId=${product.id}`)}><Sparkles />{t('nav.ai')}</Button>}
@@ -156,11 +161,21 @@ export function ProductForm({ product }: { product?: any }) {
             <div className="grid gap-4 sm:grid-cols-3">
               {optionGroup('cut', ABAYA_CUTS)}
               {optionGroup('fabric', ABAYA_FABRICS)}
-              {optionGroup('sleeveType', SLEEVE_TYPES)}
-              {optionGroup('closure', CLOSURE_TYPES)}
-              {optionGroup('embellishment', EMBELLISHMENTS)}
-              {optionGroup('opacity', OPACITY_LEVELS)}
+              {pro && optionGroup('sleeveType', SLEEVE_TYPES)}
+              {pro && optionGroup('closure', CLOSURE_TYPES)}
+              {pro && optionGroup('embellishment', EMBELLISHMENTS)}
+              {pro && optionGroup('opacity', OPACITY_LEVELS)}
             </div>
+            {!pro && (
+              <MoreOptions label={t('common.moreOptions')}>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {optionGroup('sleeveType', SLEEVE_TYPES)}
+                  {optionGroup('closure', CLOSURE_TYPES)}
+                  {optionGroup('embellishment', EMBELLISHMENTS)}
+                  {optionGroup('opacity', OPACITY_LEVELS)}
+                </div>
+              </MoreOptions>
+            )}
             <div>
               <Label>{t('products.occasions')}</Label>
               <div className="mt-2 flex flex-wrap gap-2">
@@ -176,10 +191,10 @@ export function ProductForm({ product }: { product?: any }) {
               </div>
             </div>
             <label className="flex items-center gap-3 text-sm"><Switch checked={f.includesShayla} disabled={!editable} onCheckedChange={(v) => set('includesShayla', v)} />{t('products.includesShayla')}</label>
-            <div className="grid gap-4 sm:grid-cols-2">
+            {pro && <div className="grid gap-4 sm:grid-cols-2">
               <Field label={`${t('products.care')} (AR)`}><Textarea rows={2} value={f.careInstructionsAr} disabled={!editable} onChange={(e) => set('careInstructionsAr', e.target.value)} /></Field>
               <Field label={`${t('products.care')} (EN)`}><Textarea dir="ltr" rows={2} value={f.careInstructionsEn} disabled={!editable} onChange={(e) => set('careInstructionsEn', e.target.value)} /></Field>
-            </div>
+            </div>}
           </CardContent>
         </Card>
 
@@ -189,7 +204,7 @@ export function ProductForm({ product }: { product?: any }) {
             <CardDescription>{t('products.priceHint')}{vatLabel ? ` — ${vatLabel}` : ''}{product ? ` · ${t('products.stock')}: ${totalStock}` : ''}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {editable && (
+            {editable && pro && (
               <div className="rounded-lg border border-dashed border-gold-300 bg-gold-100/30 p-4">
                 <div className="mb-3 flex items-center gap-2 text-sm font-medium"><Wand2 className="size-4 text-gold-700" />{t('products.generator')}</div>
                 <div className="grid gap-3 sm:grid-cols-5">
@@ -205,21 +220,21 @@ export function ProductForm({ product }: { product?: any }) {
             {err('variants') && <p className="text-sm text-destructive">{err('variants')}</p>}
             {rows.length > 0 && (
               <Table>
-                <THead><TR><TH>{t('products.sku')}</TH><TH>{t('products.size')}</TH><TH>{t('products.color')}</TH><TH>{t('products.length')}</TH><TH>{t('products.price')}</TH><TH>{t('products.compareAt')}</TH><TH>{t('products.cost')}</TH>{product && <TH>{t('products.stock')}</TH>}<TH /></TR></THead>
+                <THead><TR>{pro && <TH>{t('products.sku')}</TH>}<TH>{t('products.size')}</TH><TH>{t('products.color')}</TH><TH>{t('products.length')}</TH><TH>{t('products.price')}</TH>{pro && <TH>{t('products.compareAt')}</TH>}{pro && <TH>{t('products.cost')}</TH>}<TH>{t('products.stock')}</TH><TH /></TR></THead>
                 <TBody>
                   {rows.map((r, i) => {
                     const upd = (k: keyof VariantRow, v: unknown) => setRows((rs) => rs.map((x, j) => (j === i ? { ...x, [k]: v } : x)));
                     const e = (k: string) => errors[`variants.${i}.${k}`] || errors[`variants.${i}`];
                     return (
                       <TR key={r.id ?? `n${i}`} className={!r.isActive ? 'opacity-50' : ''}>
-                        <TD><Input dir="ltr" className="h-8 min-w-[130px] text-xs" aria-invalid={Boolean(e('sku'))} title={e('sku')} value={r.sku} disabled={!editable} onChange={(ev) => upd('sku', ev.target.value)} /></TD>
+                        {pro && <TD><Input dir="ltr" className="h-8 min-w-[130px] text-xs" aria-invalid={Boolean(e('sku'))} title={e('sku')} value={r.sku} disabled={!editable} onChange={(ev) => upd('sku', ev.target.value)} /></TD>}
                         <TD><Input className="h-8 w-16 text-xs" value={r.size} disabled={!editable} onChange={(ev) => upd('size', ev.target.value)} /></TD>
                         <TD><Input className="h-8 w-24 text-xs" value={r.color} disabled={!editable} onChange={(ev) => upd('color', ev.target.value)} /></TD>
                         <TD><Input dir="ltr" className="h-8 w-16 text-xs" value={r.length ?? ''} disabled={!editable} onChange={(ev) => upd('length', ev.target.value)} /></TD>
                         <TD><Input type="number" step="0.01" className="h-8 w-24 text-xs" value={r.price} disabled={!editable} onChange={(ev) => upd('price', ev.target.value)} /></TD>
-                        <TD><Input type="number" step="0.01" className="h-8 w-24 text-xs" aria-invalid={Boolean(e('compareAtPrice'))} title={e('compareAtPrice')} value={r.compareAtPrice} disabled={!editable} onChange={(ev) => upd('compareAtPrice', ev.target.value)} /></TD>
-                        <TD><Input type="number" step="0.01" className="h-8 w-24 text-xs" value={r.costPrice} disabled={!editable} onChange={(ev) => upd('costPrice', ev.target.value)} /></TD>
-                        {product && <TD className="num text-xs">{r.stock ?? 0}</TD>}
+                        {pro && <TD><Input type="number" step="0.01" className="h-8 w-24 text-xs" aria-invalid={Boolean(e('compareAtPrice'))} title={e('compareAtPrice')} value={r.compareAtPrice} disabled={!editable} onChange={(ev) => upd('compareAtPrice', ev.target.value)} /></TD>}
+                        {pro && <TD><Input type="number" step="0.01" className="h-8 w-24 text-xs" value={r.costPrice} disabled={!editable} onChange={(ev) => upd('costPrice', ev.target.value)} /></TD>}
+                        <TD>{r.id ? <span className="num text-xs">{r.stock ?? 0}</span> : <Input type="number" min={0} className="h-8 w-20 text-xs" placeholder="0" title={t('products.initialStock')} value={r.initialStock ?? ''} disabled={!editable} onChange={(ev) => upd('initialStock', ev.target.value)} />}</TD>
                         <TD>{editable && <Button variant="ghost" size="icon" onClick={() => setRows((rs) => rs.filter((_, j) => j !== i))} aria-label="remove"><X /></Button>}</TD>
                       </TR>
                     );
@@ -252,7 +267,7 @@ export function ProductForm({ product }: { product?: any }) {
                 {charts.data?.map((c) => <option key={c.id} value={c.id}>{c.name}{c.isDefault ? ' ★' : ''}</option>)}
               </Select>
             </Field>
-            <Field label={t('products.tags')} hint={t('products.tagsHint')}><Input value={f.tags} disabled={!editable} onChange={(e) => set('tags', e.target.value)} /></Field>
+            {pro && <Field label={t('products.tags')} hint={t('products.tagsHint')}><Input value={f.tags} disabled={!editable} onChange={(e) => set('tags', e.target.value)} /></Field>}
             {editable && <Button className="w-full" onClick={save} loading={saving}>{t('common.save')}</Button>}
             {product && editable && (
               <div className="flex gap-2">
@@ -263,13 +278,13 @@ export function ProductForm({ product }: { product?: any }) {
           </CardContent>
         </Card>
 
-        <Card>
+        {pro && <Card>
           <CardHeader><CardTitle>{t('products.seo')}</CardTitle></CardHeader>
           <CardContent className="space-y-3">
             <Field label={t('products.seoTitle')} hint={`${f.seoTitle.length}/70`}><Input value={f.seoTitle} maxLength={70} disabled={!editable} onChange={(e) => set('seoTitle', e.target.value)} /></Field>
             <Field label={t('products.seoDescription')} hint={`${f.seoDescription.length}/160`}><Textarea rows={3} maxLength={160} value={f.seoDescription} disabled={!editable} onChange={(e) => set('seoDescription', e.target.value)} /></Field>
           </CardContent>
-        </Card>
+        </Card>}
 
         {product && (
           <Card>

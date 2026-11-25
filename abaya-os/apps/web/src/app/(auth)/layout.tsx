@@ -1,6 +1,7 @@
 'use client';
 import { useI18n } from '@/i18n';
 import { Button } from '@/components/ui/button';
+import { Brand } from '@/components/brand';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   const { t, locale, setLocale } = useI18n();
@@ -9,7 +10,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="relative hidden overflow-hidden bg-charcoal lg:block">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(184,151,90,0.25),transparent_60%)]" />
         <div className="relative flex h-full flex-col justify-between p-12 text-ivory">
-          <div className="font-display text-3xl tracking-wide">{t('app.name')}</div>
+          <Brand inverted />
           <div>
             <div className="mb-6 h-px w-24 bg-gold" />
             <p className="font-display text-4xl leading-relaxed">{t('app.tagline')}</p>
@@ -19,7 +20,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
       </div>
       <div className="flex flex-col">
-        <div className="flex justify-end p-4">
+        <div className="flex items-center justify-between p-4">
+          <span className="lg:hidden"><Brand /></span><span className="hidden lg:block" />
           <Button variant="ghost" size="sm" onClick={() => setLocale(locale === 'ar' ? 'en' : 'ar')}>{t('common.language')}</Button>
         </div>
         <div className="flex flex-1 items-center justify-center p-6">

@@ -3,7 +3,7 @@ import type { Dict } from './ar';
 export const en: Dict = {
   app: { name: 'ABAYA OS', tagline: 'The operating system for Saudi abaya brands' },
   common: {
-    save: 'Save', saving: 'Saving…', cancel: 'Cancel', delete: 'Delete', edit: 'Edit', add: 'Add', create: 'Create', search: 'Search…',
+    moreOptions: 'More options', showPassword: 'Show password', hidePassword: 'Hide password', quickAdd: 'Quick add', more: 'More', save: 'Save', saving: 'Saving…', cancel: 'Cancel', delete: 'Delete', edit: 'Edit', add: 'Add', create: 'Create', search: 'Search…',
     actions: 'Actions', loading: 'Loading…', retry: 'Retry', error: 'Something went wrong', back: 'Back', next: 'Next', prev: 'Previous',
     confirmDelete: 'Are you sure? This cannot be undone.', yes: 'Yes', no: 'No', all: 'All', status: 'Status', date: 'Date',
     total: 'Total', name: 'Name', notes: 'Notes', view: 'View', copy: 'Copy', copied: 'Copied', close: 'Close', optional: 'optional',
@@ -18,7 +18,7 @@ export const en: Dict = {
     audit: 'Activity log', admin: 'Platform admin', groups: { sell: 'Sell', catalog: 'Catalog', growth: 'Growth', store: 'Store' },
   },
   auth: {
-    login: 'Sign in', register: 'Create your store', email: 'Email', password: 'Password', fullName: 'Full name',
+    storeName: 'Your store name', start: 'Get started', login: 'Sign in', register: 'Create your store', email: 'Email', password: 'Password', fullName: 'Full name',
     storeNameAr: 'Store name (Arabic)', storeNameEn: 'Store name (English)', slug: 'Store handle', slugHint: 'lowercase letters, numbers and dashes',
     noAccount: 'No store yet?', haveAccount: 'Have an account?', welcome: 'Welcome back', welcomeSub: 'Run your abaya house with elegance and precision',
     passwordHint: 'At least 10 characters with a letter and a number', acceptInvite: 'Accept invitation', inviteSub: 'Join the store team',
@@ -35,7 +35,7 @@ export const en: Dict = {
     },
   },
   products: {
-    title: 'Products', new: 'New abaya', edit: 'Edit product', empty: 'No products yet', emptySub: 'Start by adding your first abaya with its sizes, colours and lengths.',
+    initialStock: 'Quantity', title: 'Products', new: 'New abaya', edit: 'Edit product', empty: 'No products yet', emptySub: 'Start by adding your first abaya with its sizes, colours and lengths.',
     titleAr: 'Title (Arabic)', titleEn: 'Title (English)', descriptionAr: 'Description (Arabic)', descriptionEn: 'Description (English)', slug: 'Handle',
     category: 'Category', sizeChart: 'Size chart', attributes: 'Abaya attributes', cut: 'Cut', fabric: 'Fabric', sleeveType: 'Sleeves', closure: 'Closure',
     embellishment: 'Embellishment', opacity: 'Opacity', occasions: 'Occasions', includesShayla: 'Includes shayla / tarha', care: 'Care instructions',
@@ -180,6 +180,22 @@ export const en: Dict = {
   admin: {
     title: 'Platform admin', tenants: 'Stores', plans: 'Plans', metrics: 'Platform metrics', suspend: 'Suspend', activate: 'Activate', assignPlan: 'Assign plan',
     markPaid: 'Payment received', paymentRef: 'Payment reference', mrr: 'MRR', gmv: 'GMV', users: 'Users',
+  },
+  mode: { label: 'View', simple: 'Simple', pro: 'Pro', simpleHint: 'Just the essentials, in plain words', proHint: 'Every tool and detail', wantMore: 'Need more tools?', wantMoreSub: 'Switch to Pro to show marketing, analytics, integrations and more.', enablePro: 'Switch to Pro' },
+  home: {
+    morning: 'Good morning', evening: 'Good evening', quick: 'What would you like to do?', addAbaya: 'Add an abaya', addAbayaSub: 'in three steps',
+    newOrder: 'Record an order', newOrderSub: 'from WhatsApp or boutique', addCustomer: 'Add a customer', addCustomerSub: 'with measurements', suggestSize: 'Suggest a size', suggestSizeSub: 'from your chart',
+    attention: 'Needs your attention', allGood: 'All good — nothing needs follow-up right now.', pendingOrders: 'orders waiting to be prepared or shipped', openReturns: 'returns or exchanges waiting for your decision',
+    lowStock: 'sizes running low', openConversations: 'open customer conversations', today: 'Today', ordersToday: "Today's orders", salesToday: "Today's sales", last30: 'Last 30 days',
+  },
+  quick: {
+    title: 'Add a new abaya', sub: 'Three simple steps — you can edit everything later', step: 'Step', of: 'of',
+    s1: 'What is the abaya called?', s2: 'Which sizes, colours and lengths do you have?', s3: 'Price and quantity?',
+    name: 'Abaya name', namePh: 'e.g. Black crepe abaya with wide sleeves', category: 'Category (optional)', sizes: 'Sizes', colors: 'Colours', lengths: 'Lengths in inches (optional)',
+    otherColor: 'Other colour', otherSize: 'Other size', otherLength: 'Other length', price: 'Selling price (SAR)', qty: 'Quantity per option', qtyHint: 'Change any option’s quantity in the table if it differs',
+    options: 'options', publish: 'Put it on sale now', save: 'Save abaya', advanced: 'Advanced editor', simpleEditor: 'Quick add',
+    needName: 'Enter the abaya name', needSize: 'Pick at least one size', needColor: 'Pick at least one colour', needPrice: 'Enter the price', tooMany: 'That is a lot of options — double-check your picks',
+    freeSize: 'Free size',
   },
   errors: {
     NETWORK: 'Could not reach the server', VALIDATION_FAILED: 'Please check the highlighted fields', INVALID_CREDENTIALS: 'Incorrect email or password',

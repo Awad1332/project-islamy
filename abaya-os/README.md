@@ -30,13 +30,13 @@ A multi-tenant SaaS platform for Saudi abaya brands. Arabic-first RTL UI with En
 - **Billing** — plans with limits (products, staff, AI credits), usage, manual plan assignment with VAT invoice records.
 - **Onboarding** — checklist computed from real data; audit log.
 
-## Quick start
+## Quick start — أمر واحد
 
 ```bash
-cp .env.example .env    # fill secrets
-docker compose up -d --build
-docker compose exec api npx ts-node --transpile-only prisma/seed.ts
+./start.sh --demo     # يجهّز الأسرار ويشغّل كل شيء ويطبع الرابط وبيانات الدخول
 ```
+
+Then open http://localhost:3000. Design principles: [docs/DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md).
 
 See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for local development without Docker.
 

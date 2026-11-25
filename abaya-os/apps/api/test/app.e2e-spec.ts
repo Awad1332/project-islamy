@@ -270,3 +270,38 @@ describe('analytics', () => {
     expect(r.body.sizes[0]).toMatchObject({ size: 'M', length: '56', units: 1 });
   });
 });
+
+describe('simplified flows', () => {
+  it('registers with only name, email, password and store name (handle generated)', async () => {
+    const email = `simple-${Date.now()}@test.local`;
+    const r = await api(app).post('/auth/register', { fullName: 'تاجرة', email, password: 'Password123', storeNameAr: 'متجر بسيط' }).expect(201);
+    const me = await api(app, r.body.accessToken).get('/auth/me').expect(200);
+    expect(me.body.tenant.slug).toMatch(/^store-[a-z0-9]+$/);
+    const r2 = await api(app).post('/auth/register', { fullName: 'تاجرة', email: `en-${email}`, password: 'Password123', storeNameAr: 'دار', storeNameEn: `Dar Noor ${Date.now()}` }).expect(201);
+    const me2 = await api(app, r2.body.accessToken).get('/auth/me').expect(200);
+    expect(me2.body.tenant.slug).toMatch(/^dar-noor-\d+$/);
+    // A taken handle gets a short unique suffix instead of failing.
+    const r3 = await api(app).post('/auth/register', { fullName: 'تاجرة', email: `dup-${email}`, password: 'Password123', storeNameAr: 'دار', storeNameEn: me2.body.tenant.slug }).expect(201);
+    const me3 = await api(app, r3.body.accessToken).get('/auth/me').expect(200);
+    expect(me3.body.tenant.slug).toMatch(new RegExp(`^${me2.body.tenant.slug}-[a-z0-9]+$`));
+  });
+
+  it('creates a product without a handle and receives initial stock per variant', async () => {
+    const s = await registerStore(app, 'quick');
+    const body = productBody('x', 'QK') as any;
+    delete body.slug;
+    body.variants[0].initialStock = 4;
+    body.variants[1].initialStock = 0;
+    const p = await api(app, s.token).post('/products', body).expect(201);
+    expect(p.body.slug).toMatch(/^abaya-/);
+    const stock = (sku: string) => p.body.variants.find((v: any) => v.sku === sku).inventory.reduce((a: number, l: any) => a + l.onHand, 0);
+    expect(stock('QK-M-56')).toBe(4);
+    expect(stock('QK-L-58')).toBe(0);
+    // Adding a new variant later with initialStock also receives it; existing variants are untouched.
+    const upd = { ...body, slug: p.body.slug, variants: [...p.body.variants.map((v: any) => ({ id: v.id, sku: v.sku, size: v.size, color: v.color, length: v.length, price: v.price })), { sku: 'QK-XL-60', size: 'XL', color: 'أسود', length: '60', price: 46000, initialStock: 2 }] };
+    const after = await api(app, s.token).put(`/products/${p.body.id}`, upd).expect(200);
+    const xl = after.body.variants.find((v: any) => v.sku === 'QK-XL-60');
+    expect(xl.inventory[0].onHand).toBe(2);
+    expect(after.body.variants.find((v: any) => v.sku === 'QK-M-56').inventory[0].onHand).toBe(4);
+  });
+});

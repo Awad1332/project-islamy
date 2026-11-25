@@ -1,7 +1,7 @@
 export const ar = {
   app: { name: 'عباية OS', tagline: 'منصة إدارة متاجر العبايات السعودية' },
   common: {
-    save: 'حفظ', saving: 'جارٍ الحفظ…', cancel: 'إلغاء', delete: 'حذف', edit: 'تعديل', add: 'إضافة', create: 'إنشاء', search: 'بحث…',
+    moreOptions: 'خيارات إضافية', showPassword: 'إظهار كلمة المرور', hidePassword: 'إخفاء كلمة المرور', quickAdd: 'إضافة سريعة', more: 'المزيد', save: 'حفظ', saving: 'جارٍ الحفظ…', cancel: 'إلغاء', delete: 'حذف', edit: 'تعديل', add: 'إضافة', create: 'إنشاء', search: 'بحث…',
     actions: 'إجراءات', loading: 'جارٍ التحميل…', retry: 'إعادة المحاولة', error: 'حدث خطأ', back: 'رجوع', next: 'التالي', prev: 'السابق',
     confirmDelete: 'هل أنتِ متأكدة من الحذف؟ لا يمكن التراجع.', yes: 'نعم', no: 'لا', all: 'الكل', status: 'الحالة', date: 'التاريخ',
     total: 'الإجمالي', name: 'الاسم', notes: 'ملاحظات', view: 'عرض', copy: 'نسخ', copied: 'تم النسخ', close: 'إغلاق', optional: 'اختياري',
@@ -16,7 +16,7 @@ export const ar = {
     audit: 'سجل النشاط', admin: 'إدارة المنصة', groups: { sell: 'البيع', catalog: 'الكتالوج', growth: 'النمو', store: 'المتجر' },
   },
   auth: {
-    login: 'تسجيل الدخول', register: 'إنشاء متجر جديد', email: 'البريد الإلكتروني', password: 'كلمة المرور', fullName: 'الاسم الكامل',
+    storeName: 'اسم متجركِ', start: 'ابدئي الآن', login: 'تسجيل الدخول', register: 'إنشاء متجر جديد', email: 'البريد الإلكتروني', password: 'كلمة المرور', fullName: 'الاسم الكامل',
     storeNameAr: 'اسم المتجر بالعربية', storeNameEn: 'اسم المتجر بالإنجليزية', slug: 'رابط المتجر', slugHint: 'حروف إنجليزية صغيرة وأرقام وشرطة',
     noAccount: 'ليس لديكِ متجر؟', haveAccount: 'لديكِ حساب؟', welcome: 'أهلاً بعودتكِ', welcomeSub: 'أديري متجر العبايات بأناقة ودقة',
     passwordHint: '10 أحرف على الأقل وتتضمن حرفاً ورقماً', acceptInvite: 'قبول الدعوة', inviteSub: 'انضمي إلى فريق المتجر',
@@ -33,7 +33,7 @@ export const ar = {
     },
   },
   products: {
-    title: 'المنتجات', new: 'عباية جديدة', edit: 'تعديل المنتج', empty: 'لا توجد منتجات بعد', emptySub: 'ابدئي بإضافة أول عباية مع مقاساتها وألوانها وأطوالها.',
+    initialStock: 'الكمية', title: 'المنتجات', new: 'عباية جديدة', edit: 'تعديل المنتج', empty: 'لا توجد منتجات بعد', emptySub: 'ابدئي بإضافة أول عباية مع مقاساتها وألوانها وأطوالها.',
     titleAr: 'اسم المنتج بالعربية', titleEn: 'اسم المنتج بالإنجليزية', descriptionAr: 'الوصف بالعربية', descriptionEn: 'الوصف بالإنجليزية', slug: 'الرابط',
     category: 'التصنيف', sizeChart: 'جدول المقاسات', attributes: 'خصائص العباية', cut: 'القصّة', fabric: 'القماش', sleeveType: 'الأكمام', closure: 'الإغلاق',
     embellishment: 'التطريز والزينة', opacity: 'الشفافية', occasions: 'المناسبات', includesShayla: 'تشمل الشيلة/الطرحة', care: 'تعليمات العناية',
@@ -178,6 +178,22 @@ export const ar = {
   admin: {
     title: 'إدارة المنصة', tenants: 'المتاجر', plans: 'الباقات', metrics: 'مؤشرات المنصة', suspend: 'إيقاف', activate: 'تفعيل', assignPlan: 'تعيين باقة',
     markPaid: 'تم استلام الدفع', paymentRef: 'مرجع الدفع', mrr: 'الإيراد الشهري المتكرر', gmv: 'إجمالي المبيعات', users: 'المستخدمون',
+  },
+  mode: { label: 'طريقة العرض', simple: 'بسيط', pro: 'احترافي', simpleHint: 'الأساسيات فقط بلغة واضحة', proHint: 'كل الأدوات والتفاصيل', wantMore: 'تحتاجين أدوات أكثر؟', wantMoreSub: 'فعّلي الوضع الاحترافي لإظهار التسويق والتحليلات والتكاملات وغيرها.', enablePro: 'تفعيل الوضع الاحترافي' },
+  home: {
+    morning: 'صباح الخير', evening: 'مساء الخير', quick: 'ماذا تريدين أن تفعلي الآن؟', addAbaya: 'إضافة عباية', addAbayaSub: 'بثلاث خطوات',
+    newOrder: 'تسجيل طلب', newOrderSub: 'من واتساب أو البوتيك', addCustomer: 'إضافة عميلة', addCustomerSub: 'مع قياساتها', suggestSize: 'اقتراح مقاس', suggestSizeSub: 'حسب جدولكِ',
+    attention: 'يحتاج انتباهكِ', allGood: 'كل شيء على ما يرام، لا يوجد ما يحتاج متابعة الآن.', pendingOrders: 'طلبات بانتظار التجهيز أو الشحن', openReturns: 'طلبات إرجاع أو استبدال بانتظار قراركِ',
+    lowStock: 'مقاسات أوشكت على النفاد', openConversations: 'محادثات عميلات مفتوحة', today: 'اليوم', ordersToday: 'طلبات اليوم', salesToday: 'مبيعات اليوم', last30: 'آخر 30 يوماً',
+  },
+  quick: {
+    title: 'إضافة عباية جديدة', sub: 'ثلاث خطوات بسيطة — يمكنكِ تعديل كل شيء لاحقاً', step: 'الخطوة', of: 'من',
+    s1: 'ما اسم العباية؟', s2: 'ما المقاسات والألوان والأطوال المتوفرة؟', s3: 'كم السعر والكمية؟',
+    name: 'اسم العباية', namePh: 'مثال: عباية كريب سوداء بأكمام واسعة', category: 'التصنيف (اختياري)', sizes: 'المقاسات', colors: 'الألوان', lengths: 'الأطوال بالإنش (اختياري)',
+    otherColor: 'لون آخر', otherSize: 'مقاس آخر', otherLength: 'طول آخر', price: 'سعر البيع (ر.س)', qty: 'الكمية لكل خيار', qtyHint: 'غيّري كمية أي خيار من الجدول إن اختلفت',
+    options: 'خيار', publish: 'اعرضيها للبيع فوراً', save: 'حفظ العباية', advanced: 'المحرر المتقدم', simpleEditor: 'الإضافة السريعة',
+    needName: 'اكتبي اسم العباية', needSize: 'اختاري مقاساً واحداً على الأقل', needColor: 'اختاري لوناً واحداً على الأقل', needPrice: 'أدخلي السعر', tooMany: 'عدد كبير من الخيارات — تأكدي من اختياراتكِ',
+    freeSize: 'فري سايز',
   },
   errors: {
     NETWORK: 'تعذّر الاتصال بالخادم', VALIDATION_FAILED: 'تحققي من الحقول المدخلة', INVALID_CREDENTIALS: 'البريد أو كلمة المرور غير صحيحة',

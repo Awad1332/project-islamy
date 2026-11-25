@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Plus, ShoppingBag } from 'lucide-react';
 import { ORDER_STATUSES, PAYMENT_STATUSES } from '@abaya/shared';
@@ -22,6 +22,7 @@ export default function OrdersPage() {
   const [status, setStatus] = useState('');
   const [paymentStatus, setPaymentStatus] = useState('');
   const [page, setPage] = useState(1);
+  useEffect(() => { const st = new URLSearchParams(window.location.search).get('status'); if (st) setStatus(st); }, []);
   const list = useQuery({ queryKey: ['orders', q, status, paymentStatus, page], queryFn: () => api<Paged<any>>('/orders', { query: { q, status, paymentStatus, page } }) });
   return (
     <>

@@ -6,6 +6,7 @@ import { PrismaService } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';
 import { EventsService } from '../../common/events.service';
 import { BillingService } from '../billing/billing.service';
+import { InventoryService } from '../inventory/inventory.service';
 import { AppError, conflict, notFound } from '../../common/errors';
 import { paged } from '../../common/zod';
 import type { AuthUser } from '../../common/auth';
@@ -24,6 +25,7 @@ export class CatalogService {
     private readonly audit: AuditService,
     private readonly events: EventsService,
     private readonly billing: BillingService,
+    private readonly inventory: InventoryService,
   ) {}
 
   // ---------- Categories ----------
@@ -97,21 +99,54 @@ export class CatalogService {
   }
 
   private productData(b: ProductInput) {
-    const { variants: _v, ...rest } = b;
+    const { variants: _v, slug, ...rest } = b;
+    return slug ? { ...rest, slug } : rest;
+  }
+
+  private variantData(v: ProductInput['variants'][number]) {
+    const { id: _id, initialStock: _s, ...rest } = v;
     return rest;
+  }
+
+  /** Unique per-tenant product handle when the merchant didn't supply one. */
+  private async uniqueSlug(tenantId: string, preferred?: string) {
+    if (preferred) return preferred;
+    for (let i = 0; i < 5; i++) {
+      const slug = `abaya-${Date.now().toString(36)}${Math.floor(Math.random() * 1296).toString(36)}`;
+      if (!(await this.prisma.product.count({ where: { tenantId, slug } }))) return slug;
+    }
+    return `abaya-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  /** Receives `initialStock` for newly created variants into the default location. */
+  private async receiveInitialStock(u: AuthUser, created: { id: string; sku: string }[], input: ProductInput['variants']) {
+    const wanted = input.filter((v) => !v.id && (v.initialStock ?? 0) > 0);
+    if (!wanted.length) return;
+    const locationId = await this.inventory.defaultLocationId(u.tenantId);
+    const bySku = new Map(created.map((c) => [c.sku.toLowerCase(), c.id]));
+    await this.prisma.$transaction(async (tx) => {
+      for (const v of wanted) {
+        const variantId = bySku.get(v.sku.toLowerCase());
+        if (variantId) await this.inventory.move(tx, { tenantId: u.tenantId, variantId, locationId, delta: v.initialStock!, type: 'RECEIPT', note: 'initial stock', userId: u.userId });
+      }
+    }, { timeout: 30000 });
   }
 
   async create(u: AuthUser, b: ProductInput) {
     await this.billing.assertProductQuota(u.tenantId);
     await this.assertRefs(u, b);
-    const p = await this.prisma.product.create({
+    const slug = await this.uniqueSlug(u.tenantId, b.slug);
+    const created = await this.prisma.product.create({
       data: {
         ...this.productData(b),
+        slug,
         tenantId: u.tenantId,
-        variants: { create: b.variants.map(({ id: _id, ...v }) => ({ ...v, tenantId: u.tenantId })) },
+        variants: { create: b.variants.map((v) => ({ ...this.variantData(v), tenantId: u.tenantId })) },
       },
-      include: productInclude,
+      include: { variants: { select: { id: true, sku: true } } },
     });
+    await this.receiveInitialStock(u, created.variants, b.variants);
+    const p = await this.get(u, created.id);
     await this.audit.log(u, 'product.created', 'Product', p.id, { title: p.titleAr });
     await this.events.publish(u.tenantId, 'product.updated', { id: p.id, action: 'created' });
     return p;
@@ -136,11 +171,13 @@ export class CatalogService {
         const deletable = removed.filter((r) => !soldIds.has(r));
         if (deletable.length) await tx.productVariant.deleteMany({ where: { id: { in: deletable } } });
       }
-      for (const { id: vid, ...v } of b.variants) {
-        if (vid) await tx.productVariant.update({ where: { id: vid }, data: v });
-        else await tx.productVariant.create({ data: { ...v, productId: id, tenantId: u.tenantId } });
+      for (const v of b.variants) {
+        if (v.id) await tx.productVariant.update({ where: { id: v.id }, data: this.variantData(v) });
+        else await tx.productVariant.create({ data: { ...this.variantData(v), productId: id, tenantId: u.tenantId } });
       }
     });
+    const fresh = await this.prisma.productVariant.findMany({ where: { productId: id }, select: { id: true, sku: true } });
+    await this.receiveInitialStock(u, fresh, b.variants);
     await this.audit.log(u, 'product.updated', 'Product', id);
     await this.events.publish(u.tenantId, 'product.updated', { id, action: 'updated' });
     return this.get(u, id);

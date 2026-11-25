@@ -27,7 +27,12 @@ export class AuthService {
     const plan = await this.prisma.plan.findFirst({ where: { isActive: true }, orderBy: { priceMonthly: 'asc' } });
     if (!plan) throw new AppError(503, 'PLANS_NOT_CONFIGURED', 'No subscription plans exist. Run the seed.');
     if (await this.prisma.user.findUnique({ where: { email: input.email } })) throw conflict('EMAIL_TAKEN', 'Email already registered');
-    if (await this.prisma.tenant.findUnique({ where: { slug: input.slug } })) throw conflict('SLUG_TAKEN', 'Store URL already taken');
+    let slug = input.slug;
+    if (slug) {
+      if (await this.prisma.tenant.findUnique({ where: { slug } })) throw conflict('SLUG_TAKEN', 'Store URL already taken');
+    } else {
+      slug = await this.generateSlug(input.storeNameEn);
+    }
 
     const passwordHash = await bcrypt.hash(input.password, 12);
     const now = new Date();
@@ -35,7 +40,7 @@ export class AuthService {
     const { user, tenant } = await this.prisma.$transaction(async (tx) => {
       const user = await tx.user.create({ data: { email: input.email, passwordHash, fullName: input.fullName, locale: input.locale } });
       const tenant = await tx.tenant.create({
-        data: { slug: input.slug, nameAr: input.storeNameAr, nameEn: input.storeNameEn, defaultLocale: input.locale, contactEmail: input.email },
+        data: { slug, nameAr: input.storeNameAr, nameEn: input.storeNameEn, defaultLocale: input.locale, contactEmail: input.email },
       });
       await tx.membership.create({ data: { tenantId: tenant.id, userId: user.id, role: 'OWNER' } });
       await tx.subscription.create({
@@ -138,6 +143,16 @@ export class AuthService {
       permissions: ROLE_PERMISSIONS[user.role],
       memberships: memberships.map((m) => ({ role: m.role, tenant: m.tenant })),
     };
+  }
+
+  /** Builds a unique store handle from the English name, falling back to a random one. */
+  private async generateSlug(nameEn?: string): Promise<string> {
+    const base = (nameEn ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
+    for (let i = 0; i < 10; i++) {
+      const candidate = base.length >= 3 && i === 0 ? base : `${base.length >= 3 ? base : 'store'}-${this.crypto.randomToken(3).toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 4) || i}`;
+      if (/^[a-z0-9](?:[a-z0-9-]{1,38}[a-z0-9])$/.test(candidate) && !(await this.prisma.tenant.findUnique({ where: { slug: candidate } }))) return candidate;
+    }
+    return `store-${Date.now().toString(36)}`;
   }
 
   private async issueSession(userId: string, tenantId: string, meta: SessionMeta, familyId?: string) {
