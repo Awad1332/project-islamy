@@ -27,7 +27,7 @@ import { HealthModule } from './modules/health/health.controller';
 
 @Module({
   imports: [
-    ThrottlerModule.forRoot([{ ttl: 60_000, limit: process.env.NODE_ENV === 'test' ? 10_000 : 300 }]),
+    ThrottlerModule.forRoot({ throttlers: [{ ttl: 60_000, limit: 300 }], skipIf: () => process.env.NODE_ENV === 'test' }),
     ScheduleModule.forRoot(),
     CommonModule, BillingModule, MediaModule, IntegrationsModule, MessagingModule, InventoryModule, OrdersModule,
     AuthModule, StoreModule, AdminModule, CatalogModule, CustomersModule, ReturnsModule, SizingModule,
