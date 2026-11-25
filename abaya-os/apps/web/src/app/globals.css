@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 37 45% 97%;      /* warm ivory */
+    --foreground: 0 0% 17%;        /* charcoal */
+    --card: 40 60% 99%;
+    --card-foreground: 0 0% 17%;
+    --popover: 40 60% 99%;
+    --popover-foreground: 0 0% 17%;
+    --primary: 0 0% 17%;           /* charcoal buttons */
+    --primary-foreground: 37 45% 97%;
+    --secondary: 35 32% 87%;       /* muted beige */
+    --secondary-foreground: 0 0% 17%;
+    --muted: 36 30% 93%;
+    --muted-foreground: 20 4% 41%;
+    --accent: 38 38% 89%;
+    --accent-foreground: 0 0% 17%;
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 35 25% 85%;
+    --input: 35 25% 82%;
+    --ring: 38 37% 54%;            /* restrained gold */
+    --radius: 0.625rem;
+  }
+  * { @apply border-border; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { @apply bg-background text-foreground font-sans; font-feature-settings: 'ss01'; }
+  h1, h2, h3 { @apply tracking-tight; }
+  .font-display { letter-spacing: 0; }
+  input[type='number'] { direction: ltr; }
+}
+
+@layer components {
+  .gold-rule { @apply h-px w-12 bg-gradient-to-l from-transparent via-gold to-transparent; }
+  .num { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
+}
