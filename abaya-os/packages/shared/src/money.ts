@@ -93,7 +93,7 @@ export function computeTotals(lines: LineInput[], shipping: number, cfg: VatConf
 }
 
 export function formatSar(halalas: number, locale: 'ar' | 'en' = 'ar'): string {
-  return new Intl.NumberFormat(locale === 'ar' ? 'ar-SA' : 'en-SA', {
+  return new Intl.NumberFormat(locale === 'ar' ? 'ar-SA-u-nu-latn' : 'en-SA', {
     style: 'currency',
     currency: CURRENCY,
     minimumFractionDigits: 2,
