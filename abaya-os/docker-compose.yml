@@ -1,4 +1,4 @@
-# ABAYA OS — single-host deployment (Postgres, Redis, MinIO, API, Web).
+# ABAYA OS — single-host deployment (Postgres, Redis, RustFS S3 storage, API, Web).
 # Usage:  cp .env.example .env   # fill in secrets
 #         docker compose up -d --build
 name: abaya-os
@@ -27,35 +27,20 @@ services:
       interval: 5s
       retries: 20
 
-  minio:
-    image: minio/minio:latest
+  # S3-compatible object storage for product images (RustFS, Apache-2.0).
+  # Internal only: the API creates the bucket on startup and serves images at /api/media/files/…
+  storage:
+    image: rustfs/rustfs:1.0.6
     restart: unless-stopped
-    command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID:?set S3_ACCESS_KEY_ID}
-      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY:?set S3_SECRET_ACCESS_KEY}
-    ports: ["9000:9000", "9001:9001"]
-    volumes: [miniodata:/data]
+      RUSTFS_ACCESS_KEY: ${S3_ACCESS_KEY_ID:?set S3_ACCESS_KEY_ID}
+      RUSTFS_SECRET_KEY: ${S3_SECRET_ACCESS_KEY:?set S3_SECRET_ACCESS_KEY}
+      RUSTFS_VOLUMES: /data
+    volumes: [storagedata:/data]
     healthcheck:
-      test: ["CMD", "mc", "ready", "local"]
+      test: ["CMD", "curl", "-sf", "http://localhost:9000/health"]
       interval: 5s
-      retries: 20
-
-  # Creates the media bucket and allows anonymous GET (product images are public).
-  minio-init:
-    image: minio/mc:latest
-    depends_on:
-      minio: { condition: service_healthy }
-    environment:
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
-      S3_BUCKET: ${S3_BUCKET:-abaya-media}
-    entrypoint: ["/bin/sh", "-c"]
-    command:
-      - >
-        mc alias set local http://minio:9000 "$$S3_ACCESS_KEY_ID" "$$S3_SECRET_ACCESS_KEY" &&
-        mc mb --ignore-existing "local/$$S3_BUCKET" &&
-        mc anonymous set download "local/$$S3_BUCKET"
+      retries: 30
 
   api:
     build: { context: ., dockerfile: apps/api/Dockerfile }
@@ -63,7 +48,7 @@ services:
     depends_on:
       postgres: { condition: service_healthy }
       redis: { condition: service_healthy }
-      minio-init: { condition: service_completed_successfully }
+      storage: { condition: service_healthy }
     environment:
       NODE_ENV: production
       PORT: 4000
@@ -74,13 +59,14 @@ services:
       JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:?set JWT_ACCESS_SECRET}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:?set ENCRYPTION_KEY}
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
-      S3_ENDPOINT: http://minio:9000
-      S3_REGION: ${S3_REGION:-me-central-1}
+      S3_ENDPOINT: ${S3_ENDPOINT:-http://storage:9000}
+      S3_REGION: ${S3_REGION:-us-east-1}
       S3_BUCKET: ${S3_BUCKET:-abaya-media}
       S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
       S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
       S3_FORCE_PATH_STYLE: "true"
-      S3_PUBLIC_URL: ${S3_PUBLIC_URL:-http://localhost:9000/abaya-media}
+      # Empty = images are served by the API itself. Set to a CDN/public-bucket URL to serve from there.
+      S3_PUBLIC_URL: ${S3_PUBLIC_URL:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
       PLATFORM_ADMIN_EMAIL: ${PLATFORM_ADMIN_EMAIL:-}
@@ -105,4 +91,4 @@ services:
 volumes:
   pgdata:
   redisdata:
-  miniodata:
+  storagedata:

@@ -11,7 +11,7 @@ Credentials are encrypted at rest (AES-256-GCM) and only ever returned masked.
 | Provider | Live verification | What ABAYA OS does once verified | Not implemented |
 |---|---|---|---|
 | **Anthropic (Claude)** | ✅ `models.list` via official SDK | AI content studio: titles, descriptions, SEO JSON, Instagram captions (AR/EN), history, apply-to-product, per-plan credits, refusal handling with server-side fallback | — |
-| **S3 / MinIO** (platform env) | ✅ `HeadBucket` (shown in *Integrations → system status*) | Product image upload with magic-byte validation, 10 MB limit | Image resizing/CDN |
+| **S3 storage** (platform env; RustFS bundled in Compose) | ✅ `HeadBucket` (shown in *Integrations → system status*); bucket auto-created on startup | Product image upload with magic-byte validation, 10 MB limit; images served by the API at `/api/media/files/…` unless `S3_PUBLIC_URL` points to a CDN | Image resizing/CDN |
 | **WhatsApp Cloud API** | ✅ `GET /{phone-number-id}` | Inbox replies, campaigns, automations (text messages); signed inbound webhook → inbox | Template messages (needed outside Meta's 24-hour window — such sends will **fail** and are recorded as FAILED) |
 | **SMTP** | ✅ `transporter.verify()` | Email campaigns/automations, inbox email replies | Invitation emails (invite links are shown to copy instead) |
 | **Moyasar** | ✅ `GET /v1/payments` | Credential check only | Charging customers, payment links, refunds via API. Order payments/refunds are **recorded manually** |

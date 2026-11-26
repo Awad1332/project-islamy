@@ -7,7 +7,7 @@ A multi-tenant SaaS platform for Saudi abaya brands. Arabic-first RTL UI with En
 
 | | |
 |---|---|
-| **Stack** | Next.js 15 · TypeScript · Tailwind · shadcn/ui-style components · NestJS 11 · Prisma 6 · PostgreSQL 16 · Redis 7 (BullMQ) · S3/MinIO |
+| **Stack** | Next.js 15 · TypeScript · Tailwind · shadcn/ui-style components · NestJS 11 · Prisma 6 · PostgreSQL 16 · Redis 7 (BullMQ) · S3 (RustFS bundled) |
 | **Docs** | [Architecture](docs/ARCHITECTURE.md) · [API](docs/API.md) · [Deployment](docs/DEPLOYMENT.md) · [Integration status](docs/INTEGRATIONS-STATUS.md) |
 | **Tests** | 31 automated tests: VAT & size engine units, API end-to-end (auth, tenant isolation, RBAC, concurrent stock, returns/exchanges, integrations honesty, public API, analytics) |
 

@@ -1,5 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { DeleteObjectCommand, HeadBucketCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
+import { CreateBucketCommand, DeleteObjectCommand, GetObjectCommand, HeadBucketCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import type { Readable } from 'stream';
 import { randomUUID } from 'crypto';
 import { env } from '../../config/env';
 import { AppError } from '../../common/errors';
@@ -12,7 +13,7 @@ const SIGNATURES: { type: string; ext: string; check: (b: Buffer) => boolean }[]
 export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 
 @Injectable()
-export class StorageService {
+export class StorageService implements OnApplicationBootstrap {
   private readonly logger = new Logger(StorageService.name);
   private client: S3Client | null = null;
 
@@ -33,6 +34,44 @@ export class StorageService {
       });
     }
     return this.client;
+  }
+
+  /** Creates the media bucket if it is missing (self-hosted S3 such as RustFS starts empty). Never fatal. */
+  async onApplicationBootstrap() {
+    if (!this.isConfigured() || process.env.NODE_ENV === 'test') return;
+    for (let attempt = 1; attempt <= 10; attempt++) {
+      try {
+        await this.s3().send(new HeadBucketCommand({ Bucket: env().S3_BUCKET }));
+        return;
+      } catch (e) {
+        const status = (e as { $metadata?: { httpStatusCode?: number } }).$metadata?.httpStatusCode;
+        if (status === 404 || (e as Error).name === 'NotFound' || (e as Error).name === 'NoSuchBucket') {
+          try {
+            await this.s3().send(new CreateBucketCommand({ Bucket: env().S3_BUCKET }));
+            this.logger.log(`Created media bucket "${env().S3_BUCKET}"`);
+            return;
+          } catch (ce) {
+            this.logger.warn(`Could not create bucket: ${(ce as Error).message}`);
+          }
+        } else {
+          this.logger.warn(`Storage not reachable yet (attempt ${attempt}): ${(e as Error).name}`);
+        }
+      }
+      await new Promise((r) => setTimeout(r, 3000));
+    }
+  }
+
+  /** Streams an object for the public image route. Returns null when missing. */
+  async getObject(key: string): Promise<{ body: Readable; contentType?: string; length?: number } | null> {
+    try {
+      const r = await this.s3().send(new GetObjectCommand({ Bucket: env().S3_BUCKET, Key: key }));
+      return { body: r.Body as Readable, contentType: r.ContentType, length: r.ContentLength };
+    } catch (e) {
+      if (e instanceof AppError) throw e;
+      const status = (e as { $metadata?: { httpStatusCode?: number } }).$metadata?.httpStatusCode;
+      if (status === 404 || (e as Error).name === 'NoSuchKey') return null;
+      throw e;
+    }
   }
 
   /** Live check against the bucket. */
@@ -71,9 +110,12 @@ export class StorageService {
     await this.s3().send(new DeleteObjectCommand({ Bucket: env().S3_BUCKET, Key: key })).catch((e) => this.logger.warn(`S3 delete failed: ${e.message}`));
   }
 
+  /**
+   * Public URL of an object. With S3_PUBLIC_URL (CDN / public bucket) images are served from there;
+   * otherwise they are streamed by the API at /api/media/files/<key> (same origin as the web app).
+   */
   publicUrl(key: string) {
-    const e = env();
-    const base = e.S3_PUBLIC_URL || `${e.S3_ENDPOINT.replace(/\/$/, '')}/${e.S3_BUCKET}`;
-    return `${base.replace(/\/$/, '')}/${key}`;
+    const base = env().S3_PUBLIC_URL;
+    return base ? `${base.replace(/\/$/, '')}/${key}` : `/api/media/files/${key}`;
   }
 }

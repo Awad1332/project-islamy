@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 FROM node:22-alpine AS build
-RUN corepack enable && apk add --no-cache openssl
+RUN corepack enable
 WORKDIR /repo
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.base.json ./
 COPY packages/shared/package.json packages/shared/
@@ -13,7 +13,8 @@ RUN pnpm --filter @abaya/shared build \
  && pnpm --filter @abaya/api build
 
 FROM node:22-alpine
-RUN apk add --no-cache openssl && corepack enable && addgroup -S app && adduser -S app -G app
+# node:22-alpine already ships libssl3, which Prisma's musl engine needs (no apk download required).
+RUN corepack enable && addgroup -S app && adduser -S app -G app
 WORKDIR /repo
 ENV NODE_ENV=production
 # Keep the workspace layout so the @abaya/shared workspace link resolves.
