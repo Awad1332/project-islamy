@@ -1,9 +1,10 @@
-import { Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import type { Request, Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { z } from 'zod';
 import { paginationSchema } from '@abaya/shared';
-import { CurrentUser, RequirePermission, type AuthUser } from '../../common/auth';
+import { CurrentUser, Public, RequirePermission, type AuthUser } from '../../common/auth';
 import { PrismaService } from '../../common/prisma.service';
 import { AppError, conflict, notFound } from '../../common/errors';
 import { ZQuery, paged } from '../../common/zod';
@@ -18,6 +19,22 @@ export class MediaController {
   @Get('status')
   status() {
     return this.storage.verify();
+  }
+
+  /** Public image delivery (product photos are public). Keys are random UUIDs under the tenant prefix. */
+  @Public()
+  @Get('files/*path')
+  async file(@Req() req: Request, @Res() res: Response) {
+    const raw = (req.params as Record<string, string | string[]>).path;
+    const key = Array.isArray(raw) ? raw.join('/') : String(raw ?? '');
+    if (!/^tenants\/[A-Za-z0-9_-]+\/[0-9]{4}\/[0-9]{2}\/[0-9a-f-]{36}\.(jpg|png|webp)$/.test(key)) throw notFound('file');
+    const obj = await this.storage.getObject(key);
+    if (!obj) throw notFound('file');
+    res.setHeader('Content-Type', obj.contentType ?? 'application/octet-stream');
+    if (obj.length) res.setHeader('Content-Length', String(obj.length));
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    obj.body.pipe(res);
   }
 
   @RequirePermission('catalog:read')

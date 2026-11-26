@@ -23,7 +23,9 @@ docker compose up -d --build
 docker compose exec api npx ts-node --transpile-only prisma/seed.ts
 ```
 
-* Web: `http://localhost:3000` · API + Swagger: `http://localhost:4000/api/docs` · MinIO console: `http://localhost:9001`
+* Web: `http://localhost:3000` · API + Swagger: `http://localhost:4000/api/docs`
+* Object storage is RustFS (S3-compatible, internal only). The API creates the bucket on startup and serves images itself; set `S3_PUBLIC_URL` to serve them from a CDN instead.
+  (MinIO images are no longer published on Docker Hub, so the stack does not use them.)
 * The API container runs `prisma migrate deploy` (non-destructive) on every start.
 * The web container proxies `/api/*` to the API, so the refresh-token cookie is first-party.
   The proxy target is fixed at **build time** (`API_INTERNAL_URL` build arg) — rebuild `web` if it changes.
@@ -38,7 +40,7 @@ docker compose exec api npx ts-node --transpile-only prisma/seed.ts
 |---|---|
 | PostgreSQL 16 | Managed Postgres in a KSA region (e.g. Google Cloud `me-central2` Dammam, Oracle Jeddah/Riyadh, STC Cloud) |
 | Redis 7 | Managed Redis in the same region (used for BullMQ queues, cache) |
-| Object storage | Any S3-compatible bucket; set `S3_ENDPOINT`, `S3_FORCE_PATH_STYLE`, `S3_PUBLIC_URL` (CDN origin) |
+| Object storage | Any S3-compatible bucket; set `S3_ENDPOINT`, `S3_REGION`, `S3_FORCE_PATH_STYLE`, optionally `S3_PUBLIC_URL` (CDN origin) |
 | API | Container (`apps/api/Dockerfile`), ≥ 2 replicas behind a load balancer; workers run in-process |
 | Web | Container (`apps/web/Dockerfile`) or any Node host running the Next.js standalone server |
 

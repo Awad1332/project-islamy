@@ -8,11 +8,11 @@ Multi-tenant SaaS for Saudi abaya brands. Arabic-first (RTL) with English, SAR c
 ```
 abaya-os/
 ├── apps/
-│   ├── api/        NestJS 11 REST API  (Prisma 6 → PostgreSQL 16, ioredis/BullMQ → Redis, S3 SDK → MinIO/S3)
+│   ├── api/        NestJS 11 REST API  (Prisma 6 → PostgreSQL 16, ioredis/BullMQ → Redis, S3 SDK → RustFS/S3)
 │   └── web/        Next.js 15 App Router (TypeScript, Tailwind, shadcn/ui-style components, TanStack Query)
 ├── packages/
 │   └── shared/     Zod schemas, enums, money/VAT helpers, size-recommendation engine (used by API + web)
-├── docker-compose.yml   postgres, redis, minio (+ bucket bootstrap), api, web
+├── docker-compose.yml   postgres, redis, rustfs (S3 storage), api, web
 └── docs/                ARCHITECTURE, API, DEPLOYMENT, INTEGRATIONS-STATUS
 ```
 
